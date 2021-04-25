@@ -9,8 +9,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Description.
- *
+ * @see OffsetDateTime
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
@@ -28,11 +27,11 @@ public class OffsetDateTimeAdapter implements JsonSerializer<OffsetDateTime>, Js
 
     @Override
     public OffsetDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return null;
+        return formatter.parse(json.getAsString(), OffsetDateTime::from);
     }
 
     @Override
     public JsonElement serialize(OffsetDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return null;
+        return new JsonPrimitive(formatter.format(src));
     }
 }

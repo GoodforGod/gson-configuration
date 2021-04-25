@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Description.
- *
+ * @see LocalDateTime
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
@@ -28,11 +27,11 @@ public class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, Json
 
     @Override
     public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return null;
+        return formatter.parse(json.getAsString(), LocalDateTime::from);
     }
 
     @Override
     public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return null;
+        return new JsonPrimitive(formatter.format(src));
     }
 }
