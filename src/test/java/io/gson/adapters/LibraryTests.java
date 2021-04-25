@@ -1,4 +1,4 @@
-package micronaut.library.template;
+package io.gson.adapters;
 
 /**
  * @author GoodforGod
