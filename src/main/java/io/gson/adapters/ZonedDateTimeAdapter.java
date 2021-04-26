@@ -3,6 +3,7 @@ package io.gson.adapters;
 import com.google.gson.*;
 import io.gson.adapters.config.GsonConfiguration;
 
+import javax.inject.Singleton;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.OffsetTime;
@@ -14,12 +15,13 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
+@Singleton
 public class ZonedDateTimeAdapter implements JsonSerializer<ZonedDateTime>, JsonDeserializer<ZonedDateTime> {
 
     private final DateTimeFormatter formatter;
 
     public ZonedDateTimeAdapter() {
-        this(DateTimeFormatter.ofPattern(GsonConfiguration.ISO_8601_FORMATTER));
+        this(DateTimeFormatter.ISO_ZONED_DATE_TIME);
     }
 
     public ZonedDateTimeAdapter(DateTimeFormatter formatter) {

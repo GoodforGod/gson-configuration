@@ -3,7 +3,10 @@ package io.gson.adapters.config;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
+import io.gson.adapters.*;
 
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -13,11 +16,21 @@ import java.time.format.DateTimeFormatter;
 public class GsonConfiguration {
 
     /**
-     * ISO 8601
+     * ISO 8601 for {@link java.util.Date}
      */
-    public static final String ISO_8601_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    public static final String ISO_8601_FORMATTER = "uuuu-MM-dd'T'HH:mm:ss.SSSXXX";
+
+    private DateTimeFormatter instantFormat = DateTimeFormatter.ISO_INSTANT;
+    private DateTimeFormatter localDateFormat= DateTimeFormatter.ISO_LOCAL_DATE;
+    private DateTimeFormatter localTimeFormat = DateTimeFormatter.ISO_LOCAL_TIME;
+    private DateTimeFormatter localDateTimeFormat = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private DateTimeFormatter offsetTimeFormat= DateTimeFormatter.ISO_OFFSET_TIME;
+    private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    private DateTimeFormatter zonedDateTimeFormat= DateTimeFormatter.ISO_ZONED_DATE_TIME;
+    private DateTimeFormatter yearFormat = DateTimeFormatter.ofPattern("yyyy");
 
     private String dateFormat = ISO_8601_FORMATTER;
+
     private FieldNamingPolicy fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
     private LongSerializationPolicy longSerializationPolicy = LongSerializationPolicy.DEFAULT;
     private boolean serializeNulls = false;
@@ -34,7 +47,7 @@ public class GsonConfiguration {
 
     public void setDateFormat(String dateFormat) {
         // validation check
-        this.dateFormat = DateTimeFormatter.ofPattern(dateFormat).toString();
+        this.dateFormat = new SimpleDateFormat(dateFormat).toPattern();
     }
 
     public FieldNamingPolicy getFieldNamingPolicy() {
@@ -113,27 +126,109 @@ public class GsonConfiguration {
         this.serializeSpecialFloatingPointValues = serializeSpecialFloatingPointValues;
     }
 
+    public DateTimeFormatter getInstantFormat() {
+        return instantFormat;
+    }
+
+    public GsonConfiguration setInstantFormat(String instantFormat) {
+        this.instantFormat = DateTimeFormatter.ofPattern(instantFormat);
+        return this;
+    }
+
+    public DateTimeFormatter getLocalDateFormat() {
+        return localDateFormat;
+    }
+
+    public GsonConfiguration setLocalDateFormat(String localDateFormat) {
+        this.localDateFormat = DateTimeFormatter.ofPattern(localDateFormat);
+        return this;
+    }
+
+    public DateTimeFormatter getLocalTimeFormat() {
+        return localTimeFormat;
+    }
+
+    public GsonConfiguration setLocalTimeFormat(String localTimeFormat) {
+        this.localTimeFormat = DateTimeFormatter.ofPattern(localTimeFormat);
+        return this;
+    }
+
+    public DateTimeFormatter getLocalDateTimeFormat() {
+        return localDateTimeFormat;
+    }
+
+    public GsonConfiguration setLocalDateTimeFormat(String localDateTimeFormat) {
+        this.localDateTimeFormat = DateTimeFormatter.ofPattern(localDateTimeFormat);
+        return this;
+    }
+
+    public DateTimeFormatter getOffsetTimeFormat() {
+        return offsetTimeFormat;
+    }
+
+    public GsonConfiguration setOffsetTimeFormat(String offsetTimeFormat) {
+        this.offsetTimeFormat = DateTimeFormatter.ofPattern(offsetTimeFormat);
+        return this;
+    }
+
+    public DateTimeFormatter getOffsetDateTimeFormat() {
+        return offsetDateTimeFormat;
+    }
+
+    public GsonConfiguration setOffsetDateTimeFormat(String offsetDateTimeFormat) {
+        this.offsetDateTimeFormat = DateTimeFormatter.ofPattern(offsetDateTimeFormat);
+        return this;
+    }
+
+    public DateTimeFormatter getZonedDateTimeFormat() {
+        return zonedDateTimeFormat;
+    }
+
+    public GsonConfiguration setZonedDateTimeFormat(String zonedDateTimeFormat) {
+        this.zonedDateTimeFormat = DateTimeFormatter.ofPattern(zonedDateTimeFormat);
+        return this;
+    }
+
+    public DateTimeFormatter getYearFormat() {
+        return yearFormat;
+    }
+
+    public GsonConfiguration setYearFormat(String yearFormat) {
+        this.yearFormat = DateTimeFormatter.ofPattern(yearFormat);
+        return this;
+    }
+
     public GsonBuilder builder() {
         final GsonBuilder builder = new GsonBuilder()
                 .setDateFormat(getDateFormat())
                 .setLongSerializationPolicy(getLongSerializationPolicy())
                 .setFieldNamingPolicy(getFieldNamingPolicy());
 
-        if(isComplexMapKeySerialization())
+        if (isComplexMapKeySerialization())
             builder.enableComplexMapKeySerialization();
-        if(!isEscapeHtmlChars())
+        if (!isEscapeHtmlChars())
             builder.disableHtmlEscaping();
-        if(isGenerateNonExecutableJson())
+        if (isGenerateNonExecutableJson())
             builder.generateNonExecutableJson();
-        if(isLenient())
+        if (isLenient())
             builder.setLenient();
-        if(isPrettyPrinting())
+        if (isPrettyPrinting())
             builder.setPrettyPrinting();
-        if(isSerializeSpecialFloatingPointValues())
+        if (isSerializeSpecialFloatingPointValues())
             builder.serializeSpecialFloatingPointValues();
-        if(isSerializeNulls())
+        if (isSerializeNulls())
             builder.serializeNulls();
 
-        return builder;
+        return builder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekAdapter())
+                .registerTypeAdapter(Month.class, new MonthAdapter())
+                .registerTypeAdapter(ZoneId.class, new ZoneIdAdapter())
+                .registerTypeAdapter(Year.class, new YearAdapter(getYearFormat()))
+                .registerTypeAdapter(Instant.class, new InstantAdapter(getInstantFormat()))
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter(getLocalDateFormat()))
+                .registerTypeAdapter(LocalTime.class, new LocalDateAdapter(getLocalTimeFormat()))
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter(getLocalDateTimeFormat()))
+                .registerTypeAdapter(OffsetTime.class, new OffsetTimeAdapter(getOffsetTimeFormat()))
+                .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeAdapter(getOffsetTimeFormat()))
+                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter(getZonedDateTimeFormat()));
     }
 }

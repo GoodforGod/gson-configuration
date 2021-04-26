@@ -3,10 +3,9 @@ package io.gson.adapters;
 import com.google.gson.*;
 import io.gson.adapters.config.GsonConfiguration;
 
+import javax.inject.Singleton;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
 import java.time.Month;
-import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -14,25 +13,29 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
+@Singleton
 public class MonthAdapter implements JsonSerializer<Month>, JsonDeserializer<Month> {
 
-    private final DateTimeFormatter formatter;
-
-    public MonthAdapter() {
-        this(DateTimeFormatter.ofPattern(GsonConfiguration.ISO_8601_FORMATTER));
-    }
-
-    public MonthAdapter(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+    private static final Month[] MONTHS = Month.values();
 
     @Override
     public Month deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return formatter.parse(json.getAsString(), Month::from);
+        if(json instanceof JsonPrimitive) {
+            return Month.of(json.getAsInt());
+        } else {
+            final String monthAsJson = json.getAsString();
+            for (Month month : MONTHS) {
+                if(month.name().equalsIgnoreCase(monthAsJson)) {
+                    return month;
+                }
+            }
+
+            throw new JsonParseException("Month can not be parsed from: " + monthAsJson);
+        }
     }
 
     @Override
     public JsonElement serialize(Month src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
+        return new JsonPrimitive(src.name());
     }
 }

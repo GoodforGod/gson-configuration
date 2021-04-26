@@ -15,18 +15,13 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
+@Singleton
 public class InstantAdapter implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
-
-    private static final Type TYPE = new TypeToken<Instant>(){}.getType();
-
-    public static Type getType() {
-        return TYPE;
-    }
 
     private final DateTimeFormatter formatter;
 
     public InstantAdapter() {
-        this(DateTimeFormatter.ofPattern(GsonConfiguration.ISO_8601_FORMATTER));
+        this(DateTimeFormatter.ISO_INSTANT);
     }
 
     public InstantAdapter(DateTimeFormatter formatter) {
