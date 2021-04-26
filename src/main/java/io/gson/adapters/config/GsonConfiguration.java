@@ -8,6 +8,7 @@ import io.gson.adapters.*;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * @author Anton Kurako (GoodforGod)
@@ -131,7 +132,9 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setInstantFormat(String instantFormat) {
-        this.instantFormat = DateTimeFormatter.ofPattern(instantFormat);
+        this.instantFormat = DateTimeFormatter.ofPattern(instantFormat)
+                .withLocale(Locale.ENGLISH)
+                .withZone(ZoneOffset.UTC);
         return this;
     }
 
