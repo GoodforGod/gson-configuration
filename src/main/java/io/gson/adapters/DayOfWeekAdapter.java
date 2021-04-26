@@ -1,15 +1,10 @@
 package io.gson.adapters;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import io.gson.adapters.config.GsonConfiguration;
 
 import javax.inject.Singleton;
 import java.lang.reflect.Type;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @see DayOfWeek
@@ -23,12 +18,12 @@ public class DayOfWeekAdapter implements JsonSerializer<DayOfWeek>, JsonDeserial
 
     @Override
     public DayOfWeek deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        if(json instanceof JsonPrimitive) {
+        if (json instanceof JsonPrimitive) {
             return DayOfWeek.of(json.getAsInt());
         } else {
             final String valueAsJson = json.getAsString();
             for (DayOfWeek dayOfWeek : DAY_OF_WEEKS) {
-                if(dayOfWeek.name().equalsIgnoreCase(valueAsJson)) {
+                if (dayOfWeek.name().equalsIgnoreCase(valueAsJson)) {
                     return dayOfWeek;
                 }
             }

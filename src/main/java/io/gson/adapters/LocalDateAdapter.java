@@ -1,11 +1,9 @@
 package io.gson.adapters;
 
 import com.google.gson.*;
-import io.gson.adapters.config.GsonConfiguration;
 
 import javax.inject.Singleton;
 import java.lang.reflect.Type;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

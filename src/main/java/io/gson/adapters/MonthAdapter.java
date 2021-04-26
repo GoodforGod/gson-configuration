@@ -1,12 +1,10 @@
 package io.gson.adapters;
 
 import com.google.gson.*;
-import io.gson.adapters.config.GsonConfiguration;
 
 import javax.inject.Singleton;
 import java.lang.reflect.Type;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @see Month
@@ -20,12 +18,12 @@ public class MonthAdapter implements JsonSerializer<Month>, JsonDeserializer<Mon
 
     @Override
     public Month deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        if(json instanceof JsonPrimitive) {
+        if (json instanceof JsonPrimitive) {
             return Month.of(json.getAsInt());
         } else {
             final String monthAsJson = json.getAsString();
             for (Month month : MONTHS) {
-                if(month.name().equalsIgnoreCase(monthAsJson)) {
+                if (month.name().equalsIgnoreCase(monthAsJson)) {
                     return month;
                 }
             }

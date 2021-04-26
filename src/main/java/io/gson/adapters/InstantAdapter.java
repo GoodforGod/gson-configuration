@@ -1,12 +1,9 @@
 package io.gson.adapters;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import io.gson.adapters.config.GsonConfiguration;
 
 import javax.inject.Singleton;
 import java.lang.reflect.Type;
-import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 

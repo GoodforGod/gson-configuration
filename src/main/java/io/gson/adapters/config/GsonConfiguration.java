@@ -21,12 +21,12 @@ public class GsonConfiguration {
     public static final String ISO_8601_FORMATTER = "uuuu-MM-dd'T'HH:mm:ss.SSSXXX";
 
     private DateTimeFormatter instantFormat = DateTimeFormatter.ISO_INSTANT;
-    private DateTimeFormatter localDateFormat= DateTimeFormatter.ISO_LOCAL_DATE;
+    private DateTimeFormatter localDateFormat = DateTimeFormatter.ISO_LOCAL_DATE;
     private DateTimeFormatter localTimeFormat = DateTimeFormatter.ISO_LOCAL_TIME;
     private DateTimeFormatter localDateTimeFormat = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-    private DateTimeFormatter offsetTimeFormat= DateTimeFormatter.ISO_OFFSET_TIME;
+    private DateTimeFormatter offsetTimeFormat = DateTimeFormatter.ISO_OFFSET_TIME;
     private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-    private DateTimeFormatter zonedDateTimeFormat= DateTimeFormatter.ISO_ZONED_DATE_TIME;
+    private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatter.ISO_ZONED_DATE_TIME;
     private DateTimeFormatter yearFormat = DateTimeFormatter.ofPattern("yyyy");
 
     private String dateFormat = ISO_8601_FORMATTER;
@@ -55,7 +55,7 @@ public class GsonConfiguration {
     }
 
     public void setFieldNamingPolicy(FieldNamingPolicy fieldNamingPolicy) {
-        if(fieldNamingPolicy == null)
+        if (fieldNamingPolicy == null)
             throw new IllegalArgumentException("Policy can not be nullable!");
         this.fieldNamingPolicy = fieldNamingPolicy;
     }
@@ -65,7 +65,7 @@ public class GsonConfiguration {
     }
 
     public void setLongSerializationPolicy(LongSerializationPolicy longSerializationPolicy) {
-        if(longSerializationPolicy == null)
+        if (longSerializationPolicy == null)
             throw new IllegalArgumentException("Policy can not be nullable!");
         this.longSerializationPolicy = longSerializationPolicy;
     }
