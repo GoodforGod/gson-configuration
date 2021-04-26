@@ -18,17 +18,23 @@ public class DayOfWeekAdapter implements JsonSerializer<DayOfWeek>, JsonDeserial
 
     @Override
     public DayOfWeek deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        if (json instanceof JsonPrimitive) {
-            return DayOfWeek.of(json.getAsInt());
-        } else {
-            final String valueAsJson = json.getAsString();
-            for (DayOfWeek dayOfWeek : DAY_OF_WEEKS) {
-                if (dayOfWeek.name().equalsIgnoreCase(valueAsJson)) {
-                    return dayOfWeek;
+        try {
+            if (json instanceof JsonPrimitive) {
+                return DayOfWeek.of(json.getAsInt());
+            } else {
+                final String valueAsJson = json.getAsString();
+                for (DayOfWeek dayOfWeek : DAY_OF_WEEKS) {
+                    if (dayOfWeek.name().equalsIgnoreCase(valueAsJson)) {
+                        return dayOfWeek;
+                    }
                 }
-            }
 
-            throw new JsonParseException("Month can not be parsed from: " + valueAsJson);
+                throw new JsonParseException("Month can not be parsed from: " + valueAsJson);
+            }
+        } catch (JsonParseException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new JsonParseException(e);
         }
     }
 

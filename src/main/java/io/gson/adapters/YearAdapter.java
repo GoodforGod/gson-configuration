@@ -27,7 +27,11 @@ public class YearAdapter implements JsonSerializer<Year>, JsonDeserializer<Year>
 
     @Override
     public Year deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return Year.parse(json.getAsString(), formatter);
+        try {
+            return Year.parse(json.getAsString(), formatter);
+        } catch (Exception e) {
+            throw new JsonParseException(e);
+        }
     }
 
     @Override

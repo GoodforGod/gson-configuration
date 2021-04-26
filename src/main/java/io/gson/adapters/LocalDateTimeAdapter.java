@@ -27,11 +27,15 @@ public class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, Json
 
     @Override
     public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return formatter.parse(json.getAsString(), LocalDateTime::from);
+        try {
+            return formatter.parse(json.getAsString()).query(LocalDateTime::from);
+        } catch (Exception e) {
+            throw new JsonParseException(e);
+        }
     }
 
     @Override
     public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
+        return new JsonPrimitive(formatter.toFormat(LocalDateTime::from).format(src));
     }
 }

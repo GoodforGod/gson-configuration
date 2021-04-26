@@ -27,11 +27,15 @@ public class InstantAdapter implements JsonSerializer<Instant>, JsonDeserializer
 
     @Override
     public Instant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return formatter.parse(json.getAsString(), Instant::from);
+        try {
+            return formatter.parse(json.getAsString()).query(Instant::from);
+        } catch (Exception e) {
+            throw new JsonParseException(e);
+        }
     }
 
     @Override
     public JsonElement serialize(Instant src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
+        return new JsonPrimitive(formatter.toFormat(Instant::from).format(src));
     }
 }

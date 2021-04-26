@@ -27,11 +27,15 @@ public class ZonedDateTimeAdapter implements JsonSerializer<ZonedDateTime>, Json
 
     @Override
     public ZonedDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return formatter.parse(json.getAsString(), ZonedDateTime::from);
+        try {
+            return formatter.parse(json.getAsString()).query(ZonedDateTime::from);
+        } catch (Exception e) {
+            throw new JsonParseException(e);
+        }
     }
 
     @Override
     public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
+        return new JsonPrimitive(formatter.toFormat(ZonedDateTime::from).format(src));
     }
 }

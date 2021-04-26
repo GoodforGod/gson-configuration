@@ -27,11 +27,15 @@ public class OffsetDateTimeAdapter implements JsonSerializer<OffsetDateTime>, Js
 
     @Override
     public OffsetDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return formatter.parse(json.getAsString(), OffsetDateTime::from);
+        try {
+            return formatter.parse(json.getAsString()).query(OffsetDateTime::from);
+        } catch (Exception e) {
+            throw new JsonParseException(e);
+        }
     }
 
     @Override
     public JsonElement serialize(OffsetDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
+        return new JsonPrimitive(formatter.toFormat(OffsetDateTime::from).format(src));
     }
 }
