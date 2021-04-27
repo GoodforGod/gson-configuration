@@ -36,6 +36,6 @@ public class YearAdapter implements JsonSerializer<Year>, JsonDeserializer<Year>
 
     @Override
     public JsonElement serialize(Year src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
+        return new JsonPrimitive(src.getValue());
     }
 }

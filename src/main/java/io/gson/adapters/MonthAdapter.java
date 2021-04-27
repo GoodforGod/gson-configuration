@@ -20,8 +20,10 @@ public class MonthAdapter implements JsonSerializer<Month>, JsonDeserializer<Mon
     public Month deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
             if (json instanceof JsonPrimitive) {
-                return Month.of(json.getAsInt());
-            } else {
+                if (((JsonPrimitive) json).isNumber()) {
+                    return Month.of(json.getAsInt());
+                }
+
                 final String monthAsJson = json.getAsString();
                 for (Month month : MONTHS) {
                     if (month.name().equalsIgnoreCase(monthAsJson)) {
@@ -29,8 +31,10 @@ public class MonthAdapter implements JsonSerializer<Month>, JsonDeserializer<Mon
                     }
                 }
 
-                throw new JsonParseException("Month can not be parsed from: " + monthAsJson);
+                return Month.of(Integer.parseInt(json.getAsString()));
             }
+
+            throw new JsonParseException("Month can not be parsed from: " + json.getAsString());
         } catch (JsonParseException e) {
             throw e;
         } catch (Exception e) {
