@@ -42,13 +42,48 @@ class GsonConfigurationTests extends Assertions {
     }
 
     @Test
+    void configFailForNullFieldNamePolicy() {
+        try {
+            final GsonBuilder builder = new GsonConfiguration()
+                    .setFieldNamingPolicy(null)
+                    .builder();
+        } catch (IllegalArgumentException e) {
+            assertFalse(e.getMessage().isEmpty());
+        }
+    }
+
+    @Test
+    void configFailForNullLongPolicy() {
+        try {
+            final GsonBuilder builder = new GsonConfiguration()
+                    .setLongSerializationPolicy(null)
+                    .builder();
+        } catch (IllegalArgumentException e) {
+            assertFalse(e.getMessage().isEmpty());
+        }
+    }
+
+    @Test
+    void configBuilderFailForFormatter() {
+        try {
+            final GsonBuilder builder = new GsonConfiguration()
+                    .setInstantFormat("yyyy-MM-dddd HHHH:mm:ss")
+                    .builder();
+        } catch (IllegalArgumentException e) {
+            assertFalse(e.getMessage().isEmpty());
+        }
+    }
+
+    @Test
     void configBuilderPropertiesValid() {
         final GsonBuilder builder = new GsonConfiguration()
+                .setDateFormat(GsonConfiguration.ISO_8601_FORMATTER)
+                .setInstantFormat("yyyy-MM-dd HH:mm:ss")
                 .setComplexMapKeySerialization(true)
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .setLongSerializationPolicy(LongSerializationPolicy.STRING)
                 .setLenient(true)
-                .setEscapeHtmlChars(true)
+                .setEscapeHtmlChars(false)
                 .setPrettyPrinting(true)
                 .setGenerateNonExecutableJson(true)
                 .setSerializeNulls(true)

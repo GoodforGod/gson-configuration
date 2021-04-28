@@ -66,8 +66,18 @@ class MonthAdapterTests extends Assertions {
     }
 
     @Test
-    void deserializationIsValidForNumber() {
+    void deserializationIsValidForStringNumber() {
         final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_NUMBER + "\"}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE_TIME, user.getValue());
+    }
+
+    @Test
+    void deserializationIsValidForNumber() {
+        final String json = "{\"name\":\"Bob\",\"value\":" + VALUE_NUMBER + "}";
 
         final User user = adapter.fromJson(json, User.class);
         assertNotNull(user);
@@ -78,6 +88,18 @@ class MonthAdapterTests extends Assertions {
     @Test
     void deserializationFails() {
         final String json = "{\"name\":\"Bob\",\"value\":\"NOT_TIME\"}";
+
+        try {
+            adapter.fromJson(json, User.class);
+            fail("Should not happen");
+        } catch (JsonParseException e) {
+            assertFalse(e.getMessage().isEmpty());
+        }
+    }
+
+    @Test
+    void deserializationFailsForArray() {
+        final String json = "{\"name\":\"Bob\",\"value\":[\"NOT_TIME\"]}";
 
         try {
             adapter.fromJson(json, User.class);

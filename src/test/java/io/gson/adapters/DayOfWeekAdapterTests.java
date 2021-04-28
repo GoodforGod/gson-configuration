@@ -6,7 +6,7 @@ import com.google.gson.JsonParseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.*;
+import java.time.DayOfWeek;
 
 /**
  * @author Anton Kurako (GoodforGod)
@@ -66,8 +66,18 @@ class DayOfWeekAdapterTests extends Assertions {
     }
 
     @Test
-    void deserializationIsValidForNumber() {
+    void deserializationIsValidForStringNumber() {
         final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_NUMBER + "\"}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE_TIME, user.getValue());
+    }
+
+    @Test
+    void deserializationIsValidForNumber() {
+        final String json = "{\"name\":\"Bob\",\"value\":" + VALUE_NUMBER + "}";
 
         final User user = adapter.fromJson(json, User.class);
         assertNotNull(user);
@@ -81,6 +91,18 @@ class DayOfWeekAdapterTests extends Assertions {
 
         try {
             adapter.fromJson(json, User.class);
+            fail("Should not happen");
+        } catch (JsonParseException e) {
+            assertFalse(e.getMessage().isEmpty());
+        }
+    }
+
+    @Test
+    void deserializationFailsForArray() {
+        final String json = "{\"name\":\"Bob\",\"value\":[\"NOT_TIME\"]}";
+
+        try {
+            adapter.fromJson(json, MonthAdapterTests.User.class);
             fail("Should not happen");
         } catch (JsonParseException e) {
             assertFalse(e.getMessage().isEmpty());
