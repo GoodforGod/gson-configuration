@@ -2,7 +2,6 @@ package io.gson.adapters;
 
 import com.google.gson.*;
 
-import javax.inject.Singleton;
 import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 
@@ -11,7 +10,6 @@ import java.time.DayOfWeek;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-@Singleton
 public class DayOfWeekAdapter implements JsonSerializer<DayOfWeek>, JsonDeserializer<DayOfWeek> {
 
     private static final DayOfWeek[] DAY_OF_WEEKS = DayOfWeek.values();

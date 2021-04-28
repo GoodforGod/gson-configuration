@@ -2,7 +2,6 @@ package io.gson.adapters;
 
 import com.google.gson.*;
 
-import javax.inject.Singleton;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +11,6 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-@Singleton
 public class InstantAdapter implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
 
     private final DateTimeFormatter formatter;

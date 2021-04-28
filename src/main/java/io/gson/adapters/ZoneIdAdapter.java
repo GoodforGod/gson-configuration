@@ -2,7 +2,6 @@ package io.gson.adapters;
 
 import com.google.gson.*;
 
-import javax.inject.Singleton;
 import java.lang.reflect.Type;
 import java.time.ZoneId;
 
@@ -11,7 +10,6 @@ import java.time.ZoneId;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-@Singleton
 public class ZoneIdAdapter implements JsonSerializer<ZoneId>, JsonDeserializer<ZoneId> {
 
     @Override

@@ -234,14 +234,14 @@ public class GsonConfiguration {
 
         return builder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekAdapter())
                 .registerTypeAdapter(Month.class, new MonthAdapter())
-                .registerTypeAdapter(ZoneId.class, new ZoneIdAdapter())
                 .registerTypeAdapter(Year.class, new YearAdapter(getYearFormat()))
+                .registerTypeAdapter(ZoneId.class, new ZoneIdAdapter())
                 .registerTypeAdapter(Instant.class, new InstantAdapter(getInstantFormat()))
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter(getLocalDateFormat()))
-                .registerTypeAdapter(LocalTime.class, new LocalDateAdapter(getLocalTimeFormat()))
+                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter(getLocalTimeFormat()))
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter(getLocalDateTimeFormat()))
                 .registerTypeAdapter(OffsetTime.class, new OffsetTimeAdapter(getOffsetTimeFormat()))
-                .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeAdapter(getOffsetTimeFormat()))
+                .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeAdapter(getOffsetDateTimeFormat()))
                 .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter(getZonedDateTimeFormat()));
     }
 }

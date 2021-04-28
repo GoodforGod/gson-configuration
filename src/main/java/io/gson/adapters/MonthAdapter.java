@@ -2,7 +2,6 @@ package io.gson.adapters;
 
 import com.google.gson.*;
 
-import javax.inject.Singleton;
 import java.lang.reflect.Type;
 import java.time.Month;
 
@@ -11,7 +10,6 @@ import java.time.Month;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-@Singleton
 public class MonthAdapter implements JsonSerializer<Month>, JsonDeserializer<Month> {
 
     private static final Month[] MONTHS = Month.values();
