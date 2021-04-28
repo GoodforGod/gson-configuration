@@ -85,7 +85,7 @@ class LocalDateAdapterTests extends Assertions {
     }
 
     @Test
-    void deserializationIsValidForIsoFails() {
+    void deserializationFails() {
         final String json = "{\"name\":\"Bob\",\"value\":\"1970-01-01 03:00\"}";
 
         try {

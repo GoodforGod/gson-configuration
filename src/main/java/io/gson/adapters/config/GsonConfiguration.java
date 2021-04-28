@@ -19,7 +19,7 @@ public class GsonConfiguration {
     /**
      * ISO 8601 for {@link java.util.Date}
      */
-    public static final String ISO_8601_FORMATTER = "uuuu-MM-dd'T'HH:mm:ss.SSSXXX";
+    public static final String ISO_8601_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
     private DateTimeFormatter instantFormat = DateTimeFormatter.ISO_INSTANT;
     private DateTimeFormatter localDateFormat = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -46,85 +46,95 @@ public class GsonConfiguration {
         return dateFormat;
     }
 
-    public void setDateFormat(String dateFormat) {
+    public GsonConfiguration setDateFormat(String dateFormat) {
         // validation check
         this.dateFormat = new SimpleDateFormat(dateFormat).toPattern();
+        return this;
     }
 
     public FieldNamingPolicy getFieldNamingPolicy() {
         return fieldNamingPolicy;
     }
 
-    public void setFieldNamingPolicy(FieldNamingPolicy fieldNamingPolicy) {
+    public GsonConfiguration setFieldNamingPolicy(FieldNamingPolicy fieldNamingPolicy) {
         if (fieldNamingPolicy == null)
             throw new IllegalArgumentException("Policy can not be nullable!");
         this.fieldNamingPolicy = fieldNamingPolicy;
+        return this;
     }
 
     public LongSerializationPolicy getLongSerializationPolicy() {
         return longSerializationPolicy;
     }
 
-    public void setLongSerializationPolicy(LongSerializationPolicy longSerializationPolicy) {
+    public GsonConfiguration setLongSerializationPolicy(LongSerializationPolicy longSerializationPolicy) {
         if (longSerializationPolicy == null)
             throw new IllegalArgumentException("Policy can not be nullable!");
         this.longSerializationPolicy = longSerializationPolicy;
+        return this;
     }
 
     public boolean isSerializeNulls() {
         return serializeNulls;
     }
 
-    public void setSerializeNulls(boolean serializeNulls) {
+    public GsonConfiguration setSerializeNulls(boolean serializeNulls) {
         this.serializeNulls = serializeNulls;
+        return this;
     }
 
     public boolean isComplexMapKeySerialization() {
         return complexMapKeySerialization;
     }
 
-    public void setComplexMapKeySerialization(boolean complexMapKeySerialization) {
+    public GsonConfiguration setComplexMapKeySerialization(boolean complexMapKeySerialization) {
         this.complexMapKeySerialization = complexMapKeySerialization;
+        return this;
     }
 
     public boolean isGenerateNonExecutableJson() {
         return generateNonExecutableJson;
     }
 
-    public void setGenerateNonExecutableJson(boolean generateNonExecutableJson) {
+    public GsonConfiguration setGenerateNonExecutableJson(boolean generateNonExecutableJson) {
         this.generateNonExecutableJson = generateNonExecutableJson;
+        return this;
     }
 
     public boolean isEscapeHtmlChars() {
         return escapeHtmlChars;
     }
 
-    public void setEscapeHtmlChars(boolean escapeHtmlChars) {
+    public GsonConfiguration setEscapeHtmlChars(boolean escapeHtmlChars) {
         this.escapeHtmlChars = escapeHtmlChars;
+        return this;
     }
 
     public boolean isPrettyPrinting() {
         return prettyPrinting;
     }
 
-    public void setPrettyPrinting(boolean prettyPrinting) {
+    public GsonConfiguration setPrettyPrinting(boolean prettyPrinting) {
         this.prettyPrinting = prettyPrinting;
+        return this;
     }
 
     public boolean isLenient() {
         return lenient;
     }
 
-    public void setLenient(boolean lenient) {
+    public GsonConfiguration setLenient(boolean lenient) {
         this.lenient = lenient;
+        return this;
     }
 
     public boolean isSerializeSpecialFloatingPointValues() {
         return serializeSpecialFloatingPointValues;
     }
 
-    public void setSerializeSpecialFloatingPointValues(boolean serializeSpecialFloatingPointValues) {
+    public GsonConfiguration setSerializeSpecialFloatingPointValues(boolean serializeSpecialFloatingPointValues) {
         this.serializeSpecialFloatingPointValues = serializeSpecialFloatingPointValues;
+        return this;
     }
 
     public DateTimeFormatter getInstantFormat() {
