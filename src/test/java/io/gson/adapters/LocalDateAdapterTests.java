@@ -60,7 +60,7 @@ class LocalDateAdapterTests extends Assertions {
 
         final String json = adapter.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""));
+        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
     }
 
     @Test
@@ -71,7 +71,7 @@ class LocalDateAdapterTests extends Assertions {
 
         final String json = adapterCustom.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + CUSTOM_VALUE + "\""));
+        assertTrue(json.contains("\"value\":\"" + CUSTOM_VALUE + "\""), json);
     }
 
     @Test

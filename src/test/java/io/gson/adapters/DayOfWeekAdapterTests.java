@@ -52,7 +52,7 @@ class DayOfWeekAdapterTests extends Assertions {
 
         final String json = adapter.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""));
+        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
     }
 
     @Test
