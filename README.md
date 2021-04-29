@@ -1,5 +1,10 @@
 # Gson DateTime Adapters
 
+[![GitHub Action](https://github.com/goodforgod/gson-datetime-adapters/workflows/Java%20CI/badge.svg)](https://github.com/GoodforGod/gson-datetime-adapters/actions?query=workflow%3A%22Java+CI%22)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=coverage)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=ncloc)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
+
 Gson serializers\deserializers for Date\Time in package java.time.*
 
 ## Dependency :rocket:
