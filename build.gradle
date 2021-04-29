@@ -27,6 +27,14 @@ spotless {
     }
 }
 
+sonarqube {
+    properties {
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.organization', 'goodforgod'
+        property 'sonar.projectKey', 'GoodforGod_gson-datetime-adapters'
+    }
+}
+
 dependencies {
     implementation "com.google.code.gson:gson:2.8.6"
 
