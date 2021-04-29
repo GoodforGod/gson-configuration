@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * @author Anton Kurako (GoodforGod)
@@ -106,6 +107,8 @@ class GsonConfigurationTests extends Assertions {
 
         final String json = gson.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"1970-01-01T03:00:00.000+03:00\""), json);
+
+        final Pattern pattern = Pattern.compile("\"value\":\"1970-01-01T0[03]:00:00.000");
+        assertTrue(pattern.matcher(json).find());
     }
 }
