@@ -2,7 +2,6 @@ package io.gson.adapters.config;
 
 import com.google.gson.GsonBuilder;
 import io.gson.adapters.*;
-
 import java.time.*;
 
 /**

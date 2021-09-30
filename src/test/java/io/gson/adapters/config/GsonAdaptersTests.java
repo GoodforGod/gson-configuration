@@ -1,11 +1,10 @@
 package io.gson.adapters.config;
 
 import com.google.gson.Gson;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.time.*;
 import java.util.Date;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Anton Kurako (GoodforGod)
