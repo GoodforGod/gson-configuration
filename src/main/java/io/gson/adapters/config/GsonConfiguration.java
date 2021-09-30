@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Properties;
 
 /**
  * @author Anton Kurako (GoodforGod)
@@ -32,14 +33,49 @@ public class GsonConfiguration {
 
     private String dateFormat = ISO_8601_FORMATTER;
 
+    /**
+     * @see GsonBuilder#setFieldNamingPolicy(FieldNamingPolicy)
+     */
     private FieldNamingPolicy fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
+
+    /**
+     * @see GsonBuilder#setLongSerializationPolicy(LongSerializationPolicy)
+     */
     private LongSerializationPolicy longSerializationPolicy = LongSerializationPolicy.DEFAULT;
+
+    /**
+     * @see GsonBuilder#serializeNulls()
+     */
     private boolean serializeNulls = false;
+
+    /**
+     * @see GsonBuilder#enableComplexMapKeySerialization()
+     */
     private boolean complexMapKeySerialization = false;
+
+    /**
+     * @see GsonBuilder#generateNonExecutableJson()
+     */
     private boolean generateNonExecutableJson = false;
+
+    /**
+     * @see GsonBuilder#disableHtmlEscaping()
+     */
     private boolean escapeHtmlChars = true;
+
+    /**
+     * @see GsonBuilder#setPrettyPrinting()
+     */
     private boolean prettyPrinting = false;
+
+    /**
+     * @see GsonBuilder#setLenient()
+     */
     private boolean lenient = false;
+
+    /**
+     * @see GsonBuilder#serializeSpecialFloatingPointValues()
+     */
     private boolean serializeSpecialFloatingPointValues = false;
 
     public String getDateFormat() {
@@ -209,6 +245,73 @@ public class GsonConfiguration {
     public GsonConfiguration setYearFormat(String yearFormat) {
         this.yearFormat = DateTimeFormatter.ofPattern(yearFormat);
         return this;
+    }
+
+    public static GsonConfiguration ofProperties(Properties properties) {
+        final String formatInstant = properties.getProperty(GsonProperties.FORMAT_INSTANT);
+        final String formatLocalDate = properties.getProperty(GsonProperties.FORMAT_LOCAL_DATE);
+        final String formatLocalTime = properties.getProperty(GsonProperties.FORMAT_LOCAL_TIME);
+        final String formatLocalDateTime = properties.getProperty(GsonProperties.FORMAT_LOCAL_DATE_TIME);
+        final String formatOffsetTime = properties.getProperty(GsonProperties.FORMAT_OFFSET_TIME);
+        final String formatOffsetDateTime = properties.getProperty(GsonProperties.FORMAT_OFFSET_DATE_TIME);
+        final String formatZonedDateTime = properties.getProperty(GsonProperties.FORMAT_ZONED_DATE_TIME);
+        final String formatYear = properties.getProperty(GsonProperties.FORMAT_YEAR);
+        final String formatDate = properties.getProperty(GsonProperties.FORMAT_DATE);
+
+        final String fieldNamingPolicy = properties.getProperty(GsonProperties.POLICY_FIELD_NAMING);
+        final String longSerializationPolicy = properties.getProperty(GsonProperties.POLICY_LONG_SERIALIZATION);
+
+        final Boolean lenient = (Boolean) properties.get(GsonProperties.LENIENT);
+        final Boolean serializeNulls = (Boolean) properties.get(GsonProperties.SERIALIZE_NULLS);
+        final Boolean prettyPrinting = (Boolean) properties.get(GsonProperties.PRETTY_PRINTING);
+        final Boolean escapeHtmlChars = (Boolean) properties.get(GsonProperties.ESCAPE_HTML_CHARS);
+        final Boolean generateNonExecutableJson = (Boolean) properties.get(GsonProperties.GENERATE_NON_EXECUTABLE_JSON);
+        final Boolean complexMapKeySerialization = (Boolean) properties.get(GsonProperties.COMPLEX_MAP_KEY_SERIALIZATION);
+        final Boolean serializeSpecialFloatingPointValues = (Boolean) properties
+                .get(GsonProperties.SERIALIZE_SPECIAL_FLOATING_POINT_VALUES);
+
+        final GsonConfiguration configuration = new GsonConfiguration();
+
+        if (formatInstant != null)
+            configuration.setInstantFormat(formatInstant);
+        if (formatLocalDate != null)
+            configuration.setLocalDateFormat(formatLocalDate);
+        if (formatLocalTime != null)
+            configuration.setLocalTimeFormat(formatLocalTime);
+        if (formatLocalDateTime != null)
+            configuration.setLocalDateTimeFormat(formatLocalDateTime);
+        if (formatOffsetTime != null)
+            configuration.setOffsetTimeFormat(formatOffsetTime);
+        if (formatOffsetDateTime != null)
+            configuration.setOffsetDateTimeFormat(formatOffsetDateTime);
+        if (formatZonedDateTime != null)
+            configuration.setZonedDateTimeFormat(formatZonedDateTime);
+        if (formatYear != null)
+            configuration.setYearFormat(formatYear);
+        if (formatDate != null)
+            configuration.setDateFormat(formatDate);
+
+        if (fieldNamingPolicy != null)
+            configuration.setFieldNamingPolicy(FieldNamingPolicy.valueOf(fieldNamingPolicy));
+        if (longSerializationPolicy != null)
+            configuration.setLongSerializationPolicy(LongSerializationPolicy.valueOf(longSerializationPolicy));
+
+        if (lenient != null)
+            configuration.setLenient(lenient);
+        if (serializeNulls != null)
+            configuration.setSerializeNulls(serializeNulls);
+        if (prettyPrinting != null)
+            configuration.setPrettyPrinting(prettyPrinting);
+        if (escapeHtmlChars != null)
+            configuration.setEscapeHtmlChars(escapeHtmlChars);
+        if (generateNonExecutableJson != null)
+            configuration.setGenerateNonExecutableJson(generateNonExecutableJson);
+        if (complexMapKeySerialization != null)
+            configuration.setComplexMapKeySerialization(complexMapKeySerialization);
+        if (serializeSpecialFloatingPointValues != null)
+            configuration.setSerializeSpecialFloatingPointValues(serializeSpecialFloatingPointValues);
+
+        return configuration;
     }
 
     public GsonBuilder builder() {
