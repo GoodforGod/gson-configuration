@@ -345,15 +345,13 @@ public class GsonConfiguration {
     }
 
     public GsonBuilder builder() {
-        final GsonBuilder builder = new GsonBuilder()
+        final GsonBuilder builder = GsonAdapters.builder()
                 .setDateFormat(getDateFormat())
                 .setLongSerializationPolicy(getLongSerializationPolicy())
                 .setFieldNamingPolicy(getFieldNamingPolicy());
 
         if (isComplexMapKeySerialization())
             builder.enableComplexMapKeySerialization();
-        if (!isEscapeHtmlChars())
-            builder.disableHtmlEscaping();
         if (isGenerateNonExecutableJson())
             builder.generateNonExecutableJson();
         if (isLenient())
@@ -364,17 +362,9 @@ public class GsonConfiguration {
             builder.serializeSpecialFloatingPointValues();
         if (isSerializeNulls())
             builder.serializeNulls();
+        if (!isEscapeHtmlChars())
+            builder.disableHtmlEscaping();
 
-        return builder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekAdapter())
-                .registerTypeAdapter(Month.class, new MonthAdapter())
-                .registerTypeAdapter(ZoneId.class, new ZoneIdAdapter())
-                .registerTypeAdapter(Year.class, new YearAdapter(getYearFormat()))
-                .registerTypeAdapter(Instant.class, new InstantAdapter(getInstantFormat()))
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter(getLocalDateFormat()))
-                .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter(getLocalTimeFormat()))
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter(getLocalDateTimeFormat()))
-                .registerTypeAdapter(OffsetTime.class, new OffsetTimeAdapter(getOffsetTimeFormat()))
-                .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeAdapter(getOffsetDateTimeFormat()))
-                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeAdapter(getZonedDateTimeFormat()));
+        return builder;
     }
 }
