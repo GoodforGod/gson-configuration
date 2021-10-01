@@ -39,9 +39,9 @@ sonarqube {
 dependencies {
     implementation "com.google.code.gson:gson:2.8.8"
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:5.7.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.1"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.1"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.1"
 }
 
 test {
@@ -66,7 +66,7 @@ publishing {
             pom {
                 name = "Gson DateTime Adapters"
                 url = "https://github.com/GoodforGod/$artifactId"
-                description = "Gson serializers/deserializers for Date/Time in package java.time.*"
+                description = "Gson configuration and serializers/deserializers for Date/Time in java.time.* package"
 
                 license {
                     name = "MIT License"
