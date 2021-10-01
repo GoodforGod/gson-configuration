@@ -3,7 +3,6 @@ package io.gson.adapters.config;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
-import io.gson.adapters.*;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
