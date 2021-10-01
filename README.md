@@ -5,7 +5,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=ncloc)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
 
-Gson serializers\deserializers for Date\Time in package java.time.*
+Gson configuration and serializers/deserializers for Date/Time in [java.time.*](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/package-summary.html) package.
 
 ## Dependency :rocket:
 **Gradle**
