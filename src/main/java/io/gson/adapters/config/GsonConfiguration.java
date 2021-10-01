@@ -19,15 +19,46 @@ public class GsonConfiguration {
     /**
      * ISO 8601 for {@link java.util.Date}
      */
-    public static final String ISO_8601_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    static final String ISO_8601_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
+    /**
+     * yyyy-MM-dd'T'HH:mm:ssX
+     */
     private DateTimeFormatter instantFormat = DateTimeFormatter.ISO_INSTANT;
+
+    /**
+     * yyyy-MM-dd
+     */
     private DateTimeFormatter localDateFormat = DateTimeFormatter.ISO_LOCAL_DATE;
+
+    /**
+     * HH:mm:ss
+     */
     private DateTimeFormatter localTimeFormat = DateTimeFormatter.ISO_LOCAL_TIME;
+
+    /**
+     * yyyy-MM-dd'T'HH:mm:ss
+     */
     private DateTimeFormatter localDateTimeFormat = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+    /**
+     * HH:mm:ss.SSSXXX
+     */
     private DateTimeFormatter offsetTimeFormat = DateTimeFormatter.ISO_OFFSET_TIME;
+
+    /**
+     * yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+     */
     private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+
+    /**
+     * yyyy-MM-dd'T'HH:mm:ss.SSSXXX[VV]
+     */
     private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+
+    /**
+     * yyyy
+     */
     private DateTimeFormatter yearFormat = DateTimeFormatter.ofPattern("yyyy");
 
     private String dateFormat = ISO_8601_FORMATTER;
@@ -260,14 +291,14 @@ public class GsonConfiguration {
         final String fieldNamingPolicy = properties.getProperty(GsonProperties.POLICY_FIELD_NAMING);
         final String longSerializationPolicy = properties.getProperty(GsonProperties.POLICY_LONG_SERIALIZATION);
 
-        final Boolean lenient = (Boolean) properties.get(GsonProperties.LENIENT);
-        final Boolean serializeNulls = (Boolean) properties.get(GsonProperties.SERIALIZE_NULLS);
-        final Boolean prettyPrinting = (Boolean) properties.get(GsonProperties.PRETTY_PRINTING);
-        final Boolean escapeHtmlChars = (Boolean) properties.get(GsonProperties.ESCAPE_HTML_CHARS);
-        final Boolean generateNonExecutableJson = (Boolean) properties.get(GsonProperties.GENERATE_NON_EXECUTABLE_JSON);
-        final Boolean complexMapKeySerialization = (Boolean) properties.get(GsonProperties.COMPLEX_MAP_KEY_SERIALIZATION);
-        final Boolean serializeSpecialFloatingPointValues = (Boolean) properties
-                .get(GsonProperties.SERIALIZE_SPECIAL_FLOATING_POINT_VALUES);
+        final String lenient = properties.getProperty(GsonProperties.LENIENT);
+        final String serializeNulls = properties.getProperty(GsonProperties.SERIALIZE_NULLS);
+        final String prettyPrinting = properties.getProperty(GsonProperties.PRETTY_PRINTING);
+        final String escapeHtmlChars = properties.getProperty(GsonProperties.ESCAPE_HTML_CHARS);
+        final String generateNonExecutableJson = properties.getProperty(GsonProperties.GENERATE_NON_EXECUTABLE_JSON);
+        final String complexMapKeySerialization = properties.getProperty(GsonProperties.COMPLEX_MAP_KEY_SERIALIZATION);
+        final String serializeSpecialFloatingPointValues = properties
+                .getProperty(GsonProperties.SERIALIZE_SPECIAL_FLOATING_POINT_VALUES);
 
         final GsonConfiguration configuration = new GsonConfiguration();
 
@@ -296,19 +327,19 @@ public class GsonConfiguration {
             configuration.setLongSerializationPolicy(LongSerializationPolicy.valueOf(longSerializationPolicy));
 
         if (lenient != null)
-            configuration.setLenient(lenient);
+            configuration.setLenient(Boolean.parseBoolean(lenient));
         if (serializeNulls != null)
-            configuration.setSerializeNulls(serializeNulls);
+            configuration.setSerializeNulls(Boolean.parseBoolean(serializeNulls));
         if (prettyPrinting != null)
-            configuration.setPrettyPrinting(prettyPrinting);
+            configuration.setPrettyPrinting(Boolean.parseBoolean(prettyPrinting));
         if (escapeHtmlChars != null)
-            configuration.setEscapeHtmlChars(escapeHtmlChars);
+            configuration.setEscapeHtmlChars(Boolean.parseBoolean(escapeHtmlChars));
         if (generateNonExecutableJson != null)
-            configuration.setGenerateNonExecutableJson(generateNonExecutableJson);
+            configuration.setGenerateNonExecutableJson(Boolean.parseBoolean(generateNonExecutableJson));
         if (complexMapKeySerialization != null)
-            configuration.setComplexMapKeySerialization(complexMapKeySerialization);
+            configuration.setComplexMapKeySerialization(Boolean.parseBoolean(complexMapKeySerialization));
         if (serializeSpecialFloatingPointValues != null)
-            configuration.setSerializeSpecialFloatingPointValues(serializeSpecialFloatingPointValues);
+            configuration.setSerializeSpecialFloatingPointValues(Boolean.parseBoolean(serializeSpecialFloatingPointValues));
 
         return configuration;
     }
@@ -336,8 +367,8 @@ public class GsonConfiguration {
 
         return builder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekAdapter())
                 .registerTypeAdapter(Month.class, new MonthAdapter())
-                .registerTypeAdapter(Year.class, new YearAdapter(getYearFormat()))
                 .registerTypeAdapter(ZoneId.class, new ZoneIdAdapter())
+                .registerTypeAdapter(Year.class, new YearAdapter(getYearFormat()))
                 .registerTypeAdapter(Instant.class, new InstantAdapter(getInstantFormat()))
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter(getLocalDateFormat()))
                 .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter(getLocalTimeFormat()))
