@@ -69,7 +69,7 @@ publishing {
                 description = "Gson serializers/deserializers for Date/Time in package java.time.*"
 
                 license {
-                    name = "Apache License 2.0"
+                    name = "MIT License"
                     url = "https://github.com/GoodforGod/$artifactId/blob/master/LICENSE"
                     distribution = "repo"
                 }

@@ -11,7 +11,7 @@ Gson serializers\deserializers for Date\Time in package java.time.*
 **Gradle**
 ```groovy
 dependencies {
-    compile 'com.github.goodforgod:gson-datetime-adapters:1.0.0'
+    implementation 'com.github.goodforgod:gson-datetime-adapters:1.1.0'
 }
 ```
 
@@ -20,13 +20,14 @@ dependencies {
 <dependency>
     <groupId>com.github.goodforgod</groupId>
     <artifactId>gson-datetime-adapters</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
-## Supported DateTimes
+## Supported Adapters
 
-Library include adapters for most java.time.* datetime objects, supported list:
+Library include adapters for most [java.time.*](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/package-summary.html)
+datetime objects, supported list:
 - LocalDate
 - LocalTime
 - LocalDateTime
@@ -40,7 +41,6 @@ Library include adapters for most java.time.* datetime objects, supported list:
 - ZoneId
 
 All adapters register with **ISO8601** formatters by defaults, but you can register them manually with your formatter.
-
 
 ## Gson Configuration
 
@@ -69,9 +69,49 @@ final GsonBuilder builder = new GsonConfiguration()
         .builder();
 ```
 
+### Properties file
+
+GsonConfiguration also can be filled from *properties* file.
+
+How to build GsonConfiguration from Properties:
+```java
+final InputStream resource = getClass().getClassLoader().getResourceAsStream("gson.properties");
+final Properties properties = new Properties();
+properties.load(resource);
+
+final GsonConfiguration configuration = GsonConfiguration.ofProperties(properties);
+```
+
+Full list of properties ([check GsonProperties](https://github.com/GoodforGod/gson-datetime-adapters/blob/master/src/main/java/io/gson/adapters/config/GsonProperties.java)):
+```properties
+gson.format.instant=yyyy-MM-dd'T'HH:mm:ssX
+gson.format.localDate=yyyy-MM-dd
+gson.format.localTime=HH:mm:ss
+gson.format.localDateTime=yyyy-MM-dd'T'HH:mm:ss
+gson.format.offsetTime=HH:mm:ss.SSSXXX
+gson.format.offsetDateTime=yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+gson.format.zonedDateTime=yyyy-MM-dd'T'HH:mm:ss.SSSXXX[VV]
+gson.format.year=yyyy
+gson.format.date=yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+
+gson.lenient=true
+gson.serializeNulls=true
+gson.prettyPrinting=true
+gson.escapeHtmlChars=false
+gson.generateNonExecutableJson=true
+gson.serializeComplexMapKey=true
+gson.serializeSpecialFloatingPointValues=true
+
+gson.policy.fieldNaming=UPPER_CAMEL_CASE
+gson.policy.longSerialization=STRING
+```
+
 ## Gson Builder
 
-Registering all adapters via builder (register all possible adapters):
+All adapters already registered via when using *GsonConfiguration#builder*.
+
+If you want to register only adapters without configuration:
+
 ```java
 GsonBuilder builder = GsonAdapters.builder();
 ```
