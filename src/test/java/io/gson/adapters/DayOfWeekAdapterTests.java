@@ -3,10 +3,9 @@ package io.gson.adapters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
+import java.time.DayOfWeek;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.time.DayOfWeek;
 
 /**
  * @author Anton Kurako (GoodforGod)
