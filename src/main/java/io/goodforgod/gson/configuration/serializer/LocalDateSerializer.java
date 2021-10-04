@@ -1,0 +1,38 @@
+package io.goodforgod.gson.configuration.serializer;
+
+import com.google.gson.*;
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * @see LocalDate
+ * @author Anton Kurako (GoodforGod)
+ * @since 25.04.2021
+ */
+public class LocalDateSerializer implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
+
+    private final DateTimeFormatter formatter;
+
+    public LocalDateSerializer() {
+        this(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    public LocalDateSerializer(DateTimeFormatter formatter) {
+        this.formatter = formatter;
+    }
+
+    @Override
+    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        try {
+            return formatter.parse(json.getAsString()).query(LocalDate::from);
+        } catch (Exception e) {
+            throw new JsonParseException(e);
+        }
+    }
+
+    @Override
+    public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
+        return new JsonPrimitive(formatter.toFormat(LocalDate::from).format(src));
+    }
+}
