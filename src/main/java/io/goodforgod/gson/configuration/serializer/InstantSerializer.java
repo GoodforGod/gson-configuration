@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-public class InstantSerializer implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
+public class InstantSerializer implements JsonSerializer<Instant> {
 
     private final DateTimeFormatter formatter;
 
@@ -20,15 +20,6 @@ public class InstantSerializer implements JsonSerializer<Instant>, JsonDeseriali
 
     public InstantSerializer(DateTimeFormatter formatter) {
         this.formatter = formatter;
-    }
-
-    @Override
-    public Instant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(Instant::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
     }
 
     @Override

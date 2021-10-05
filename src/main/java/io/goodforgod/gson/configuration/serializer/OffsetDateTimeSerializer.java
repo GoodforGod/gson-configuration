@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-public class OffsetDateTimeSerializer implements JsonSerializer<OffsetDateTime>, JsonDeserializer<OffsetDateTime> {
+public class OffsetDateTimeSerializer implements JsonSerializer<OffsetDateTime> {
 
     private final DateTimeFormatter formatter;
 
@@ -20,15 +20,6 @@ public class OffsetDateTimeSerializer implements JsonSerializer<OffsetDateTime>,
 
     public OffsetDateTimeSerializer(DateTimeFormatter formatter) {
         this.formatter = formatter;
-    }
-
-    @Override
-    public OffsetDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(OffsetDateTime::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
     }
 
     @Override

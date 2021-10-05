@@ -3,6 +3,7 @@ package io.goodforgod.gson.configuration.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
+import io.goodforgod.gson.configuration.deserializer.ZonedDateTimeDeserializer;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -47,10 +48,12 @@ class ZonedDateTimeDeserializerTests extends Assertions {
 
     private final Gson adapter = new GsonBuilder()
             .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer())
+            .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeDeserializer())
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()
             .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)))
+            .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeDeserializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)))
             .create();
 
     @Test

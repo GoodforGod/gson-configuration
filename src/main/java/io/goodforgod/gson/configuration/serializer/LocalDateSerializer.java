@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-public class LocalDateSerializer implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
+public class LocalDateSerializer implements JsonSerializer<LocalDate> {
 
     private final DateTimeFormatter formatter;
 
@@ -20,15 +20,6 @@ public class LocalDateSerializer implements JsonSerializer<LocalDate>, JsonDeser
 
     public LocalDateSerializer(DateTimeFormatter formatter) {
         this.formatter = formatter;
-    }
-
-    @Override
-    public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(LocalDate::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
     }
 
     @Override

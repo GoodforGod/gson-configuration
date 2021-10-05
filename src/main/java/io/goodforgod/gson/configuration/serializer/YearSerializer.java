@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-public class YearSerializer implements JsonSerializer<Year>, JsonDeserializer<Year> {
+public class YearSerializer implements JsonSerializer<Year> {
 
     private final DateTimeFormatter formatter;
 
@@ -20,15 +20,6 @@ public class YearSerializer implements JsonSerializer<Year>, JsonDeserializer<Ye
 
     public YearSerializer(DateTimeFormatter formatter) {
         this.formatter = formatter;
-    }
-
-    @Override
-    public Year deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return Year.parse(json.getAsString(), formatter);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package io.goodforgod.gson.configuration.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
+import io.goodforgod.gson.configuration.deserializer.DayOfWeekDeserializer;
 import java.time.DayOfWeek;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,7 @@ class DayOfWeekDeserializerTests extends Assertions {
 
     private final Gson adapter = new GsonBuilder()
             .registerTypeAdapter(DayOfWeek.class, new DayOfWeekSerializer())
+            .registerTypeAdapter(DayOfWeek.class, new DayOfWeekDeserializer())
             .create();
 
     @Test

@@ -9,16 +9,7 @@ import java.time.ZoneId;
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
-public class ZoneIdSerializer implements JsonSerializer<ZoneId>, JsonDeserializer<ZoneId> {
-
-    @Override
-    public ZoneId deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return ZoneId.of(json.getAsString());
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
-    }
+public class ZoneIdSerializer implements JsonSerializer<ZoneId> {
 
     @Override
     public JsonElement serialize(ZoneId src, Type typeOfSrc, JsonSerializationContext context) {

@@ -11,16 +11,16 @@ Gson configuration and serializers/deserializers for Date/Time in [java.time.*](
 **Gradle**
 ```groovy
 dependencies {
-    implementation "com.github.goodforgod:gson-datetime-adapters:1.1.0"
+    implementation "io.goodforgod:gson-datetime-adapters:1.0.0"
 }
 ```
 
 **Maven**
 ```xml
 <dependency>
-    <groupId>com.github.goodforgod</groupId>
+    <groupId>io.goodforgod</groupId>
     <artifactId>gson-datetime-adapters</artifactId>
-    <version>1.1.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
