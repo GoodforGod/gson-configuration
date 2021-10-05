@@ -106,6 +106,16 @@ gson.policy.fieldNaming=UPPER_CAMEL_CASE
 gson.policy.longSerialization=STRING
 ```
 
+#### Factory
+
+Gson can also be instantiated via properties using *GsonFactory*.
+
+*GsonFactory* is looking for property file in root *resource*: **gson.properties**
+
+```java
+Gson gson = new GsonFactory().build();
+```
+
 ## Gson Builder
 
 All adapters already registered via when using *GsonConfiguration#builder*.
