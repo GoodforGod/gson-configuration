@@ -64,7 +64,7 @@ publishing {
             from components.java
 
             pom {
-                name = "Gson DateTime Adapters"
+                name = "Gson Configuration"
                 url = "https://github.com/GoodforGod/$artifactId"
                 description = "Gson configuration and serializers/deserializers for Date/Time in java.time.* package"
 

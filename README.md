@@ -1,4 +1,4 @@
-# Gson DateTime Adapters
+# Gson Configuration
 
 [![GitHub Action](https://github.com/goodforgod/gson-datetime-adapters/workflows/Java%20CI/badge.svg)](https://github.com/GoodforGod/gson-datetime-adapters/actions?query=workflow%3A%22Java+CI%22)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=coverage)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
@@ -11,7 +11,7 @@ Gson configuration and serializers/deserializers for Date/Time in [java.time.*](
 **Gradle**
 ```groovy
 dependencies {
-    implementation "io.goodforgod:gson-datetime-adapters:1.0.0"
+    implementation "io.goodforgod:gson-configuration:1.0.0"
 }
 ```
 
@@ -19,7 +19,7 @@ dependencies {
 ```xml
 <dependency>
     <groupId>io.goodforgod</groupId>
-    <artifactId>gson-datetime-adapters</artifactId>
+    <artifactId>gson-configuration</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
