@@ -1,10 +1,10 @@
 # Gson Configuration
 
 ![GraalVM Enabled](https://img.shields.io/badge/GraalVM-Ready-orange?style=plastic)
-[![GitHub Action](https://github.com/goodforgod/gson-datetime-adapters/workflows/Java%20CI/badge.svg)](https://github.com/GoodforGod/gson-datetime-adapters/actions?query=workflow%3A%22Java+CI%22)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=coverage)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-datetime-adapters&metric=ncloc)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-datetime-adapters)
+[![GitHub Action](https://github.com/goodforgod/gson-configuration/workflows/Java%20CI/badge.svg)](https://github.com/GoodforGod/gson-configuration/actions?query=workflow%3A%22Java+CI%22)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-configuration&metric=coverage)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-configuration)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-configuration&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-configuration)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GoodforGod_gson-configuration&metric=ncloc)](https://sonarcloud.io/dashboard?id=GoodforGod_gson-configuration)
 
 Gson configuration and serializers/deserializers for Date/Time in [java.time.*](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/package-summary.html) package.
 
@@ -83,7 +83,7 @@ properties.load(resource);
 final GsonConfiguration configuration = GsonConfiguration.ofProperties(properties);
 ```
 
-Full list of properties ([check GsonProperties](https://github.com/GoodforGod/gson-datetime-adapters/blob/master/src/main/java/io/gson/adapters/config/GsonProperties.java)):
+Full list of properties ([check GsonProperties](https://github.com/GoodforGod/gson-configuration/blob/master/src/main/java/io/gson/adapters/config/GsonProperties.java)):
 ```properties
 gson.format.instant=yyyy-MM-dd'T'HH:mm:ssX
 gson.format.localDate=yyyy-MM-dd
