@@ -25,9 +25,9 @@ dependencies {
 </dependency>
 ```
 
-## Supported Adapters
+## Serializers\Deserializers
 
-Library include adapters for most [java.time.*](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/package-summary.html)
+Library include serializers & deserializers for most [java.time.*](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/package-summary.html)
 datetime objects, supported list:
 - LocalDate
 - LocalTime
