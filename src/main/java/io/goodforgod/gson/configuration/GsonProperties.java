@@ -4,28 +4,30 @@ package io.goodforgod.gson.configuration;
  * @author Anton Kurako (GoodforGod)
  * @since 01.10.2021
  */
-public interface GsonProperties {
+public final class GsonProperties {
 
-    String PREFIX = "gson.";
+    private GsonProperties() {}
 
-    String FORMAT_INSTANT = PREFIX + "format.instant";
-    String FORMAT_LOCAL_DATE = PREFIX + "format.localDate";
-    String FORMAT_LOCAL_TIME = PREFIX + "format.localTime";
-    String FORMAT_LOCAL_DATE_TIME = PREFIX + "format.localDateTime";
-    String FORMAT_OFFSET_TIME = PREFIX + "format.offsetTime";
-    String FORMAT_OFFSET_DATE_TIME = PREFIX + "format.offsetDateTime";
-    String FORMAT_ZONED_DATE_TIME = PREFIX + "format.zonedDateTime";
-    String FORMAT_YEAR = PREFIX + "format.year";
-    String FORMAT_DATE = PREFIX + "format.date";
+    public static final String PREFIX = "gson.";
 
-    String LENIENT = PREFIX + "lenient";
-    String SERIALIZE_NULLS = PREFIX + "serializeNulls";
-    String PRETTY_PRINTING = PREFIX + "prettyPrinting";
-    String ESCAPE_HTML_CHARS = PREFIX + "escapeHtmlChars";
-    String GENERATE_NON_EXECUTABLE_JSON = PREFIX + "generateNonExecutableJson";
-    String COMPLEX_MAP_KEY_SERIALIZATION = PREFIX + "serializeComplexMapKey";
-    String SERIALIZE_SPECIAL_FLOATING_POINT_VALUES = PREFIX + "serializeSpecialFloatingPointValues";
+    public static final String FORMAT_INSTANT = PREFIX + "format.instant";
+    public static final String FORMAT_LOCAL_DATE = PREFIX + "format.localDate";
+    public static final String FORMAT_LOCAL_TIME = PREFIX + "format.localTime";
+    public static final String FORMAT_LOCAL_DATE_TIME = PREFIX + "format.localDateTime";
+    public static final String FORMAT_OFFSET_TIME = PREFIX + "format.offsetTime";
+    public static final String FORMAT_OFFSET_DATE_TIME = PREFIX + "format.offsetDateTime";
+    public static final String FORMAT_ZONED_DATE_TIME = PREFIX + "format.zonedDateTime";
+    public static final String FORMAT_YEAR = PREFIX + "format.year";
+    public static final String FORMAT_DATE = PREFIX + "format.date";
 
-    String POLICY_FIELD_NAMING = PREFIX + "policy.fieldNaming";
-    String POLICY_LONG_SERIALIZATION = PREFIX + "policy.longSerialization";
+    public static final String LENIENT = PREFIX + "lenient";
+    public static final String SERIALIZE_NULLS = PREFIX + "serializeNulls";
+    public static final String PRETTY_PRINTING = PREFIX + "prettyPrinting";
+    public static final String ESCAPE_HTML_CHARS = PREFIX + "escapeHtmlChars";
+    public static final String GENERATE_NON_EXECUTABLE_JSON = PREFIX + "generateNonExecutableJson";
+    public static final String COMPLEX_MAP_KEY_SERIALIZATION = PREFIX + "serializeComplexMapKey";
+    public static final String SERIALIZE_SPECIAL_FLOATING_POINT_VALUES = PREFIX + "serializeSpecialFloatingPointValues";
+
+    public static final String POLICY_FIELD_NAMING = PREFIX + "policy.fieldNaming";
+    public static final String POLICY_LONG_SERIALIZATION = PREFIX + "policy.longSerialization";
 }
