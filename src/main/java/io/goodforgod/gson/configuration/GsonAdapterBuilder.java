@@ -10,7 +10,7 @@ import java.time.*;
  * @author Anton Kurako (GoodforGod)
  * @since 28.04.2021
  */
-public class GsonAdapterBuilder {
+public final class GsonAdapterBuilder {
 
     private GsonAdapterBuilder() {}
 
