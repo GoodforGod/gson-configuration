@@ -52,12 +52,22 @@ class YearDeserializerTests extends Assertions {
 
         final String json = adapter.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":" + VALUE), json);
+        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
     }
 
     @Test
-    void deserializationIsValid() {
+    void deserializationFromIntIsValid() {
         final String json = "{\"name\":\"Bob\",\"value\":" + VALUE + "}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE_TIME, user.getValue());
+    }
+
+    @Test
+    void deserializationFromStringIsValid() {
+        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE + "\"}";
 
         final User user = adapter.fromJson(json, User.class);
         assertNotNull(user);

@@ -24,6 +24,6 @@ public class YearSerializer implements JsonSerializer<Year> {
 
     @Override
     public JsonElement serialize(Year src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.getValue());
+        return new JsonPrimitive(src.format(formatter));
     }
 }
