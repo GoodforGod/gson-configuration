@@ -16,8 +16,8 @@ repositories {
 group = groupId
 version = artifactVersion
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 spotless {
     java {
@@ -30,9 +30,9 @@ spotless {
 
 sonarqube {
     properties {
-        property 'sonar.host.url', 'https://sonarcloud.io'
-        property 'sonar.organization', 'goodforgod'
-        property 'sonar.projectKey', 'GoodforGod_gson-datetime-adapters'
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.organization", "goodforgod"
+        property "sonar.projectKey", "GoodforGod_gson-configuration"
     }
 }
 
@@ -64,7 +64,7 @@ publishing {
             from components.java
 
             pom {
-                name = "Gson DateTime Adapters"
+                name = "Gson Configuration"
                 url = "https://github.com/GoodforGod/$artifactId"
                 description = "Gson configuration and serializers/deserializers for Date/Time in java.time.* package"
 
@@ -91,8 +91,8 @@ publishing {
     }
     repositories {
         maven {
-            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
             url = version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
             credentials {
                 username System.getenv("OSS_USERNAME")
