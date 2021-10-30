@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Simple {@link Gson} factory implementation that builds instance of Gson from
- * property file: gson.properties
+ * Simple {@link Gson} factory implementation that builds instance of Gson from property file:
+ * gson.properties
  *
  * @author Anton Kurako (GoodforGod)
  * @since 06.10.2021
