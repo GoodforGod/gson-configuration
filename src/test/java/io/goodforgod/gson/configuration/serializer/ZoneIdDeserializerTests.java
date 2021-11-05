@@ -40,8 +40,8 @@ class ZoneIdDeserializerTests extends Assertions {
     private static final String VALUE = "UTC";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(ZoneId.class, new ZoneIdSerializer())
-            .registerTypeAdapter(ZoneId.class, new ZoneIdDeserializer())
+            .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
+            .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
             .create();
 
     @Test

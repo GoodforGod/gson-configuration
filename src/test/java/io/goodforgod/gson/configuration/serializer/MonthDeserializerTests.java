@@ -41,8 +41,8 @@ class MonthDeserializerTests extends Assertions {
     private static final String VALUE_NUMBER = "1";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(Month.class, new MonthSerializer())
-            .registerTypeAdapter(Month.class, new MonthDeserializer())
+            .registerTypeAdapter(Month.class, MonthSerializer.INSTANCE)
+            .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)
             .create();
 
     @Test

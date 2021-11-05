@@ -40,15 +40,15 @@ class OffsetDateTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-    private static final String CUSTOM_VALUE = "1970-01-01T00:00:00.000Z";
+    private static final String CUSTOM_ISO = "yyyy-MM-dd'T'HH-mm-ss.SSSXXX";
+    private static final String CUSTOM_VALUE = "1970-01-01T00-00-00.000Z";
 
     private static final OffsetDateTime VALUE_TIME = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC"));
-    private static final String VALUE = "1970-01-01T00:00:00Z";
+    private static final String VALUE = "1970-01-01T00:00:00.000Z";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeSerializer())
-            .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeDeserializer())
+            .registerTypeAdapter(OffsetDateTime.class, OffsetDateTimeSerializer.INSTANCE)
+            .registerTypeAdapter(OffsetDateTime.class, OffsetDateTimeDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()

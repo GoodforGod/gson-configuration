@@ -42,11 +42,11 @@ class LocalTimeDeserializerTests extends Assertions {
     private static final String CUSTOM_VALUE = "00:00:00.000";
 
     private static final LocalTime VALUE_TIME = LocalTime.MIN;
-    private static final String VALUE = "00:00:00";
+    private static final String VALUE = "00:00:00.000";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(LocalTime.class, new LocalTimeSerializer())
-            .registerTypeAdapter(LocalTime.class, new LocalTimeDeserializer())
+            .registerTypeAdapter(LocalTime.class, LocalTimeSerializer.INSTANCE)
+            .registerTypeAdapter(LocalTime.class, LocalTimeDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()

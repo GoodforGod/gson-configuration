@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import io.goodforgod.gson.configuration.deserializer.ZonedDateTimeDeserializer;
-import java.time.DateTimeException;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,18 +37,19 @@ class ZonedDateTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "uuuu-MM-dd'T'HH:mm:ss.SSS[VV]";
-    private static final String CUSTOM_VALUE = "1970-01-01T00:00:00.000+00:00.000Z[UTC]";
+    private static final String CUSTOM_ISO = "uuuu-MM-dd'T'HH-mm-ss.SSSXXX";
+    private static final String CUSTOM_VALUE = "1970-01-01T00-00-00.000Z";
 
     private static final ZonedDateTime VALUE_AS_TIME = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC"));
-    private static final String VALUE_AS_STRING = "1970-01-01T00:00:00Z[UTC]";
+    private static final String VALUE_AS_STRING = "1970-01-01T00:00:00.000Z[UTC]";
 
-    private static final ZonedDateTime VALUE_AS_TIME_NON_UTC = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneId.of("Europe/Paris"));
-    private static final String VALUE_AS_STRING_NON_UTC = "1970-01-01T00:00:00.000+01:00[Europe/Paris]";
+    private static final ZonedDateTime VALUE_AS_TIME_NON_UTC = ZonedDateTime
+            .ofInstant(LocalDateTime.ofInstant(Instant.EPOCH, ZoneId.of("Europe/Paris")), ZoneOffset.UTC, ZoneId.of("Europe/Paris"));
+    private static final String VALUE_AS_STRING_NON_UTC = "1970-01-01T02:00:00.000+01:00[Europe/Paris]";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer())
-            .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeDeserializer())
+            .registerTypeAdapter(ZonedDateTime.class, ZonedDateTimeSerializer.INSTANCE)
+            .registerTypeAdapter(ZonedDateTime.class, ZonedDateTimeDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()

@@ -45,8 +45,8 @@ class InstantDeserializerTests extends Assertions {
     private static final String VALUE = "1970-01-01T00:00:00Z";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(Instant.class, new InstantSerializer())
-            .registerTypeAdapter(Instant.class, new InstantDeserializer())
+            .registerTypeAdapter(Instant.class, InstantSerializer.INSTANCE)
+            .registerTypeAdapter(Instant.class, InstantDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()

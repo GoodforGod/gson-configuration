@@ -78,7 +78,7 @@ class GsonConfigurationTests extends Assertions {
     @Test
     void configBuilderPropertiesValid() {
         final GsonBuilder builder = new GsonConfiguration()
-                .setDateFormat(GsonConfiguration.DATE_ISO_8601_PATTERN)
+                .setDateFormat(DateTimeFormatters.DATE_ISO)
                 .setInstantFormat(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                 .setComplexMapKeySerialization(true)
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)

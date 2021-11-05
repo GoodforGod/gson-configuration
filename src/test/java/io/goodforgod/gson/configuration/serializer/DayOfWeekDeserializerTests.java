@@ -41,8 +41,8 @@ class DayOfWeekDeserializerTests extends Assertions {
     private static final String VALUE_NUMBER = "1";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(DayOfWeek.class, new DayOfWeekSerializer())
-            .registerTypeAdapter(DayOfWeek.class, new DayOfWeekDeserializer())
+            .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
+            .registerTypeAdapter(DayOfWeek.class, DayOfWeekDeserializer.INSTANCE)
             .create();
 
     @Test

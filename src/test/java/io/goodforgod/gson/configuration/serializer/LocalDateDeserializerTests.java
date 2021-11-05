@@ -45,8 +45,8 @@ class LocalDateDeserializerTests extends Assertions {
     private static final String VALUE = "1970-01-01";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
-            .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
+            .registerTypeAdapter(LocalDate.class, LocalDateSerializer.INSTANCE)
+            .registerTypeAdapter(LocalDate.class, LocalDateDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()
