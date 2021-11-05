@@ -24,8 +24,11 @@ class GsonAdapterBuilderTests extends Assertions {
         private final ZonedDateTime zonedDateTime = ZonedDateTime.now();
         private final Month month = Month.APRIL;
         private final Year year = Year.of(2000);
+        private final YearMonth yearMonth = YearMonth.of(2000, 1);
+        private final MonthDay monthDay = MonthDay.of(1, 1);
         private final DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
         private final ZoneId zoneId = ZoneId.of("UTC");
+        private final ZoneOffset zoneOffset = ZoneOffset.of("+02:00");
 
         public Date getValue() {
             return value;
@@ -67,12 +70,24 @@ class GsonAdapterBuilderTests extends Assertions {
             return year;
         }
 
+        public YearMonth getYearMonth() {
+            return yearMonth;
+        }
+
+        public MonthDay getMonthDay() {
+            return monthDay;
+        }
+
         public DayOfWeek getDayOfWeek() {
             return dayOfWeek;
         }
 
         public ZoneId getZoneId() {
             return zoneId;
+        }
+
+        public ZoneOffset getZoneOffset() {
+            return zoneOffset;
         }
     }
 
@@ -94,6 +109,9 @@ class GsonAdapterBuilderTests extends Assertions {
         assertTrue(json.contains("dayOfWeek"));
         assertTrue(json.contains("month"));
         assertTrue(json.contains("year"));
+        assertTrue(json.contains("yearMonth"));
+        assertTrue(json.contains("monthDay"));
         assertTrue(json.contains("zoneId"));
+        assertTrue(json.contains("zoneOffset"));
     }
 }

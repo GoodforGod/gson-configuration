@@ -21,6 +21,8 @@ class GsonConfigurationFromPropertiesTests extends Assertions {
 
             final GsonConfiguration configuration = GsonConfiguration.ofProperties(properties);
             assertNotNull(configuration.getYearFormat());
+            assertNotNull(configuration.getYearMonthFormat());
+            assertNotNull(configuration.getMonthDayFormat());
             assertNotNull(configuration.getDateFormat());
             assertNotNull(configuration.getInstantFormat());
             assertNotNull(configuration.getLocalDateFormat());
