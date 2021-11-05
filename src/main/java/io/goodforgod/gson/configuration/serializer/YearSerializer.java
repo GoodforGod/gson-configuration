@@ -1,6 +1,7 @@
 package io.goodforgod.gson.configuration.serializer;
 
 import com.google.gson.*;
+import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +13,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class YearSerializer implements JsonSerializer<Year> {
 
+    public static final YearSerializer INSTANCE = new YearSerializer();
+
     private final DateTimeFormatter formatter;
 
     public YearSerializer() {
-        this(DateTimeFormatter.ofPattern("yyyy"));
+        this(DateTimeFormatters.YEAR_ISO);
     }
 
     public YearSerializer(DateTimeFormatter formatter) {

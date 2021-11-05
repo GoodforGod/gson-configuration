@@ -11,6 +11,8 @@ import java.time.Month;
  */
 public class MonthDeserializer implements JsonDeserializer<Month> {
 
+    public static final MonthDeserializer INSTANCE = new MonthDeserializer();
+
     private static final Month[] MONTHS = Month.values();
 
     @Override

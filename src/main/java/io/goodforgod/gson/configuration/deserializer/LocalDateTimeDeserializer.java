@@ -1,6 +1,7 @@
 package io.goodforgod.gson.configuration.deserializer;
 
 import com.google.gson.*;
+import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +13,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
 
+    public static final LocalDateTimeDeserializer INSTANCE = new LocalDateTimeDeserializer();
+
     private final DateTimeFormatter formatter;
 
     public LocalDateTimeDeserializer() {
-        this(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        this(DateTimeFormatters.LOCAL_DATE_TIME_ISO);
     }
 
     public LocalDateTimeDeserializer(DateTimeFormatter formatter) {

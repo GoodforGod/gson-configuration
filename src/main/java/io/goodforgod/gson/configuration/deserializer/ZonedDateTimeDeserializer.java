@@ -1,6 +1,7 @@
 package io.goodforgod.gson.configuration.deserializer;
 
 import com.google.gson.*;
+import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +13,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class ZonedDateTimeDeserializer implements JsonDeserializer<ZonedDateTime> {
 
+    public static final ZonedDateTimeDeserializer INSTANCE = new ZonedDateTimeDeserializer();
+
     private final DateTimeFormatter formatter;
 
     public ZonedDateTimeDeserializer() {
-        this(DateTimeFormatter.ISO_ZONED_DATE_TIME);
+        this(DateTimeFormatters.ZONED_DATE_TIME_ISO);
     }
 
     public ZonedDateTimeDeserializer(DateTimeFormatter formatter) {

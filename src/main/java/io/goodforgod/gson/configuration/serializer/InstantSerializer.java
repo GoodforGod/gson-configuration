@@ -1,6 +1,7 @@
 package io.goodforgod.gson.configuration.serializer;
 
 import com.google.gson.*;
+import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +13,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class InstantSerializer implements JsonSerializer<Instant> {
 
+    public static final InstantSerializer INSTANCE = new InstantSerializer();
+
     private final DateTimeFormatter formatter;
 
     public InstantSerializer() {
-        this(DateTimeFormatter.ISO_INSTANT);
+        this(DateTimeFormatters.INSTANT_ISO);
     }
 
     public InstantSerializer(DateTimeFormatter formatter) {

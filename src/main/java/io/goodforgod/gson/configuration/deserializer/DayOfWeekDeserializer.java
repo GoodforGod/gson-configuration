@@ -11,6 +11,8 @@ import java.time.DayOfWeek;
  */
 public class DayOfWeekDeserializer implements JsonDeserializer<DayOfWeek> {
 
+    public static final DayOfWeekDeserializer INSTANCE = new DayOfWeekDeserializer();
+
     private static final DayOfWeek[] DAY_OF_WEEKS = DayOfWeek.values();
 
     @Override
