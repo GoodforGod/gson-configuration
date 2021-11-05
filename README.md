@@ -49,7 +49,7 @@ Library provides configuration for configuring *GsonBuilder* for most properties
 
 ```java
 final GsonBuilder builder = new GsonConfiguration()
-        .setDateFormat(GsonConfiguration.ISO_8601_FORMATTER)
+        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         .setInstantFormat("yyyy-MM-dd HH:mm:ss")
         .setComplexMapKeySerialization(true)
         .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
@@ -85,14 +85,14 @@ final GsonConfiguration configuration = GsonConfiguration.ofProperties(propertie
 
 Full list of properties ([check GsonProperties](https://github.com/GoodforGod/gson-configuration/blob/master/src/main/java/io/gson/adapters/config/GsonProperties.java)):
 ```properties
-gson.format.instant=yyyy-MM-dd'T'HH:mm:ssX
-gson.format.localDate=yyyy-MM-dd
-gson.format.localTime=HH:mm:ss
-gson.format.localDateTime=yyyy-MM-dd'T'HH:mm:ss
+gson.format.instant=uuuu-MM-dd'T'HH:mm:ssX
+gson.format.localDate=uuuu-MM-dd
+gson.format.localTime=HH:mm:ss.SSS
+gson.format.localDateTime=uuuu-MM-dd'T'HH:mm:ss.SSS
 gson.format.offsetTime=HH:mm:ss.SSSXXX
-gson.format.offsetDateTime=yyyy-MM-dd'T'HH:mm:ss.SSSXXX
-gson.format.zonedDateTime=yyyy-MM-dd'T'HH:mm:ss.SSSXXX[VV]
-gson.format.year=yyyy
+gson.format.offsetDateTime=uuuu-MM-dd'T'HH:mm:ss.SSSXXX
+gson.format.zonedDateTime=uuuu-MM-dd'T'HH:mm:ss.SSSXXX
+gson.format.year=uuuu
 gson.format.date=yyyy-MM-dd'T'HH:mm:ss.SSSXXX
 
 gson.lenient=true
@@ -130,13 +130,13 @@ GsonBuilder builder = GsonAdapters.builder();
 You can register them manually:
 ```java
 GsonBuilder builder = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+        .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
 ```
 
 You can register with custom formatter also:
 ```java
 GsonBuilder builder = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateAdapter(DateTimeFormatter.ISO_LOCAL_DATE))
+        .registerTypeAdapter(LocalDate.class, new LocalDateSerializer(DateTimeFormatters.LOCAL_DATE_ISO))
 ```
 
 ## License
