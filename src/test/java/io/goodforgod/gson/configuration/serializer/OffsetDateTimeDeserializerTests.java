@@ -40,8 +40,8 @@ class OffsetDateTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "uuuu:MM:dd'T'HH-mm-ssxxx";
-    private static final String CUSTOM_VALUE = "1970:01:01T00-00-00+00:00";
+    private static final String CUSTOM_ISO = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    private static final String CUSTOM_VALUE = "1970-01-01T00:00:00.000Z";
 
     private static final OffsetDateTime VALUE_TIME = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC"));
     private static final String VALUE = "1970-01-01T00:00:00Z";

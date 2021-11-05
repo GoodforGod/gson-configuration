@@ -40,11 +40,14 @@ class ZonedDateTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "uuuu:MM:dd'T'HH-mm-ssxxx z";
-    private static final String CUSTOM_VALUE = "1970:01:01T00-00-00+00:00 UTC";
+    private static final String CUSTOM_ISO = "uuuu-MM-dd'T'HH:mm:ss.SSS[VV]";
+    private static final String CUSTOM_VALUE = "1970-01-01T00:00:00.000+00:00.000Z[UTC]";
 
-    private static final ZonedDateTime VALUE_TIME = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC"));
-    private static final String VALUE = "1970-01-01T00:00:00Z[UTC]";
+    private static final ZonedDateTime VALUE_AS_TIME = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC"));
+    private static final String VALUE_AS_STRING = "1970-01-01T00:00:00Z[UTC]";
+
+    private static final ZonedDateTime VALUE_AS_TIME_NON_UTC = ZonedDateTime.ofInstant(Instant.EPOCH, ZoneId.of("Europe/Paris"));
+    private static final String VALUE_AS_STRING_NON_UTC = "1970-01-01T00:00:00.000+01:00[Europe/Paris]";
 
     private final Gson adapter = new GsonBuilder()
             .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer())
@@ -60,32 +63,53 @@ class ZonedDateTimeDeserializerTests extends Assertions {
     void serializationIsValidForIso() {
         final User user = new User();
         user.setName("Bob");
-        user.setValue(VALUE_TIME);
+        user.setValue(VALUE_AS_TIME);
 
         final String json = adapter.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
+        assertTrue(json.contains("\"value\":\"" + VALUE_AS_STRING + "\""), json);
+    }
+
+    @Test
+    void deserializationIsValidForIso() {
+        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_AS_STRING + "\"}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE_AS_TIME, user.getValue());
+    }
+
+    @Test
+    void serializationIsValidForIsoNonUtc() {
+        final User user = new User();
+        user.setName("Bob");
+        user.setValue(VALUE_AS_TIME_NON_UTC);
+
+        final String json = adapter.toJson(user);
+        assertNotNull(json);
+        assertTrue(json.contains("\"value\":\"" + VALUE_AS_STRING_NON_UTC + "\""), json);
+    }
+
+    @Test
+    void deserializationIsValidForIsoNonUtc() {
+        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_AS_STRING_NON_UTC + "\"}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE_AS_TIME_NON_UTC, user.getValue());
     }
 
     @Test
     void serializationIsValidForCustomFormatter() {
         final User user = new User();
         user.setName("Bob");
-        user.setValue(VALUE_TIME);
+        user.setValue(VALUE_AS_TIME);
 
         final String json = adapterCustom.toJson(user);
         assertNotNull(json);
         assertTrue(json.contains("\"value\":\"" + CUSTOM_VALUE + "\""), json);
-    }
-
-    @Test
-    void deserializationIsValidForIso() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE + "\"}";
-
-        final User user = adapter.fromJson(json, User.class);
-        assertNotNull(user);
-        assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME, user.getValue());
     }
 
     @Test
@@ -107,6 +131,6 @@ class ZonedDateTimeDeserializerTests extends Assertions {
         final User user = adapterCustom.fromJson(json, User.class);
         assertNotNull(user);
         assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME.toEpochSecond(), user.getValue().toEpochSecond());
+        assertEquals(VALUE_AS_TIME.toEpochSecond(), user.getValue().toEpochSecond());
     }
 }

@@ -38,8 +38,8 @@ class LocalTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "HH-mm-ss";
-    private static final String CUSTOM_VALUE = "00-00-00";
+    private static final String CUSTOM_ISO = "HH:mm:ss.SSS";
+    private static final String CUSTOM_VALUE = "00:00:00.000";
 
     private static final LocalTime VALUE_TIME = LocalTime.MIN;
     private static final String VALUE = "00:00:00";
