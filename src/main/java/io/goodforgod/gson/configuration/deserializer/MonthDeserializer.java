@@ -32,13 +32,10 @@ public class MonthDeserializer implements JsonDeserializer<Month> {
 
                 return Month.of(Integer.parseInt(json.getAsString()));
             }
-
-            throw new JsonParseException("Month can not be parsed from: " + json.getAsString());
-        } catch (JsonParseException e) {
-            throw e;
         } catch (Exception e) {
             throw new JsonParseException(e);
         }
-    }
 
+        throw new JsonParseException("Month can not be parsed from: " + json.getAsString());
+    }
 }

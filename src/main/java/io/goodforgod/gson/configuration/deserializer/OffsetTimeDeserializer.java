@@ -33,5 +33,4 @@ public class OffsetTimeDeserializer implements JsonDeserializer<OffsetTime> {
             throw new JsonParseException(e);
         }
     }
-
 }
