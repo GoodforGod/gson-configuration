@@ -21,14 +21,18 @@ public final class GsonAdapterBuilder {
                 .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthSerializer.INSTANCE)
-                .registerTypeAdapter(Year.class, YearDeserializer.INSTANCE)
-                .registerTypeAdapter(Year.class, YearSerializer.INSTANCE)
                 .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
                 .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE);
     }
 
     public static GsonBuilder builder() {
         return getCommonBuilder()
+                .registerTypeAdapter(Year.class, YearDeserializer.INSTANCE)
+                .registerTypeAdapter(Year.class, YearSerializer.INSTANCE)
+                .registerTypeAdapter(YearMonth.class, YearMonthDeserializer.INSTANCE)
+                .registerTypeAdapter(YearMonth.class, YearMonthSerializer.INSTANCE)
+                .registerTypeAdapter(MonthDay.class, MonthDayDeserializer.INSTANCE)
+                .registerTypeAdapter(MonthDay.class, MonthDaySerializer.INSTANCE)
                 .registerTypeAdapter(Instant.class, InstantDeserializer.INSTANCE)
                 .registerTypeAdapter(Instant.class, InstantSerializer.INSTANCE)
                 .registerTypeAdapter(LocalDate.class, LocalDateDeserializer.INSTANCE)
@@ -48,6 +52,12 @@ public final class GsonAdapterBuilder {
     public static GsonBuilder builder(GsonConfiguration configuration) {
         return getCommonBuilder()
                 .setDateFormat(configuration.getDateFormat())
+                .registerTypeAdapter(Year.class, new YearDeserializer(configuration.getYearFormat()))
+                .registerTypeAdapter(Year.class, new YearSerializer(configuration.getYearFormat()))
+                .registerTypeAdapter(YearMonth.class, new YearMonthDeserializer(configuration.getYearMonthFormat()))
+                .registerTypeAdapter(YearMonth.class, new YearMonthSerializer(configuration.getYearMonthFormat()))
+                .registerTypeAdapter(MonthDay.class, new MonthDayDeserializer(configuration.getMonthDayFormat()))
+                .registerTypeAdapter(MonthDay.class, new MonthDaySerializer(configuration.getMonthDayFormat()))
                 .registerTypeAdapter(Instant.class, new InstantDeserializer(configuration.getInstantFormat()))
                 .registerTypeAdapter(Instant.class, new InstantSerializer(configuration.getInstantFormat()))
                 .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer(configuration.getLocalDateFormat()))

@@ -60,6 +60,16 @@ public final class DateTimeFormatters {
     public static final DateTimeFormatter YEAR_ISO = DateTimeFormatter.ofPattern("uuuu");
 
     /**
+     * uuuu-MM
+     */
+    public static final DateTimeFormatter YEAR_MONTH_ISO = DateTimeFormatter.ofPattern("uuuu-MM");
+
+    /**
+     * MM-dd
+     */
+    public static final DateTimeFormatter MONTH_DAY_ISO = DateTimeFormatter.ofPattern("MM-dd");
+
+    /**
      * ISO 8601 for {@link java.util.Date}
      */
     public static final String DATE_ISO = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";

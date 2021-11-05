@@ -22,6 +22,8 @@ public class GsonConfiguration {
     private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatters.OFFSET_DATE_TIME_ISO;
     private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatters.ZONED_DATE_TIME_ISO;
     private DateTimeFormatter yearFormat = DateTimeFormatters.YEAR_ISO;
+    private DateTimeFormatter yearMonthFormat = DateTimeFormatters.YEAR_MONTH_ISO;
+    private DateTimeFormatter monthDayFormat = DateTimeFormatters.MONTH_DAY_ISO;
     private String dateFormat = DateTimeFormatters.DATE_ISO;
 
     /**
@@ -78,6 +80,8 @@ public class GsonConfiguration {
         final String formatOffsetDateTime = properties.getProperty(GsonProperties.FORMAT_OFFSET_DATE_TIME);
         final String formatZonedDateTime = properties.getProperty(GsonProperties.FORMAT_ZONED_DATE_TIME);
         final String formatYear = properties.getProperty(GsonProperties.FORMAT_YEAR);
+        final String formatYearMonth = properties.getProperty(GsonProperties.FORMAT_YEAR_MONTH);
+        final String formatMonthDay = properties.getProperty(GsonProperties.FORMAT_MONTH_DAY);
         final String formatDate = properties.getProperty(GsonProperties.FORMAT_DATE);
 
         final String fieldNamingPolicy = properties.getProperty(GsonProperties.POLICY_FIELD_NAMING);
@@ -110,6 +114,10 @@ public class GsonConfiguration {
             configuration.setZonedDateTimeFormat(formatZonedDateTime);
         if (formatYear != null)
             configuration.setYearFormat(formatYear);
+        if (formatYearMonth != null)
+            configuration.setYearMonthFormat(formatYearMonth);
+        if (formatMonthDay != null)
+            configuration.setMonthDayFormat(formatMonthDay);
         if (formatDate != null)
             configuration.setDateFormat(formatDate);
 
@@ -357,5 +365,31 @@ public class GsonConfiguration {
 
     public GsonConfiguration setYearFormat(String yearPattern) {
         return setYearFormat(DateTimeFormatter.ofPattern(yearPattern));
+    }
+
+    public DateTimeFormatter getYearMonthFormat() {
+        return yearMonthFormat;
+    }
+
+    public GsonConfiguration setYearMonthFormat(DateTimeFormatter yearMonthFormat) {
+        this.yearMonthFormat = yearMonthFormat;
+        return this;
+    }
+
+    public GsonConfiguration setYearMonthFormat(String yearMonthPattern) {
+        return setYearMonthFormat(DateTimeFormatter.ofPattern(yearMonthPattern));
+    }
+
+    public DateTimeFormatter getMonthDayFormat() {
+        return monthDayFormat;
+    }
+
+    public GsonConfiguration setMonthDayFormat(DateTimeFormatter monthDayFormat) {
+        this.monthDayFormat = monthDayFormat;
+        return this;
+    }
+
+    public GsonConfiguration setMonthDayFormat(String monthDayPattern) {
+        return setMonthDayFormat(DateTimeFormatter.ofPattern(monthDayPattern));
     }
 }
