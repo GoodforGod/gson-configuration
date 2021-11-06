@@ -14,7 +14,7 @@ public final class DateTimeFormatters {
     private DateTimeFormatters() {}
 
     /**
-     * uuuu-MM-dd'T'HH:mm:ssX
+     * yyyy-MM-dd'T'HH:mm:ssX
      */
     public static final DateTimeFormatter INSTANT_ISO = DateTimeFormatter.ISO_INSTANT;
 
@@ -70,7 +70,7 @@ public final class DateTimeFormatters {
     public static final DateTimeFormatter MONTH_DAY_ISO = DateTimeFormatter.ofPattern("MM-dd");
 
     /**
-     * ISO 8601 for {@link java.util.Date}
+     * ISO8601 for {@link java.util.Date} and {@link java.sql.Timestamp}
      */
     public static final String DATE_ISO = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 }

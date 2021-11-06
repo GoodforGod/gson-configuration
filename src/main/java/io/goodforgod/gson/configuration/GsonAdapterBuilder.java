@@ -64,7 +64,7 @@ public final class GsonAdapterBuilder {
                 .registerTypeAdapter(LocalDate.class, new LocalDateSerializer(configuration.getLocalDateFormat()))
                 .registerTypeAdapter(LocalTime.class, new LocalTimeDeserializer(configuration.getLocalTimeFormat()))
                 .registerTypeAdapter(LocalTime.class, new LocalTimeSerializer(configuration.getLocalTimeFormat()))
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateDeserializer(configuration.getLocalDateTimeFormat()))
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer(configuration.getLocalDateTimeFormat()))
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(configuration.getLocalDateTimeFormat()))
                 .registerTypeAdapter(OffsetTime.class, new OffsetTimeDeserializer(configuration.getOffsetTimeFormat()))
                 .registerTypeAdapter(OffsetTime.class, new OffsetTimeSerializer(configuration.getOffsetTimeFormat()))
