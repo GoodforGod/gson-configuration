@@ -68,7 +68,7 @@ class GsonConfigurationTests extends Assertions {
     void configBuilderFailForFormatter() {
         try {
             final GsonBuilder builder = new GsonConfiguration()
-                    .setInstantFormat(DateTimeFormatter.ofPattern("yyyy-MM-dddd HHHH:mm:ss"))
+                    .setInstantFormat(DateTimeFormatter.ofPattern("uuuu-MM-dddd HHHH:mm:ss"))
                     .builder();
         } catch (IllegalArgumentException e) {
             assertFalse(e.getMessage().isEmpty());
@@ -79,7 +79,7 @@ class GsonConfigurationTests extends Assertions {
     void configBuilderPropertiesValid() {
         final GsonBuilder builder = new GsonConfiguration()
                 .setDateFormat(DateTimeFormatters.DATE_ISO)
-                .setInstantFormat(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                .setInstantFormat(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))
                 .setComplexMapKeySerialization(true)
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .setLongSerializationPolicy(LongSerializationPolicy.STRING)

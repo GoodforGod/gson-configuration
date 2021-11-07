@@ -40,7 +40,7 @@ class LocalDateTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "yyyy-MM-dd'T'HH-mm-ss.SSS";
+    private static final String CUSTOM_ISO = "uuuu-MM-dd'T'HH-mm-ss.SSS";
     private static final String CUSTOM_VALUE = "1970-01-01T00-00-00.000";
 
     private static final LocalDateTime VALUE_TIME = LocalDateTime.ofInstant(Instant.EPOCH, ZoneOffset.UTC);

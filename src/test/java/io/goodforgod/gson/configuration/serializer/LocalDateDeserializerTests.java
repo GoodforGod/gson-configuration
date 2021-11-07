@@ -38,7 +38,7 @@ class LocalDateDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "yyyy:MM:dd";
+    private static final String CUSTOM_ISO = "uuuu:MM:dd";
     private static final String CUSTOM_VALUE = "1970:01:01";
 
     private static final LocalDate VALUE_TIME = LocalDate.EPOCH;
