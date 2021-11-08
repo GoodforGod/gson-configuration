@@ -21,7 +21,7 @@ public class YearSerializer implements JsonSerializer<Year> {
     private final DateTimeFormatter formatter;
 
     public YearSerializer() {
-        this(DateTimeFormatters.YEAR_ISO);
+        this(DateTimeFormatters.ISO_YEAR);
     }
 
     public YearSerializer(DateTimeFormatter formatter) {

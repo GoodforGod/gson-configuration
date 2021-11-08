@@ -16,7 +16,7 @@ public final class GsonAdapterBuilder {
 
     private static GsonBuilder getCommonBuilder() {
         return new GsonBuilder()
-                .setDateFormat(DateTimeFormatters.DATE_ISO)
+                .setDateFormat(DateTimeFormatters.ISO_DATE)
                 .registerTypeAdapter(DayOfWeek.class, DayOfWeekDeserializer.INSTANCE)
                 .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)

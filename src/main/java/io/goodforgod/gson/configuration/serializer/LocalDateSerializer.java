@@ -21,7 +21,7 @@ public class LocalDateSerializer implements JsonSerializer<LocalDate> {
     private final DateTimeFormatter formatter;
 
     public LocalDateSerializer() {
-        this(DateTimeFormatters.LOCAL_DATE_ISO);
+        this(DateTimeFormatters.ISO_LOCAL_DATE);
     }
 
     public LocalDateSerializer(DateTimeFormatter formatter) {

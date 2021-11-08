@@ -21,7 +21,7 @@ public class InstantSerializer implements JsonSerializer<Instant> {
     private final DateTimeFormatter formatter;
 
     public InstantSerializer() {
-        this(DateTimeFormatters.INSTANT_ISO);
+        this(DateTimeFormatters.ISO_INSTANT);
     }
 
     public InstantSerializer(DateTimeFormatter formatter) {

@@ -21,7 +21,7 @@ public class ZonedDateTimeSerializer implements JsonSerializer<ZonedDateTime> {
     private final DateTimeFormatter formatter;
 
     public ZonedDateTimeSerializer() {
-        this(DateTimeFormatters.ZONED_DATE_TIME_ISO);
+        this(DateTimeFormatters.ISO_ZONED_DATE_TIME);
     }
 
     public ZonedDateTimeSerializer(DateTimeFormatter formatter) {

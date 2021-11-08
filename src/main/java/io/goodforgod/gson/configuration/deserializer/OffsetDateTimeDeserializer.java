@@ -21,7 +21,7 @@ public class OffsetDateTimeDeserializer implements JsonDeserializer<OffsetDateTi
     private final DateTimeFormatter formatter;
 
     public OffsetDateTimeDeserializer() {
-        this(DateTimeFormatters.OFFSET_DATE_TIME_ISO);
+        this(DateTimeFormatters.ISO_OFFSET_DATE_TIME);
     }
 
     public OffsetDateTimeDeserializer(DateTimeFormatter formatter) {

@@ -21,7 +21,7 @@ public class InstantDeserializer implements JsonDeserializer<Instant> {
     private final DateTimeFormatter formatter;
 
     public InstantDeserializer() {
-        this(DateTimeFormatters.INSTANT_ISO);
+        this(DateTimeFormatters.ISO_INSTANT);
     }
 
     public InstantDeserializer(DateTimeFormatter formatter) {

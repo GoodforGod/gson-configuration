@@ -21,7 +21,7 @@ public class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
     private final DateTimeFormatter formatter;
 
     public LocalDateDeserializer() {
-        this(DateTimeFormatters.LOCAL_DATE_ISO);
+        this(DateTimeFormatters.ISO_LOCAL_DATE);
     }
 
     public LocalDateDeserializer(DateTimeFormatter formatter) {

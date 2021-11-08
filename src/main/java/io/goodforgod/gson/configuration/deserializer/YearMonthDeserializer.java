@@ -21,7 +21,7 @@ public class YearMonthDeserializer implements JsonDeserializer<YearMonth> {
     private final DateTimeFormatter formatter;
 
     public YearMonthDeserializer() {
-        this(DateTimeFormatters.YEAR_MONTH_ISO);
+        this(DateTimeFormatters.ISO_YEAR_MONTH);
     }
 
     public YearMonthDeserializer(DateTimeFormatter formatter) {

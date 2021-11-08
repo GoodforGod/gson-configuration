@@ -21,7 +21,7 @@ public final class DateTimeFormatters {
     /**
      * uuuu
      */
-    public static final DateTimeFormatter YEAR_ISO = new DateTimeFormatterBuilder()
+    public static final DateTimeFormatter ISO_YEAR = new DateTimeFormatterBuilder()
             .appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
             .toFormatter()
             .withResolverStyle(ResolverStyle.STRICT)
@@ -30,8 +30,8 @@ public final class DateTimeFormatters {
     /**
      * uuuu-MM
      */
-    public static final DateTimeFormatter YEAR_MONTH_ISO = new DateTimeFormatterBuilder()
-            .append(YEAR_ISO)
+    public static final DateTimeFormatter ISO_YEAR_MONTH = new DateTimeFormatterBuilder()
+            .append(ISO_YEAR)
             .appendLiteral('-')
             .appendValue(MONTH_OF_YEAR, 2)
             .toFormatter()
@@ -41,7 +41,7 @@ public final class DateTimeFormatters {
     /**
      * MM-dd
      */
-    public static final DateTimeFormatter MONTH_DAY_ISO = new DateTimeFormatterBuilder()
+    public static final DateTimeFormatter ISO_MONTH_DAY = new DateTimeFormatterBuilder()
             .appendValue(MONTH_OF_YEAR, 2)
             .appendLiteral('-')
             .appendValue(DAY_OF_MONTH, 2)
@@ -52,29 +52,28 @@ public final class DateTimeFormatters {
     /**
      * @see DateTimeFormatter#ISO_INSTANT
      */
-    public static final DateTimeFormatter INSTANT_ISO = DateTimeFormatter.ISO_INSTANT;
+    public static final DateTimeFormatter ISO_INSTANT = DateTimeFormatter.ISO_INSTANT;
 
     /**
      * uuuu-MM-dd
      *
      * @see DateTimeFormatter#ISO_LOCAL_DATE
      */
-    public static final DateTimeFormatter LOCAL_DATE_ISO = DateTimeFormatter.ISO_LOCAL_DATE;
+    public static final DateTimeFormatter ISO_LOCAL_DATE = DateTimeFormatter.ISO_LOCAL_DATE;
 
     /**
      * HH:mm:ss.SSS
      */
-    public static final DateTimeFormatter LOCAL_TIME_ISO = DateTimeFormatter.ofPattern("HH:mm:ss.SSS")
-            .withResolverStyle(ResolverStyle.STRICT)
-            .withChronology(IsoChronology.INSTANCE);
+    public static final DateTimeFormatter ISO_LOCAL_TIME = DateTimeFormatter.ofPattern("HH:mm:ss.SSS")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * uuuu-MM-dd'T'HH:mm:ss.SSS
      */
-    public static final DateTimeFormatter LOCAL_DATE_TIME_ISO = new DateTimeFormatterBuilder()
-            .append(LOCAL_DATE_ISO)
+    public static final DateTimeFormatter ISO_LOCAL_DATE_TIME = new DateTimeFormatterBuilder()
+            .append(ISO_LOCAL_DATE)
             .appendLiteral('T')
-            .append(LOCAL_TIME_ISO)
+            .append(ISO_LOCAL_TIME)
             .toFormatter()
             .withResolverStyle(ResolverStyle.STRICT)
             .withChronology(IsoChronology.INSTANCE);
@@ -82,18 +81,17 @@ public final class DateTimeFormatters {
     /**
      * HH:mm:ss.SSSXXX
      */
-    public static final DateTimeFormatter OFFSET_TIME_ISO = new DateTimeFormatterBuilder()
-            .append(LOCAL_TIME_ISO)
+    public static final DateTimeFormatter ISO_OFFSET_TIME = new DateTimeFormatterBuilder()
+            .append(ISO_LOCAL_TIME)
             .appendPattern("XXX")
             .toFormatter()
-            .withResolverStyle(ResolverStyle.STRICT)
-            .withChronology(IsoChronology.INSTANCE);
+            .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * uuuu-MM-dd'T'HH:mm:ss.SSSXXX
      */
-    public static final DateTimeFormatter OFFSET_DATE_TIME_ISO = new DateTimeFormatterBuilder()
-            .append(LOCAL_DATE_TIME_ISO)
+    public static final DateTimeFormatter ISO_OFFSET_DATE_TIME = new DateTimeFormatterBuilder()
+            .append(ISO_LOCAL_DATE_TIME)
             .appendPattern("XXX")
             .toFormatter()
             .withResolverStyle(ResolverStyle.STRICT)
@@ -102,8 +100,8 @@ public final class DateTimeFormatters {
     /**
      * uuuu-MM-dd'T'HH:mm:ss.SSSXXX[VV]
      */
-    public static final DateTimeFormatter ZONED_DATE_TIME_ISO = new DateTimeFormatterBuilder()
-            .append(OFFSET_DATE_TIME_ISO)
+    public static final DateTimeFormatter ISO_ZONED_DATE_TIME = new DateTimeFormatterBuilder()
+            .append(ISO_OFFSET_DATE_TIME)
             .optionalStart()
             .appendLiteral('[')
             .parseCaseSensitive()
@@ -116,5 +114,5 @@ public final class DateTimeFormatters {
     /**
      * ISO8601 for {@link java.util.Date} and {@link java.sql.Timestamp}
      */
-    public static final String DATE_ISO = "uuuu-MM-dd'T'HH:mm:ss.SSSXXX";
+    public static final String ISO_DATE = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 }

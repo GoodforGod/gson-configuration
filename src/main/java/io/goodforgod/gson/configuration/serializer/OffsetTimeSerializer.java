@@ -21,7 +21,7 @@ public class OffsetTimeSerializer implements JsonSerializer<OffsetTime> {
     private final DateTimeFormatter formatter;
 
     public OffsetTimeSerializer() {
-        this(DateTimeFormatters.OFFSET_TIME_ISO);
+        this(DateTimeFormatters.ISO_OFFSET_TIME);
     }
 
     public OffsetTimeSerializer(DateTimeFormatter formatter) {

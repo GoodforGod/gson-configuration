@@ -21,7 +21,7 @@ public class MonthDaySerializer implements JsonSerializer<MonthDay> {
     private final DateTimeFormatter formatter;
 
     public MonthDaySerializer() {
-        this(DateTimeFormatters.MONTH_DAY_ISO);
+        this(DateTimeFormatters.ISO_MONTH_DAY);
     }
 
     public MonthDaySerializer(DateTimeFormatter formatter) {

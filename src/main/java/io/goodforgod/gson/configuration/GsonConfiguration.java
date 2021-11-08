@@ -13,17 +13,17 @@ import java.util.Properties;
  */
 public class GsonConfiguration {
 
-    private DateTimeFormatter instantFormat = DateTimeFormatters.INSTANT_ISO;
-    private DateTimeFormatter localDateFormat = DateTimeFormatters.LOCAL_DATE_ISO;
-    private DateTimeFormatter localTimeFormat = DateTimeFormatters.LOCAL_TIME_ISO;
-    private DateTimeFormatter localDateTimeFormat = DateTimeFormatters.LOCAL_DATE_TIME_ISO;
-    private DateTimeFormatter offsetTimeFormat = DateTimeFormatters.OFFSET_TIME_ISO;
-    private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatters.OFFSET_DATE_TIME_ISO;
-    private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatters.ZONED_DATE_TIME_ISO;
-    private DateTimeFormatter yearFormat = DateTimeFormatters.YEAR_ISO;
-    private DateTimeFormatter yearMonthFormat = DateTimeFormatters.YEAR_MONTH_ISO;
-    private DateTimeFormatter monthDayFormat = DateTimeFormatters.MONTH_DAY_ISO;
-    private String dateFormat = DateTimeFormatters.DATE_ISO;
+    private DateTimeFormatter instantFormat = DateTimeFormatters.ISO_INSTANT;
+    private DateTimeFormatter localDateFormat = DateTimeFormatters.ISO_LOCAL_DATE;
+    private DateTimeFormatter localTimeFormat = DateTimeFormatters.ISO_LOCAL_TIME;
+    private DateTimeFormatter localDateTimeFormat = DateTimeFormatters.ISO_LOCAL_DATE_TIME;
+    private DateTimeFormatter offsetTimeFormat = DateTimeFormatters.ISO_OFFSET_TIME;
+    private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatters.ISO_OFFSET_DATE_TIME;
+    private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatters.ISO_ZONED_DATE_TIME;
+    private DateTimeFormatter yearFormat = DateTimeFormatters.ISO_YEAR;
+    private DateTimeFormatter yearMonthFormat = DateTimeFormatters.ISO_YEAR_MONTH;
+    private DateTimeFormatter monthDayFormat = DateTimeFormatters.ISO_MONTH_DAY;
+    private String dateFormat = DateTimeFormatters.ISO_DATE;
 
     /**
      * @see GsonBuilder#setFieldNamingPolicy(FieldNamingPolicy)
