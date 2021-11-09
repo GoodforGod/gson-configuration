@@ -29,19 +29,26 @@ dependencies {
 
 Library include serializers & deserializers for most [java.time.*](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/package-summary.html)
 datetime objects, supported list:
+- Instant
 - LocalDate
 - LocalTime
 - LocalDateTime
-- Instant
 - OffsetTime
 - OffsetDateTime
 - ZonedDateTime
-- DayOfWeek
-- Month
 - Year
+- YearMonth  
+- Month
+- MonthDay
+- DayOfWeek
 - ZoneId
+- ZoneOffset
 
 All adapters register with **ISO8601** formatters by defaults, but you can register them manually with your formatter.
+
+## Patters and Formats
+
+
 
 ## Gson Configuration
 
@@ -50,7 +57,7 @@ Library provides configuration for configuring *GsonBuilder* for most properties
 ```java
 final GsonBuilder builder = new GsonConfiguration()
         .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-        .setInstantFormat("yyyy-MM-dd HH:mm:ss")
+        .setInstantFormat("uuuu-MM-dd HH:mm:ss")
         .setComplexMapKeySerialization(true)
         .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
         .setLongSerializationPolicy(LongSerializationPolicy.STRING)
@@ -66,7 +73,7 @@ final GsonBuilder builder = new GsonConfiguration()
 You can configure DateTimeFormatters for provided adapters:
 ```java
 final GsonBuilder builder = new GsonConfiguration()
-        .setInstantFormat("yyyy-MM-dd HH:mm:ss")
+        .setInstantFormat("uuuu-MM-dd HH:mm:ss")
         .builder();
 ```
 
@@ -93,6 +100,8 @@ gson.format.offsetTime=HH:mm:ss.SSSXXX
 gson.format.offsetDateTime=uuuu-MM-dd'T'HH:mm:ss.SSSXXX
 gson.format.zonedDateTime=uuuu-MM-dd'T'HH:mm:ss.SSSXXX
 gson.format.year=uuuu
+gson.format.yearMonth=uuuu-MM
+gson.format.monthDay=MM-dd
 gson.format.date=yyyy-MM-dd'T'HH:mm:ss.SSSXXX
 
 gson.lenient=true
