@@ -46,9 +46,19 @@ datetime objects, supported list:
 
 All adapters register with **ISO8601** formatters by defaults, but you can register them manually with your formatter.
 
-## Patters and Formats
+## Formats
 
+Gson Configuration by default comes with [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) with millis precision for all APIs:
 
+Here is list of default formatters for all *java.time.** APIs:
+- LocalDateTime - *uuuu-MM-dd'T'HH:mm:ss[.SSS]*
+- LocalDate - *uuuu-MM-dd*
+- LocalTime - *HH:mm:ss[.SSS]*
+- OffsetDateTime - *uuuu-MM-dd'T'HH:mm:ss[.SSS]XXX*
+- OffsetTime - *HH:mm:ss[.SSS]XXX*
+- ZonedDateTime - *uuuu-MM-dd'T'HH:mm:ss[.SSS]XXX[VV]*
+
+If you want to know more about Java Date & Time formats, you can [read more here](https://goodforgod.dev/posts/2/)
 
 ## Gson Configuration
 
@@ -145,7 +155,7 @@ GsonBuilder builder = new GsonBuilder()
 You can register with custom formatter also:
 ```java
 GsonBuilder builder = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateSerializer(DateTimeFormatters.LOCAL_DATE_ISO))
+        .registerTypeAdapter(LocalDate.class, new LocalDateSerializer(DateTimeFormatters.ISO_LOCAL_DATE))
 ```
 
 ## License
