@@ -22,7 +22,9 @@ public final class GsonAdapterBuilder {
                 .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthSerializer.INSTANCE)
                 .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
-                .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE);
+                .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
+                .registerTypeAdapter(ZoneOffset.class, ZoneOffsetDeserializer.INSTANCE)
+                .registerTypeAdapter(ZoneOffset.class, ZoneOffsetSerializer.INSTANCE);
     }
 
     public static GsonBuilder builder() {
