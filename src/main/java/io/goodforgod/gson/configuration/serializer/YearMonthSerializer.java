@@ -30,6 +30,6 @@ public class YearMonthSerializer implements JsonSerializer<YearMonth> {
 
     @Override
     public JsonElement serialize(YearMonth src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.format(formatter));
+        return new JsonPrimitive(formatter.format(src));
     }
 }

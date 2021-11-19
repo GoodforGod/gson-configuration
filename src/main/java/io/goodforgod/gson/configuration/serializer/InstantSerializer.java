@@ -30,6 +30,6 @@ public class InstantSerializer implements JsonSerializer<Instant> {
 
     @Override
     public JsonElement serialize(Instant src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.toFormat(Instant::from).format(src));
+        return new JsonPrimitive(formatter.format(src));
     }
 }

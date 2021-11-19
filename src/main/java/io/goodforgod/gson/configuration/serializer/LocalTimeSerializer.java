@@ -30,6 +30,6 @@ public class LocalTimeSerializer implements JsonSerializer<LocalTime> {
 
     @Override
     public JsonElement serialize(LocalTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.toFormat(LocalTime::from).format(src));
+        return new JsonPrimitive(formatter.format(src));
     }
 }

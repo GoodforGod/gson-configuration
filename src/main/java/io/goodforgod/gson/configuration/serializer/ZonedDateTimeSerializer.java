@@ -30,6 +30,6 @@ public class ZonedDateTimeSerializer implements JsonSerializer<ZonedDateTime> {
 
     @Override
     public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.toFormat(ZonedDateTime::from).format(src));
+        return new JsonPrimitive(formatter.format(src));
     }
 }

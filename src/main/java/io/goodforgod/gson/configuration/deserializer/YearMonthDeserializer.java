@@ -31,7 +31,7 @@ public class YearMonthDeserializer implements JsonDeserializer<YearMonth> {
     @Override
     public YearMonth deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
-            return YearMonth.parse(json.getAsString(), formatter);
+            return formatter.parse(json.getAsString()).query(YearMonth::from);
         } catch (Exception e) {
             throw new JsonParseException(e);
         }

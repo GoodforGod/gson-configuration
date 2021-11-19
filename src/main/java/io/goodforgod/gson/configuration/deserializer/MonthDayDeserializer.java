@@ -30,7 +30,7 @@ public class MonthDayDeserializer implements JsonDeserializer<MonthDay> {
         try {
             if (json instanceof JsonPrimitive) {
                 final String monthAsJson = json.getAsString();
-                return MonthDay.parse(monthAsJson, formatter);
+                return formatter.parse(monthAsJson).query(MonthDay::from);
             }
         } catch (Exception e) {
             throw new JsonParseException(e);

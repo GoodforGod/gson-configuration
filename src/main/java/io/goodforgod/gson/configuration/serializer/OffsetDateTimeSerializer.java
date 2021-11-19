@@ -30,6 +30,6 @@ public class OffsetDateTimeSerializer implements JsonSerializer<OffsetDateTime> 
 
     @Override
     public JsonElement serialize(OffsetDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.toFormat(OffsetDateTime::from).format(src));
+        return new JsonPrimitive(formatter.format(src));
     }
 }
