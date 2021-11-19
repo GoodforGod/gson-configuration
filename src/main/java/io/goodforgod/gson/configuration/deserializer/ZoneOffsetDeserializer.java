@@ -5,21 +5,21 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 /**
- * @see ZoneId
+ * @see ZoneOffset
  * @author Anton Kurako (GoodforGod)
- * @since 25.04.2021
+ * @since 06.11.2021
  */
-public class ZoneIdDeserializer implements JsonDeserializer<ZoneId> {
+public class ZoneOffsetDeserializer implements JsonDeserializer<ZoneOffset> {
 
-    public static final ZoneIdDeserializer INSTANCE = new ZoneIdDeserializer();
+    public static final ZoneOffsetDeserializer INSTANCE = new ZoneOffsetDeserializer();
 
     @Override
-    public ZoneId deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public ZoneOffset deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
-            return ZoneId.of(json.getAsString());
+            return ZoneOffset.of(json.getAsString());
         } catch (Exception e) {
             throw new JsonParseException(e);
         }

@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
@@ -67,7 +68,7 @@ class GsonConfigurationTests extends Assertions {
     void configBuilderFailForFormatter() {
         try {
             final GsonBuilder builder = new GsonConfiguration()
-                    .setInstantFormat("yyyy-MM-dddd HHHH:mm:ss")
+                    .setInstantFormat(DateTimeFormatter.ofPattern("uuuu-MM-dddd HHHH:mm:ss"))
                     .builder();
         } catch (IllegalArgumentException e) {
             assertFalse(e.getMessage().isEmpty());
@@ -77,8 +78,8 @@ class GsonConfigurationTests extends Assertions {
     @Test
     void configBuilderPropertiesValid() {
         final GsonBuilder builder = new GsonConfiguration()
-                .setDateFormat(GsonConfiguration.DATE_ISO_8601_PATTERN)
-                .setInstantFormat("yyyy-MM-dd HH:mm:ss")
+                .setDateFormat(DateTimeFormatters.ISO_DATE)
+                .setInstantFormat(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"))
                 .setComplexMapKeySerialization(true)
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .setLongSerializationPolicy(LongSerializationPolicy.STRING)

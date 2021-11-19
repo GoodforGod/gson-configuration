@@ -1,6 +1,10 @@
 package io.goodforgod.gson.configuration.serializer;
 
-import com.google.gson.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +16,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class OffsetDateTimeSerializer implements JsonSerializer<OffsetDateTime> {
 
+    public static final OffsetDateTimeSerializer INSTANCE = new OffsetDateTimeSerializer();
+
     private final DateTimeFormatter formatter;
 
     public OffsetDateTimeSerializer() {
-        this(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        this(DateTimeFormatters.ISO_OFFSET_DATE_TIME);
     }
 
     public OffsetDateTimeSerializer(DateTimeFormatter formatter) {
@@ -24,6 +30,6 @@ public class OffsetDateTimeSerializer implements JsonSerializer<OffsetDateTime> 
 
     @Override
     public JsonElement serialize(OffsetDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.toFormat(OffsetDateTime::from).format(src));
+        return new JsonPrimitive(formatter.format(src));
     }
 }

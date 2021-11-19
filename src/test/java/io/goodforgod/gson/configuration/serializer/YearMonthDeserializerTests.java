@@ -3,8 +3,8 @@ package io.goodforgod.gson.configuration.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.deserializer.ZoneIdDeserializer;
-import java.time.ZoneId;
+import io.goodforgod.gson.configuration.deserializer.YearMonthDeserializer;
+import java.time.YearMonth;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +12,12 @@ import org.junit.jupiter.api.Test;
  * @author Anton Kurako (GoodforGod)
  * @since 27.04.2021
  */
-class ZoneIdDeserializerTests extends Assertions {
+class YearMonthDeserializerTests extends Assertions {
 
     static class User {
 
         private String name;
-        private ZoneId value;
+        private YearMonth value;
 
         public String getName() {
             return name;
@@ -27,42 +27,52 @@ class ZoneIdDeserializerTests extends Assertions {
             this.name = name;
         }
 
-        public ZoneId getValue() {
+        public YearMonth getValue() {
             return value;
         }
 
-        public void setValue(ZoneId value) {
+        public void setValue(YearMonth value) {
             this.value = value;
         }
     }
 
-    private static final ZoneId VALUE_TIME = ZoneId.of("UTC");
-    private static final String VALUE = "UTC";
+    private static final YearMonth VALUE = YearMonth.of(2000, 1);
+    private static final String VALUE_AS_STRING = "2000-01";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
-            .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
+            .registerTypeAdapter(YearMonth.class, YearMonthSerializer.INSTANCE)
+            .registerTypeAdapter(YearMonth.class, YearMonthDeserializer.INSTANCE)
             .create();
 
     @Test
     void serializationIsValid() {
         final User user = new User();
         user.setName("Bob");
-        user.setValue(VALUE_TIME);
+        user.setValue(VALUE);
 
         final String json = adapter.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
+        assertTrue(json.contains("\"value\":\"" + VALUE_AS_STRING + "\""), json);
     }
 
     @Test
-    void deserializationIsValid() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE + "\"}";
+    void deserializationFromIntIsValid() {
+        final String json = "{\"name\":\"Bob\",\"value\":" + VALUE_AS_STRING + "}";
 
         final User user = adapter.fromJson(json, User.class);
         assertNotNull(user);
         assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME, user.getValue());
+        assertEquals(VALUE, user.getValue());
+    }
+
+    @Test
+    void deserializationFromStringIsValid() {
+        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_AS_STRING + "\"}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE, user.getValue());
     }
 
     @Test

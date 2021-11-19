@@ -15,17 +15,20 @@ class GsonAdapterBuilderTests extends Assertions {
     static class User {
 
         private final Date value = new Date(0);
-        private final Instant instant = Instant.EPOCH;
-        private final LocalTime localTime = LocalTime.NOON;
-        private final LocalDate localDate = LocalDate.EPOCH;
-        private final LocalDateTime localDateTime = LocalDateTime.MIN;
-        private final OffsetTime offsetTime = OffsetTime.MIN;
-        private final OffsetDateTime offsetDateTime = OffsetDateTime.MIN;
+        private final Instant instant = Instant.now();
+        private final LocalTime localTime = LocalTime.now();
+        private final LocalDate localDate = LocalDate.now();
+        private final LocalDateTime localDateTime = LocalDateTime.now();
+        private final OffsetTime offsetTime = OffsetTime.now();
+        private final OffsetDateTime offsetDateTime = OffsetDateTime.now();
         private final ZonedDateTime zonedDateTime = ZonedDateTime.now();
         private final Month month = Month.APRIL;
         private final Year year = Year.of(2000);
+        private final YearMonth yearMonth = YearMonth.of(2000, 1);
+        private final MonthDay monthDay = MonthDay.of(1, 1);
         private final DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
         private final ZoneId zoneId = ZoneId.of("UTC");
+        private final ZoneOffset zoneOffset = ZoneOffset.of("+02:00");
 
         public Date getValue() {
             return value;
@@ -67,12 +70,24 @@ class GsonAdapterBuilderTests extends Assertions {
             return year;
         }
 
+        public YearMonth getYearMonth() {
+            return yearMonth;
+        }
+
+        public MonthDay getMonthDay() {
+            return monthDay;
+        }
+
         public DayOfWeek getDayOfWeek() {
             return dayOfWeek;
         }
 
         public ZoneId getZoneId() {
             return zoneId;
+        }
+
+        public ZoneOffset getZoneOffset() {
+            return zoneOffset;
         }
     }
 
@@ -94,6 +109,9 @@ class GsonAdapterBuilderTests extends Assertions {
         assertTrue(json.contains("dayOfWeek"));
         assertTrue(json.contains("month"));
         assertTrue(json.contains("year"));
+        assertTrue(json.contains("yearMonth"));
+        assertTrue(json.contains("monthDay"));
         assertTrue(json.contains("zoneId"));
+        assertTrue(json.contains("zoneOffset"));
     }
 }

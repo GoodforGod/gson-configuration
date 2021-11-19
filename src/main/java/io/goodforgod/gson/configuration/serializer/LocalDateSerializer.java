@@ -1,6 +1,10 @@
 package io.goodforgod.gson.configuration.serializer;
 
-import com.google.gson.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +16,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateSerializer implements JsonSerializer<LocalDate> {
 
+    public static final LocalDateSerializer INSTANCE = new LocalDateSerializer();
+
     private final DateTimeFormatter formatter;
 
     public LocalDateSerializer() {
-        this(DateTimeFormatter.ISO_LOCAL_DATE);
+        this(DateTimeFormatters.ISO_LOCAL_DATE);
     }
 
     public LocalDateSerializer(DateTimeFormatter formatter) {
@@ -24,6 +30,6 @@ public class LocalDateSerializer implements JsonSerializer<LocalDate> {
 
     @Override
     public JsonElement serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.toFormat(LocalDate::from).format(src));
+        return new JsonPrimitive(formatter.format(src));
     }
 }

@@ -5,19 +5,19 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 /**
- * @see ZoneId
+ * @see ZoneOffset
  * @author Anton Kurako (GoodforGod)
- * @since 25.04.2021
+ * @since 06.11.2021
  */
-public class ZoneIdSerializer implements JsonSerializer<ZoneId> {
+public class ZoneOffsetSerializer implements JsonSerializer<ZoneOffset> {
 
-    public static final ZoneIdSerializer INSTANCE = new ZoneIdSerializer();
+    public static final ZoneOffsetSerializer INSTANCE = new ZoneOffsetSerializer();
 
     @Override
-    public JsonElement serialize(ZoneId src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(ZoneOffset src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(src.getId());
     }
 }

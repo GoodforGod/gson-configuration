@@ -40,15 +40,18 @@ class OffsetDateTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "uuuu:MM:dd'T'HH-mm-ssxxx";
-    private static final String CUSTOM_VALUE = "1970:01:01T00-00-00+00:00";
+    private static final String CUSTOM_ISO = "uuuu-MM-dd'T'HH-mm-ss.SSSXXX";
+    private static final String CUSTOM_VALUE = "1970-01-01T00-00-00.000Z";
 
-    private static final OffsetDateTime VALUE_TIME = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC"));
-    private static final String VALUE = "1970-01-01T00:00:00Z";
+    private static final OffsetDateTime VALUE_TYPE = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC"));
+    private static final String VALUE_STR = "1970-01-01T00:00:00.000Z";
+
+    private static final OffsetDateTime VALUE_TYPE_MOSCOW = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneId.of("+03:00"));
+    private static final String VALUE_STR_MOSCOW = "1970-01-01T03:00:00.000+03:00";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeSerializer())
-            .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeDeserializer())
+            .registerTypeAdapter(OffsetDateTime.class, OffsetDateTimeSerializer.INSTANCE)
+            .registerTypeAdapter(OffsetDateTime.class, OffsetDateTimeDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()
@@ -60,32 +63,42 @@ class OffsetDateTimeDeserializerTests extends Assertions {
     void serializationIsValidForIso() {
         final User user = new User();
         user.setName("Bob");
-        user.setValue(VALUE_TIME);
+        user.setValue(VALUE_TYPE);
 
         final String json = adapter.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
-    }
-
-    @Test
-    void serializationIsValidForCustomFormatter() {
-        final User user = new User();
-        user.setName("Bob");
-        user.setValue(VALUE_TIME);
-
-        final String json = adapterCustom.toJson(user);
-        assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + CUSTOM_VALUE + "\""), json);
+        assertTrue(json.contains("\"value\":\"" + VALUE_STR + "\""), json);
     }
 
     @Test
     void deserializationIsValidForIso() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE + "\"}";
+        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_STR + "\"}";
 
         final User user = adapter.fromJson(json, User.class);
         assertNotNull(user);
         assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME, user.getValue());
+        assertEquals(VALUE_TYPE, user.getValue());
+    }
+
+    @Test
+    void serializationIsValidForIsoMoscow() {
+        final User user = new User();
+        user.setName("Bob");
+        user.setValue(VALUE_TYPE_MOSCOW);
+
+        final String json = adapter.toJson(user);
+        assertNotNull(json);
+        assertTrue(json.contains("\"value\":\"" + VALUE_STR_MOSCOW + "\""), json);
+    }
+
+    @Test
+    void deserializationIsValidForIsoMoscow() {
+        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_STR_MOSCOW + "\"}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE_TYPE_MOSCOW, user.getValue());
     }
 
     @Test
@@ -101,12 +114,23 @@ class OffsetDateTimeDeserializerTests extends Assertions {
     }
 
     @Test
+    void serializationIsValidForCustomFormatter() {
+        final User user = new User();
+        user.setName("Bob");
+        user.setValue(VALUE_TYPE);
+
+        final String json = adapterCustom.toJson(user);
+        assertNotNull(json);
+        assertTrue(json.contains("\"value\":\"" + CUSTOM_VALUE + "\""), json);
+    }
+
+    @Test
     void deserializationIsValidForCustomFormatter() {
         final String json = "{\"name\":\"Bob\",\"value\":\"" + CUSTOM_VALUE + "\"}";
 
         final User user = adapterCustom.fromJson(json, User.class);
         assertNotNull(user);
         assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME, user.getValue());
+        assertEquals(VALUE_TYPE, user.getValue());
     }
 }

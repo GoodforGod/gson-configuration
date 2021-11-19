@@ -40,15 +40,15 @@ class LocalDateTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "yyyy-MM-dd HH:mm:ss";
-    private static final String CUSTOM_VALUE = "1970-01-01 00:00:00";
+    private static final String CUSTOM_ISO = "uuuu-MM-dd'T'HH-mm-ss.SSS";
+    private static final String CUSTOM_VALUE = "1970-01-01T00-00-00.000";
 
     private static final LocalDateTime VALUE_TIME = LocalDateTime.ofInstant(Instant.EPOCH, ZoneOffset.UTC);
-    private static final String VALUE = "1970-01-01T00:00:00";
+    private static final String VALUE = "1970-01-01T00:00:00.000";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
-            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer())
+            .registerTypeAdapter(LocalDateTime.class, LocalDateTimeSerializer.INSTANCE)
+            .registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()

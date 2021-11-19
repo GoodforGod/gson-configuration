@@ -38,32 +38,23 @@ class LocalTimeDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "HH-mm-ss";
-    private static final String CUSTOM_VALUE = "00-00-00";
+    private static final String SHORT_VALUE = "00:00:00";
+
+    private static final String CUSTOM_ISO = "HH:mm:ss.SSS";
+    private static final String CUSTOM_VALUE = "00:00:00.000";
 
     private static final LocalTime VALUE_TIME = LocalTime.MIN;
-    private static final String VALUE = "00:00:00";
+    private static final String VALUE = "00:00:00.000";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(LocalTime.class, new LocalTimeSerializer())
-            .registerTypeAdapter(LocalTime.class, new LocalTimeDeserializer())
+            .registerTypeAdapter(LocalTime.class, LocalTimeSerializer.INSTANCE)
+            .registerTypeAdapter(LocalTime.class, LocalTimeDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()
             .registerTypeAdapter(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)))
             .registerTypeAdapter(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)))
             .create();
-
-    @Test
-    void serializationIsValidForIso() {
-        final User user = new User();
-        user.setName("Bob");
-        user.setValue(VALUE_TIME);
-
-        final String json = adapter.toJson(user);
-        assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
-    }
 
     @Test
     void serializationIsValidForCustomFormatter() {
@@ -74,6 +65,27 @@ class LocalTimeDeserializerTests extends Assertions {
         final String json = adapterCustom.toJson(user);
         assertNotNull(json);
         assertTrue(json.contains("\"value\":\"" + CUSTOM_VALUE + "\""), json);
+    }
+
+    @Test
+    void deserializationIsValidForIsoShort() {
+        final String json = "{\"name\":\"Bob\",\"value\":\"" + SHORT_VALUE + "\"}";
+
+        final User user = adapter.fromJson(json, User.class);
+        assertNotNull(user);
+        assertEquals("Bob", user.getName());
+        assertEquals(VALUE_TIME, user.getValue());
+    }
+
+    @Test
+    void serializationIsValidForIso() {
+        final User user = new User();
+        user.setName("Bob");
+        user.setValue(VALUE_TIME);
+
+        final String json = adapter.toJson(user);
+        assertNotNull(json);
+        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
     }
 
     @Test

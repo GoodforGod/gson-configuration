@@ -38,15 +38,15 @@ class InstantDeserializerTests extends Assertions {
         }
     }
 
-    private static final String CUSTOM_ISO = "yyyy-MM-dd HH:mm:ss";
+    private static final String CUSTOM_ISO = "uuuu-MM-dd HH:mm:ss";
     private static final String CUSTOM_VALUE = "1970-01-01 00:00:00";
 
     private static final Instant VALUE_TIME = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC")).toInstant();
     private static final String VALUE = "1970-01-01T00:00:00Z";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(Instant.class, new InstantSerializer())
-            .registerTypeAdapter(Instant.class, new InstantDeserializer())
+            .registerTypeAdapter(Instant.class, InstantSerializer.INSTANCE)
+            .registerTypeAdapter(Instant.class, InstantDeserializer.INSTANCE)
             .create();
 
     private final Gson adapterCustom = new GsonBuilder()

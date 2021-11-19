@@ -6,32 +6,32 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
-import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @see LocalTime
+ * @see YearMonth
  * @author Anton Kurako (GoodforGod)
- * @since 25.04.2021
+ * @since 06.11.2021
  */
-public class LocalTimeDeserializer implements JsonDeserializer<LocalTime> {
+public class YearMonthDeserializer implements JsonDeserializer<YearMonth> {
 
-    public static final LocalTimeDeserializer INSTANCE = new LocalTimeDeserializer();
+    public static final YearMonthDeserializer INSTANCE = new YearMonthDeserializer();
 
     private final DateTimeFormatter formatter;
 
-    public LocalTimeDeserializer() {
-        this(DateTimeFormatters.ISO_LOCAL_TIME);
+    public YearMonthDeserializer() {
+        this(DateTimeFormatters.ISO_YEAR_MONTH);
     }
 
-    public LocalTimeDeserializer(DateTimeFormatter formatter) {
+    public YearMonthDeserializer(DateTimeFormatter formatter) {
         this.formatter = formatter;
     }
 
     @Override
-    public LocalTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public YearMonth deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
-            return formatter.parse(json.getAsString()).query(LocalTime::from);
+            return formatter.parse(json.getAsString()).query(YearMonth::from);
         } catch (Exception e) {
             throw new JsonParseException(e);
         }

@@ -11,6 +11,8 @@ import java.time.DayOfWeek;
  */
 public class DayOfWeekDeserializer implements JsonDeserializer<DayOfWeek> {
 
+    public static final DayOfWeekDeserializer INSTANCE = new DayOfWeekDeserializer();
+
     private static final DayOfWeek[] DAY_OF_WEEKS = DayOfWeek.values();
 
     @Override
@@ -30,12 +32,10 @@ public class DayOfWeekDeserializer implements JsonDeserializer<DayOfWeek> {
 
                 return DayOfWeek.of(Integer.parseInt(json.getAsString()));
             }
-
-            throw new JsonParseException("DayOfWeek can not be parsed from: " + json.getAsString());
-        } catch (JsonParseException e) {
-            throw e;
         } catch (Exception e) {
             throw new JsonParseException(e);
         }
+
+        throw new JsonParseException("DayOfWeek can not be parsed from: " + json.getAsString());
     }
 }

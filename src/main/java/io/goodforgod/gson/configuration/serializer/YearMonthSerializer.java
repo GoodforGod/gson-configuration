@@ -6,30 +6,30 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
-import java.time.Year;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @see Year
+ * @see YearMonth
  * @author Anton Kurako (GoodforGod)
- * @since 25.04.2021
+ * @since 06.11.2021
  */
-public class YearSerializer implements JsonSerializer<Year> {
+public class YearMonthSerializer implements JsonSerializer<YearMonth> {
 
-    public static final YearSerializer INSTANCE = new YearSerializer();
+    public static final YearMonthSerializer INSTANCE = new YearMonthSerializer();
 
     private final DateTimeFormatter formatter;
 
-    public YearSerializer() {
-        this(DateTimeFormatters.ISO_YEAR);
+    public YearMonthSerializer() {
+        this(DateTimeFormatters.ISO_YEAR_MONTH);
     }
 
-    public YearSerializer(DateTimeFormatter formatter) {
+    public YearMonthSerializer(DateTimeFormatter formatter) {
         this.formatter = formatter;
     }
 
     @Override
-    public JsonElement serialize(Year src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(YearMonth src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(formatter.format(src));
     }
 }

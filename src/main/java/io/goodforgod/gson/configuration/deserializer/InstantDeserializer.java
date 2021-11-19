@@ -1,6 +1,10 @@
 package io.goodforgod.gson.configuration.deserializer;
 
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -12,10 +16,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class InstantDeserializer implements JsonDeserializer<Instant> {
 
+    public static final InstantDeserializer INSTANCE = new InstantDeserializer();
+
     private final DateTimeFormatter formatter;
 
     public InstantDeserializer() {
-        this(DateTimeFormatter.ISO_INSTANT);
+        this(DateTimeFormatters.ISO_INSTANT);
     }
 
     public InstantDeserializer(DateTimeFormatter formatter) {

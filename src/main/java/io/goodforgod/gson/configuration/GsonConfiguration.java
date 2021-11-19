@@ -4,9 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
 import java.text.SimpleDateFormat;
-import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -15,52 +13,17 @@ import java.util.Properties;
  */
 public class GsonConfiguration {
 
-    /**
-     * ISO 8601 for {@link java.util.Date}
-     */
-    static final String DATE_ISO_8601_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-
-    /**
-     * yyyy-MM-dd'T'HH:mm:ssX
-     */
-    private DateTimeFormatter instantFormat = DateTimeFormatter.ISO_INSTANT;
-
-    /**
-     * yyyy-MM-dd
-     */
-    private DateTimeFormatter localDateFormat = DateTimeFormatter.ISO_LOCAL_DATE;
-
-    /**
-     * HH:mm:ss
-     */
-    private DateTimeFormatter localTimeFormat = DateTimeFormatter.ISO_LOCAL_TIME;
-
-    /**
-     * yyyy-MM-dd'T'HH:mm:ss
-     */
-    private DateTimeFormatter localDateTimeFormat = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-    /**
-     * HH:mm:ss.SSSXXX
-     */
-    private DateTimeFormatter offsetTimeFormat = DateTimeFormatter.ISO_OFFSET_TIME;
-
-    /**
-     * yyyy-MM-dd'T'HH:mm:ss.SSSXXX
-     */
-    private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-
-    /**
-     * yyyy-MM-dd'T'HH:mm:ss.SSSXXX[VV]
-     */
-    private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatter.ISO_ZONED_DATE_TIME;
-
-    /**
-     * yyyy
-     */
-    private DateTimeFormatter yearFormat = DateTimeFormatter.ofPattern("yyyy");
-
-    private String dateFormat = DATE_ISO_8601_PATTERN;
+    private DateTimeFormatter instantFormat = DateTimeFormatters.ISO_INSTANT;
+    private DateTimeFormatter localDateFormat = DateTimeFormatters.ISO_LOCAL_DATE;
+    private DateTimeFormatter localTimeFormat = DateTimeFormatters.ISO_LOCAL_TIME;
+    private DateTimeFormatter localDateTimeFormat = DateTimeFormatters.ISO_LOCAL_DATE_TIME;
+    private DateTimeFormatter offsetTimeFormat = DateTimeFormatters.ISO_OFFSET_TIME;
+    private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatters.ISO_OFFSET_DATE_TIME;
+    private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatters.ISO_ZONED_DATE_TIME;
+    private DateTimeFormatter yearFormat = DateTimeFormatters.ISO_YEAR;
+    private DateTimeFormatter yearMonthFormat = DateTimeFormatters.ISO_YEAR_MONTH;
+    private DateTimeFormatter monthDayFormat = DateTimeFormatters.ISO_MONTH_DAY;
+    private String dateFormat = DateTimeFormatters.ISO_DATE;
 
     /**
      * @see GsonBuilder#setFieldNamingPolicy(FieldNamingPolicy)
@@ -116,6 +79,8 @@ public class GsonConfiguration {
         final String formatOffsetDateTime = properties.getProperty(GsonProperties.FORMAT_OFFSET_DATE_TIME);
         final String formatZonedDateTime = properties.getProperty(GsonProperties.FORMAT_ZONED_DATE_TIME);
         final String formatYear = properties.getProperty(GsonProperties.FORMAT_YEAR);
+        final String formatYearMonth = properties.getProperty(GsonProperties.FORMAT_YEAR_MONTH);
+        final String formatMonthDay = properties.getProperty(GsonProperties.FORMAT_MONTH_DAY);
         final String formatDate = properties.getProperty(GsonProperties.FORMAT_DATE);
 
         final String fieldNamingPolicy = properties.getProperty(GsonProperties.POLICY_FIELD_NAMING);
@@ -148,6 +113,10 @@ public class GsonConfiguration {
             configuration.setZonedDateTimeFormat(formatZonedDateTime);
         if (formatYear != null)
             configuration.setYearFormat(formatYear);
+        if (formatYearMonth != null)
+            configuration.setYearMonthFormat(formatYearMonth);
+        if (formatMonthDay != null)
+            configuration.setMonthDayFormat(formatMonthDay);
         if (formatDate != null)
             configuration.setDateFormat(formatDate);
 
@@ -175,7 +144,7 @@ public class GsonConfiguration {
     }
 
     public GsonBuilder builder() {
-        final GsonBuilder builder = GsonAdapterBuilder.builder()
+        final GsonBuilder builder = GsonAdapterBuilder.builder(this)
                 .setDateFormat(getDateFormat())
                 .setLongSerializationPolicy(getLongSerializationPolicy())
                 .setFieldNamingPolicy(getFieldNamingPolicy());
@@ -297,73 +266,129 @@ public class GsonConfiguration {
         return instantFormat;
     }
 
-    public GsonConfiguration setInstantFormat(String instantFormat) {
-        this.instantFormat = DateTimeFormatter.ofPattern(instantFormat)
-                .withLocale(Locale.ENGLISH)
-                .withZone(ZoneOffset.UTC);
+    public GsonConfiguration setInstantFormat(DateTimeFormatter instantFormat) {
+        this.instantFormat = instantFormat;
         return this;
+    }
+
+    public GsonConfiguration setInstantFormat(String instantPattern) {
+        return setInstantFormat(DateTimeFormatter.ofPattern(instantPattern));
     }
 
     public DateTimeFormatter getLocalDateFormat() {
         return localDateFormat;
     }
 
-    public GsonConfiguration setLocalDateFormat(String localDateFormat) {
-        this.localDateFormat = DateTimeFormatter.ofPattern(localDateFormat);
+    public GsonConfiguration setLocalDateFormat(DateTimeFormatter localDateFormat) {
+        this.localDateFormat = localDateFormat;
         return this;
+    }
+
+    public GsonConfiguration setLocalDateFormat(String localDatePattern) {
+        return setLocalDateFormat(DateTimeFormatter.ofPattern(localDatePattern));
     }
 
     public DateTimeFormatter getLocalTimeFormat() {
         return localTimeFormat;
     }
 
-    public GsonConfiguration setLocalTimeFormat(String localTimeFormat) {
-        this.localTimeFormat = DateTimeFormatter.ofPattern(localTimeFormat);
+    public GsonConfiguration setLocalTimeFormat(DateTimeFormatter localTimeFormat) {
+        this.localTimeFormat = localTimeFormat;
         return this;
+    }
+
+    public GsonConfiguration setLocalTimeFormat(String localTimePattern) {
+        return setLocalTimeFormat(DateTimeFormatter.ofPattern(localTimePattern));
     }
 
     public DateTimeFormatter getLocalDateTimeFormat() {
         return localDateTimeFormat;
     }
 
-    public GsonConfiguration setLocalDateTimeFormat(String localDateTimeFormat) {
-        this.localDateTimeFormat = DateTimeFormatter.ofPattern(localDateTimeFormat);
+    public GsonConfiguration setLocalDateTimeFormat(DateTimeFormatter localDateTimeFormat) {
+        this.localDateTimeFormat = localDateTimeFormat;
         return this;
+    }
+
+    public GsonConfiguration setLocalDateTimeFormat(String localDateTimePattern) {
+        return setLocalDateTimeFormat(DateTimeFormatter.ofPattern(localDateTimePattern));
     }
 
     public DateTimeFormatter getOffsetTimeFormat() {
         return offsetTimeFormat;
     }
 
-    public GsonConfiguration setOffsetTimeFormat(String offsetTimeFormat) {
-        this.offsetTimeFormat = DateTimeFormatter.ofPattern(offsetTimeFormat);
+    public GsonConfiguration setOffsetTimeFormat(DateTimeFormatter offsetTimeFormat) {
+        this.offsetTimeFormat = offsetTimeFormat;
         return this;
+    }
+
+    public GsonConfiguration setOffsetTimeFormat(String offsetTimePattern) {
+        return setOffsetTimeFormat(DateTimeFormatter.ofPattern(offsetTimePattern));
     }
 
     public DateTimeFormatter getOffsetDateTimeFormat() {
         return offsetDateTimeFormat;
     }
 
-    public GsonConfiguration setOffsetDateTimeFormat(String offsetDateTimeFormat) {
-        this.offsetDateTimeFormat = DateTimeFormatter.ofPattern(offsetDateTimeFormat);
+    public GsonConfiguration setOffsetDateTimeFormat(DateTimeFormatter offsetDateTimeFormat) {
+        this.offsetDateTimeFormat = offsetDateTimeFormat;
         return this;
+    }
+
+    public GsonConfiguration setOffsetDateTimeFormat(String offsetDateTimePattern) {
+        return setOffsetDateTimeFormat(DateTimeFormatter.ofPattern(offsetDateTimePattern));
     }
 
     public DateTimeFormatter getZonedDateTimeFormat() {
         return zonedDateTimeFormat;
     }
 
-    public GsonConfiguration setZonedDateTimeFormat(String zonedDateTimeFormat) {
-        this.zonedDateTimeFormat = DateTimeFormatter.ofPattern(zonedDateTimeFormat);
+    public GsonConfiguration setZonedDateTimeFormat(DateTimeFormatter zonedDateTimeFormat) {
+        this.zonedDateTimeFormat = zonedDateTimeFormat;
         return this;
+    }
+
+    public GsonConfiguration setZonedDateTimeFormat(String zonedDateTimePattern) {
+        return setZonedDateTimeFormat(DateTimeFormatter.ofPattern(zonedDateTimePattern));
     }
 
     public DateTimeFormatter getYearFormat() {
         return yearFormat;
     }
 
-    public GsonConfiguration setYearFormat(String yearFormat) {
-        this.yearFormat = DateTimeFormatter.ofPattern(yearFormat);
+    public GsonConfiguration setYearFormat(DateTimeFormatter yearFormat) {
+        this.yearFormat = yearFormat;
         return this;
+    }
+
+    public GsonConfiguration setYearFormat(String yearPattern) {
+        return setYearFormat(DateTimeFormatter.ofPattern(yearPattern));
+    }
+
+    public DateTimeFormatter getYearMonthFormat() {
+        return yearMonthFormat;
+    }
+
+    public GsonConfiguration setYearMonthFormat(DateTimeFormatter yearMonthFormat) {
+        this.yearMonthFormat = yearMonthFormat;
+        return this;
+    }
+
+    public GsonConfiguration setYearMonthFormat(String yearMonthPattern) {
+        return setYearMonthFormat(DateTimeFormatter.ofPattern(yearMonthPattern));
+    }
+
+    public DateTimeFormatter getMonthDayFormat() {
+        return monthDayFormat;
+    }
+
+    public GsonConfiguration setMonthDayFormat(DateTimeFormatter monthDayFormat) {
+        this.monthDayFormat = monthDayFormat;
+        return this;
+    }
+
+    public GsonConfiguration setMonthDayFormat(String monthDayPattern) {
+        return setMonthDayFormat(DateTimeFormatter.ofPattern(monthDayPattern));
     }
 }

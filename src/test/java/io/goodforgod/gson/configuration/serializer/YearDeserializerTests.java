@@ -40,8 +40,8 @@ class YearDeserializerTests extends Assertions {
     private static final String VALUE = "2000";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(Year.class, new YearSerializer())
-            .registerTypeAdapter(Year.class, new YearDeserializer())
+            .registerTypeAdapter(Year.class, YearSerializer.INSTANCE)
+            .registerTypeAdapter(Year.class, YearDeserializer.INSTANCE)
             .create();
 
     @Test

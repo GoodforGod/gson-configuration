@@ -1,10 +1,14 @@
-package io.goodforgod.gson.configuration.serializer;
+package io.goodforgod.gson.configuration;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.deserializer.ZoneIdDeserializer;
-import java.time.ZoneId;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +16,12 @@ import org.junit.jupiter.api.Test;
  * @author Anton Kurako (GoodforGod)
  * @since 27.04.2021
  */
-class ZoneIdDeserializerTests extends Assertions {
+class TimestampPatternTests extends Assertions {
 
     static class User {
 
         private String name;
-        private ZoneId value;
+        private Timestamp value;
 
         public String getName() {
             return name;
@@ -27,21 +31,21 @@ class ZoneIdDeserializerTests extends Assertions {
             this.name = name;
         }
 
-        public ZoneId getValue() {
+        public Timestamp getValue() {
             return value;
         }
 
-        public void setValue(ZoneId value) {
+        public void setValue(Timestamp value) {
             this.value = value;
         }
     }
 
-    private static final ZoneId VALUE_TIME = ZoneId.of("UTC");
-    private static final String VALUE = "UTC";
+    private static final Timestamp VALUE_TIME = Timestamp
+            .from(LocalDateTime.ofInstant(Instant.EPOCH, ZoneOffset.UTC).toInstant(ZoneOffset.UTC));
+    private static final String VALUE = "1970-01-01T00:00:00.000Z";
 
     private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
-            .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
+            .setDateFormat(DateTimeFormatters.ISO_DATE)
             .create();
 
     @Test
@@ -52,7 +56,10 @@ class ZoneIdDeserializerTests extends Assertions {
 
         final String json = adapter.toJson(user);
         assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
+
+        final Pattern pattern = Pattern.compile("\"value\":\"1970-01-01T\\d\\d:00:00\\.000(Z|\\+\\d\\d:00)\"");
+        final Matcher matcher = pattern.matcher(json);
+        assertTrue(matcher.find(), json);
     }
 
     @Test

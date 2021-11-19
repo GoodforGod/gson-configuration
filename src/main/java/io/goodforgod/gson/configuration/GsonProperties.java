@@ -18,6 +18,8 @@ public final class GsonProperties {
     public static final String FORMAT_OFFSET_DATE_TIME = PREFIX + "format.offsetDateTime";
     public static final String FORMAT_ZONED_DATE_TIME = PREFIX + "format.zonedDateTime";
     public static final String FORMAT_YEAR = PREFIX + "format.year";
+    public static final String FORMAT_YEAR_MONTH = PREFIX + "format.yearMonth";
+    public static final String FORMAT_MONTH_DAY = PREFIX + "format.monthDay";
     public static final String FORMAT_DATE = PREFIX + "format.date";
 
     public static final String LENIENT = PREFIX + "lenient";
