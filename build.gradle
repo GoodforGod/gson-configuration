@@ -24,7 +24,8 @@ spotless {
         encoding("UTF-8")
         importOrder()
         removeUnusedImports()
-        eclipse().configFile("${projectDir}/config/codestyle.xml")
+//        eclipse().configFile("${projectDir}/config/codestyle.xml")
+        googleJavaFormat()
     }
 }
 

@@ -14,10 +14,10 @@ import java.time.Month;
  */
 public class MonthSerializer implements JsonSerializer<Month> {
 
-    public static final MonthSerializer INSTANCE = new MonthSerializer();
+  public static final MonthSerializer INSTANCE = new MonthSerializer();
 
-    @Override
-    public JsonElement serialize(Month src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.name());
-    }
+  @Override
+  public JsonElement serialize(Month src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(src.name());
+  }
 }

@@ -13,27 +13,26 @@ import java.util.Properties;
  */
 public class GsonFactory {
 
-    private static final String PROPERTY_FILE = "gson.properties";
+  private static final String PROPERTY_FILE = "gson.properties";
 
-    private GsonConfiguration configuration;
+  private GsonConfiguration configuration;
 
-    public Gson build() {
-        if (configuration == null)
-            configuration = getGsonConfiguration();
-        return configuration.builder().create();
+  public Gson build() {
+    if (configuration == null) configuration = getGsonConfiguration();
+    return configuration.builder().create();
+  }
+
+  private GsonConfiguration getGsonConfiguration() {
+    try (InputStream resource = getClass().getClassLoader().getResourceAsStream(PROPERTY_FILE)) {
+      if (resource != null) {
+        final Properties properties = new Properties();
+        properties.load(resource);
+        return GsonConfiguration.ofProperties(properties);
+      } else {
+        return new GsonConfiguration();
+      }
+    } catch (Exception e) {
+      return new GsonConfiguration();
     }
-
-    private GsonConfiguration getGsonConfiguration() {
-        try (InputStream resource = getClass().getClassLoader().getResourceAsStream(PROPERTY_FILE)) {
-            if (resource != null) {
-                final Properties properties = new Properties();
-                properties.load(resource);
-                return GsonConfiguration.ofProperties(properties);
-            } else {
-                return new GsonConfiguration();
-            }
-        } catch (Exception e) {
-            return new GsonConfiguration();
-        }
-    }
+  }
 }

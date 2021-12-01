@@ -13,29 +13,30 @@ import java.time.format.DateTimeFormatter;
  */
 public class MonthDayDeserializer implements JsonDeserializer<MonthDay> {
 
-    public static final MonthDayDeserializer INSTANCE = new MonthDayDeserializer();
+  public static final MonthDayDeserializer INSTANCE = new MonthDayDeserializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public MonthDayDeserializer() {
-        this(DateTimeFormatters.ISO_MONTH_DAY);
+  public MonthDayDeserializer() {
+    this(DateTimeFormatters.ISO_MONTH_DAY);
+  }
+
+  public MonthDayDeserializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
+
+  @Override
+  public MonthDay deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      if (json instanceof JsonPrimitive) {
+        final String monthAsJson = json.getAsString();
+        return formatter.parse(monthAsJson).query(MonthDay::from);
+      }
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
 
-    public MonthDayDeserializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    @Override
-    public MonthDay deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            if (json instanceof JsonPrimitive) {
-                final String monthAsJson = json.getAsString();
-                return formatter.parse(monthAsJson).query(MonthDay::from);
-            }
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
-
-        throw new JsonParseException("MonthDay can not be parsed from: " + json.getAsString());
-    }
+    throw new JsonParseException("MonthDay can not be parsed from: " + json.getAsString());
+  }
 }

@@ -16,24 +16,26 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
 
-    public static final LocalDateTimeDeserializer INSTANCE = new LocalDateTimeDeserializer();
+  public static final LocalDateTimeDeserializer INSTANCE = new LocalDateTimeDeserializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public LocalDateTimeDeserializer() {
-        this(DateTimeFormatters.ISO_LOCAL_DATE_TIME);
+  public LocalDateTimeDeserializer() {
+    this(DateTimeFormatters.ISO_LOCAL_DATE_TIME);
+  }
+
+  public LocalDateTimeDeserializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
+
+  @Override
+  public LocalDateTime deserialize(
+      JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      return formatter.parse(json.getAsString()).query(LocalDateTime::from);
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
-
-    public LocalDateTimeDeserializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    @Override
-    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(LocalDateTime::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
-    }
+  }
 }

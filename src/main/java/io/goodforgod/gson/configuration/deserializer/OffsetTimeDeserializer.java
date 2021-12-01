@@ -16,24 +16,25 @@ import java.time.format.DateTimeFormatter;
  */
 public class OffsetTimeDeserializer implements JsonDeserializer<OffsetTime> {
 
-    public static final OffsetTimeDeserializer INSTANCE = new OffsetTimeDeserializer();
+  public static final OffsetTimeDeserializer INSTANCE = new OffsetTimeDeserializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public OffsetTimeDeserializer() {
-        this(DateTimeFormatters.ISO_OFFSET_TIME);
+  public OffsetTimeDeserializer() {
+    this(DateTimeFormatters.ISO_OFFSET_TIME);
+  }
+
+  public OffsetTimeDeserializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
+
+  @Override
+  public OffsetTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      return formatter.parse(json.getAsString()).query(OffsetTime::from);
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
-
-    public OffsetTimeDeserializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    @Override
-    public OffsetTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(OffsetTime::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
-    }
+  }
 }

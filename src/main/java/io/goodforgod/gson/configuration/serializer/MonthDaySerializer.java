@@ -16,20 +16,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class MonthDaySerializer implements JsonSerializer<MonthDay> {
 
-    public static final MonthDaySerializer INSTANCE = new MonthDaySerializer();
+  public static final MonthDaySerializer INSTANCE = new MonthDaySerializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public MonthDaySerializer() {
-        this(DateTimeFormatters.ISO_MONTH_DAY);
-    }
+  public MonthDaySerializer() {
+    this(DateTimeFormatters.ISO_MONTH_DAY);
+  }
 
-    public MonthDaySerializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+  public MonthDaySerializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-    @Override
-    public JsonElement serialize(MonthDay src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
-    }
+  @Override
+  public JsonElement serialize(MonthDay src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(formatter.format(src));
+  }
 }

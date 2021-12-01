@@ -14,14 +14,15 @@ import java.time.ZoneOffset;
  */
 public class ZoneOffsetDeserializer implements JsonDeserializer<ZoneOffset> {
 
-    public static final ZoneOffsetDeserializer INSTANCE = new ZoneOffsetDeserializer();
+  public static final ZoneOffsetDeserializer INSTANCE = new ZoneOffsetDeserializer();
 
-    @Override
-    public ZoneOffset deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return ZoneOffset.of(json.getAsString());
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
+  @Override
+  public ZoneOffset deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      return ZoneOffset.of(json.getAsString());
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
+  }
 }

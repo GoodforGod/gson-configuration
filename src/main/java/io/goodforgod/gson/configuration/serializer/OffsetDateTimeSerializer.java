@@ -16,20 +16,21 @@ import java.time.format.DateTimeFormatter;
  */
 public class OffsetDateTimeSerializer implements JsonSerializer<OffsetDateTime> {
 
-    public static final OffsetDateTimeSerializer INSTANCE = new OffsetDateTimeSerializer();
+  public static final OffsetDateTimeSerializer INSTANCE = new OffsetDateTimeSerializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public OffsetDateTimeSerializer() {
-        this(DateTimeFormatters.ISO_OFFSET_DATE_TIME);
-    }
+  public OffsetDateTimeSerializer() {
+    this(DateTimeFormatters.ISO_OFFSET_DATE_TIME);
+  }
 
-    public OffsetDateTimeSerializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+  public OffsetDateTimeSerializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-    @Override
-    public JsonElement serialize(OffsetDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
-    }
+  @Override
+  public JsonElement serialize(
+      OffsetDateTime src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(formatter.format(src));
+  }
 }

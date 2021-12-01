@@ -14,10 +14,10 @@ import java.time.DayOfWeek;
  */
 public class DayOfWeekSerializer implements JsonSerializer<DayOfWeek> {
 
-    public static final DayOfWeekSerializer INSTANCE = new DayOfWeekSerializer();
+  public static final DayOfWeekSerializer INSTANCE = new DayOfWeekSerializer();
 
-    @Override
-    public JsonElement serialize(DayOfWeek src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.name());
-    }
+  @Override
+  public JsonElement serialize(DayOfWeek src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(src.name());
+  }
 }

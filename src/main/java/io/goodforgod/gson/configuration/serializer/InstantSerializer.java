@@ -16,20 +16,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class InstantSerializer implements JsonSerializer<Instant> {
 
-    public static final InstantSerializer INSTANCE = new InstantSerializer();
+  public static final InstantSerializer INSTANCE = new InstantSerializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public InstantSerializer() {
-        this(DateTimeFormatters.ISO_INSTANT);
-    }
+  public InstantSerializer() {
+    this(DateTimeFormatters.ISO_INSTANT);
+  }
 
-    public InstantSerializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+  public InstantSerializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-    @Override
-    public JsonElement serialize(Instant src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
-    }
+  @Override
+  public JsonElement serialize(Instant src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(formatter.format(src));
+  }
 }

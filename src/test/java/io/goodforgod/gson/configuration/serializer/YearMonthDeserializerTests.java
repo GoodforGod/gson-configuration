@@ -14,76 +14,77 @@ import org.junit.jupiter.api.Test;
  */
 class YearMonthDeserializerTests extends Assertions {
 
-    static class User {
+  static class User {
 
-        private String name;
-        private YearMonth value;
+    private String name;
+    private YearMonth value;
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public YearMonth getValue() {
-            return value;
-        }
-
-        public void setValue(YearMonth value) {
-            this.value = value;
-        }
+    public String getName() {
+      return name;
     }
 
-    private static final YearMonth VALUE = YearMonth.of(2000, 1);
-    private static final String VALUE_AS_STRING = "2000-01";
-
-    private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(YearMonth.class, YearMonthSerializer.INSTANCE)
-            .registerTypeAdapter(YearMonth.class, YearMonthDeserializer.INSTANCE)
-            .create();
-
-    @Test
-    void serializationIsValid() {
-        final User user = new User();
-        user.setName("Bob");
-        user.setValue(VALUE);
-
-        final String json = adapter.toJson(user);
-        assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE_AS_STRING + "\""), json);
+    public void setName(String name) {
+      this.name = name;
     }
 
-    @Test
-    void deserializationFromIntIsValid() {
-        final String json = "{\"name\":\"Bob\",\"value\":" + VALUE_AS_STRING + "}";
-
-        final User user = adapter.fromJson(json, User.class);
-        assertNotNull(user);
-        assertEquals("Bob", user.getName());
-        assertEquals(VALUE, user.getValue());
+    public YearMonth getValue() {
+      return value;
     }
 
-    @Test
-    void deserializationFromStringIsValid() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_AS_STRING + "\"}";
-
-        final User user = adapter.fromJson(json, User.class);
-        assertNotNull(user);
-        assertEquals("Bob", user.getName());
-        assertEquals(VALUE, user.getValue());
+    public void setValue(YearMonth value) {
+      this.value = value;
     }
+  }
 
-    @Test
-    void deserializationFails() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"NOT_TIME\"}";
+  private static final YearMonth VALUE = YearMonth.of(2000, 1);
+  private static final String VALUE_AS_STRING = "2000-01";
 
-        try {
-            adapter.fromJson(json, User.class);
-            fail("Should not happen");
-        } catch (JsonParseException e) {
-            assertFalse(e.getMessage().isEmpty());
-        }
+  private final Gson adapter =
+      new GsonBuilder()
+          .registerTypeAdapter(YearMonth.class, YearMonthSerializer.INSTANCE)
+          .registerTypeAdapter(YearMonth.class, YearMonthDeserializer.INSTANCE)
+          .create();
+
+  @Test
+  void serializationIsValid() {
+    final User user = new User();
+    user.setName("Bob");
+    user.setValue(VALUE);
+
+    final String json = adapter.toJson(user);
+    assertNotNull(json);
+    assertTrue(json.contains("\"value\":\"" + VALUE_AS_STRING + "\""), json);
+  }
+
+  @Test
+  void deserializationFromIntIsValid() {
+    final String json = "{\"name\":\"Bob\",\"value\":" + VALUE_AS_STRING + "}";
+
+    final User user = adapter.fromJson(json, User.class);
+    assertNotNull(user);
+    assertEquals("Bob", user.getName());
+    assertEquals(VALUE, user.getValue());
+  }
+
+  @Test
+  void deserializationFromStringIsValid() {
+    final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_AS_STRING + "\"}";
+
+    final User user = adapter.fromJson(json, User.class);
+    assertNotNull(user);
+    assertEquals("Bob", user.getName());
+    assertEquals(VALUE, user.getValue());
+  }
+
+  @Test
+  void deserializationFails() {
+    final String json = "{\"name\":\"Bob\",\"value\":\"NOT_TIME\"}";
+
+    try {
+      adapter.fromJson(json, User.class);
+      fail("Should not happen");
+    } catch (JsonParseException e) {
+      assertFalse(e.getMessage().isEmpty());
     }
+  }
 }

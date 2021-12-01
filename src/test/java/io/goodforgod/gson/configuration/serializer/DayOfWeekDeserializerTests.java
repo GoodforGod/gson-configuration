@@ -14,99 +14,100 @@ import org.junit.jupiter.api.Test;
  */
 class DayOfWeekDeserializerTests extends Assertions {
 
-    static class User {
+  static class User {
 
-        private String name;
-        private DayOfWeek value;
+    private String name;
+    private DayOfWeek value;
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public DayOfWeek getValue() {
-            return value;
-        }
-
-        public void setValue(DayOfWeek value) {
-            this.value = value;
-        }
+    public String getName() {
+      return name;
     }
 
-    private static final DayOfWeek VALUE_TIME = DayOfWeek.MONDAY;
-    private static final String VALUE = "MONDAY";
-    private static final String VALUE_NUMBER = "1";
-
-    private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
-            .registerTypeAdapter(DayOfWeek.class, DayOfWeekDeserializer.INSTANCE)
-            .create();
-
-    @Test
-    void serializationIsValid() {
-        final User user = new User();
-        user.setName("Bob");
-        user.setValue(VALUE_TIME);
-
-        final String json = adapter.toJson(user);
-        assertNotNull(json);
-        assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
+    public void setName(String name) {
+      this.name = name;
     }
 
-    @Test
-    void deserializationIsValid() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE + "\"}";
-
-        final User user = adapter.fromJson(json, User.class);
-        assertNotNull(user);
-        assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME, user.getValue());
+    public DayOfWeek getValue() {
+      return value;
     }
 
-    @Test
-    void deserializationIsValidForStringNumber() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_NUMBER + "\"}";
-
-        final User user = adapter.fromJson(json, User.class);
-        assertNotNull(user);
-        assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME, user.getValue());
+    public void setValue(DayOfWeek value) {
+      this.value = value;
     }
+  }
 
-    @Test
-    void deserializationIsValidForNumber() {
-        final String json = "{\"name\":\"Bob\",\"value\":" + VALUE_NUMBER + "}";
+  private static final DayOfWeek VALUE_TIME = DayOfWeek.MONDAY;
+  private static final String VALUE = "MONDAY";
+  private static final String VALUE_NUMBER = "1";
 
-        final User user = adapter.fromJson(json, User.class);
-        assertNotNull(user);
-        assertEquals("Bob", user.getName());
-        assertEquals(VALUE_TIME, user.getValue());
+  private final Gson adapter =
+      new GsonBuilder()
+          .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
+          .registerTypeAdapter(DayOfWeek.class, DayOfWeekDeserializer.INSTANCE)
+          .create();
+
+  @Test
+  void serializationIsValid() {
+    final User user = new User();
+    user.setName("Bob");
+    user.setValue(VALUE_TIME);
+
+    final String json = adapter.toJson(user);
+    assertNotNull(json);
+    assertTrue(json.contains("\"value\":\"" + VALUE + "\""), json);
+  }
+
+  @Test
+  void deserializationIsValid() {
+    final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE + "\"}";
+
+    final User user = adapter.fromJson(json, User.class);
+    assertNotNull(user);
+    assertEquals("Bob", user.getName());
+    assertEquals(VALUE_TIME, user.getValue());
+  }
+
+  @Test
+  void deserializationIsValidForStringNumber() {
+    final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE_NUMBER + "\"}";
+
+    final User user = adapter.fromJson(json, User.class);
+    assertNotNull(user);
+    assertEquals("Bob", user.getName());
+    assertEquals(VALUE_TIME, user.getValue());
+  }
+
+  @Test
+  void deserializationIsValidForNumber() {
+    final String json = "{\"name\":\"Bob\",\"value\":" + VALUE_NUMBER + "}";
+
+    final User user = adapter.fromJson(json, User.class);
+    assertNotNull(user);
+    assertEquals("Bob", user.getName());
+    assertEquals(VALUE_TIME, user.getValue());
+  }
+
+  @Test
+  void deserializationFails() {
+    final String json = "{\"name\":\"Bob\",\"value\":\"NOT_TIME\"}";
+
+    try {
+      adapter.fromJson(json, User.class);
+      fail("Should not happen");
+    } catch (JsonParseException e) {
+      assertFalse(e.getMessage().isEmpty());
     }
+  }
 
-    @Test
-    void deserializationFails() {
-        final String json = "{\"name\":\"Bob\",\"value\":\"NOT_TIME\"}";
+  @Test
+  void deserializationFailsForArray() {
+    final String json = "{\"name\":\"Bob\",\"value\":[\"NOT_TIME\"]}";
 
-        try {
-            adapter.fromJson(json, User.class);
-            fail("Should not happen");
-        } catch (JsonParseException e) {
-            assertFalse(e.getMessage().isEmpty());
-        }
+    try {
+      adapter.fromJson(json, MonthDeserializerTests.User.class);
+      fail("Should not happen");
+    } catch (JsonParseException e) {
+      assertFalse(e.getMessage().isEmpty());
     }
-
-    @Test
-    void deserializationFailsForArray() {
-        final String json = "{\"name\":\"Bob\",\"value\":[\"NOT_TIME\"]}";
-
-        try {
-            adapter.fromJson(json, MonthDeserializerTests.User.class);
-            fail("Should not happen");
-        } catch (JsonParseException e) {
-            assertFalse(e.getMessage().isEmpty());
-        }
-    }
+  }
 }

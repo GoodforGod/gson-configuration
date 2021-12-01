@@ -14,10 +14,10 @@ import java.time.ZoneId;
  */
 public class ZoneIdSerializer implements JsonSerializer<ZoneId> {
 
-    public static final ZoneIdSerializer INSTANCE = new ZoneIdSerializer();
+  public static final ZoneIdSerializer INSTANCE = new ZoneIdSerializer();
 
-    @Override
-    public JsonElement serialize(ZoneId src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.getId());
-    }
+  @Override
+  public JsonElement serialize(ZoneId src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(src.getId());
+  }
 }

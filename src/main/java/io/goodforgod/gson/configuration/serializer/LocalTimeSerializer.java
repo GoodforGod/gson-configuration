@@ -16,20 +16,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalTimeSerializer implements JsonSerializer<LocalTime> {
 
-    public static final LocalTimeSerializer INSTANCE = new LocalTimeSerializer();
+  public static final LocalTimeSerializer INSTANCE = new LocalTimeSerializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public LocalTimeSerializer() {
-        this(DateTimeFormatters.ISO_LOCAL_TIME);
-    }
+  public LocalTimeSerializer() {
+    this(DateTimeFormatters.ISO_LOCAL_TIME);
+  }
 
-    public LocalTimeSerializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+  public LocalTimeSerializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-    @Override
-    public JsonElement serialize(LocalTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
-    }
+  @Override
+  public JsonElement serialize(LocalTime src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(formatter.format(src));
+  }
 }

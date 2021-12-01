@@ -14,14 +14,15 @@ import java.time.ZoneId;
  */
 public class ZoneIdDeserializer implements JsonDeserializer<ZoneId> {
 
-    public static final ZoneIdDeserializer INSTANCE = new ZoneIdDeserializer();
+  public static final ZoneIdDeserializer INSTANCE = new ZoneIdDeserializer();
 
-    @Override
-    public ZoneId deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return ZoneId.of(json.getAsString());
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
+  @Override
+  public ZoneId deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      return ZoneId.of(json.getAsString());
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
+  }
 }

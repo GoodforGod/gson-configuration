@@ -16,24 +16,26 @@ import java.time.format.DateTimeFormatter;
  */
 public class ZonedDateTimeDeserializer implements JsonDeserializer<ZonedDateTime> {
 
-    public static final ZonedDateTimeDeserializer INSTANCE = new ZonedDateTimeDeserializer();
+  public static final ZonedDateTimeDeserializer INSTANCE = new ZonedDateTimeDeserializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public ZonedDateTimeDeserializer() {
-        this(DateTimeFormatters.ISO_ZONED_DATE_TIME);
+  public ZonedDateTimeDeserializer() {
+    this(DateTimeFormatters.ISO_ZONED_DATE_TIME);
+  }
+
+  public ZonedDateTimeDeserializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
+
+  @Override
+  public ZonedDateTime deserialize(
+      JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      return formatter.parse(json.getAsString()).query(ZonedDateTime::from);
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
-
-    public ZonedDateTimeDeserializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    @Override
-    public ZonedDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(ZonedDateTime::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
-    }
+  }
 }

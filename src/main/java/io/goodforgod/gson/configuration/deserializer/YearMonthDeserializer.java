@@ -16,24 +16,25 @@ import java.time.format.DateTimeFormatter;
  */
 public class YearMonthDeserializer implements JsonDeserializer<YearMonth> {
 
-    public static final YearMonthDeserializer INSTANCE = new YearMonthDeserializer();
+  public static final YearMonthDeserializer INSTANCE = new YearMonthDeserializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public YearMonthDeserializer() {
-        this(DateTimeFormatters.ISO_YEAR_MONTH);
+  public YearMonthDeserializer() {
+    this(DateTimeFormatters.ISO_YEAR_MONTH);
+  }
+
+  public YearMonthDeserializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
+
+  @Override
+  public YearMonth deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      return formatter.parse(json.getAsString()).query(YearMonth::from);
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
-
-    public YearMonthDeserializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    @Override
-    public YearMonth deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(YearMonth::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
-    }
+  }
 }

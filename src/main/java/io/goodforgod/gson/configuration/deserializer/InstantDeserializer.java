@@ -16,24 +16,25 @@ import java.time.format.DateTimeFormatter;
  */
 public class InstantDeserializer implements JsonDeserializer<Instant> {
 
-    public static final InstantDeserializer INSTANCE = new InstantDeserializer();
+  public static final InstantDeserializer INSTANCE = new InstantDeserializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public InstantDeserializer() {
-        this(DateTimeFormatters.ISO_INSTANT);
+  public InstantDeserializer() {
+    this(DateTimeFormatters.ISO_INSTANT);
+  }
+
+  public InstantDeserializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
+
+  @Override
+  public Instant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    try {
+      return formatter.parse(json.getAsString()).query(Instant::from);
+    } catch (Exception e) {
+      throw new JsonParseException(e);
     }
-
-    public InstantDeserializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
-
-    @Override
-    public Instant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        try {
-            return formatter.parse(json.getAsString()).query(Instant::from);
-        } catch (Exception e) {
-            throw new JsonParseException(e);
-        }
-    }
+  }
 }

@@ -16,20 +16,21 @@ import java.time.format.DateTimeFormatter;
  */
 public class ZonedDateTimeSerializer implements JsonSerializer<ZonedDateTime> {
 
-    public static final ZonedDateTimeSerializer INSTANCE = new ZonedDateTimeSerializer();
+  public static final ZonedDateTimeSerializer INSTANCE = new ZonedDateTimeSerializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public ZonedDateTimeSerializer() {
-        this(DateTimeFormatters.ISO_ZONED_DATE_TIME);
-    }
+  public ZonedDateTimeSerializer() {
+    this(DateTimeFormatters.ISO_ZONED_DATE_TIME);
+  }
 
-    public ZonedDateTimeSerializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+  public ZonedDateTimeSerializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-    @Override
-    public JsonElement serialize(ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
-    }
+  @Override
+  public JsonElement serialize(
+      ZonedDateTime src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(formatter.format(src));
+  }
 }

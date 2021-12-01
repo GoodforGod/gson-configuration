@@ -16,20 +16,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class OffsetTimeSerializer implements JsonSerializer<OffsetTime> {
 
-    public static final OffsetTimeSerializer INSTANCE = new OffsetTimeSerializer();
+  public static final OffsetTimeSerializer INSTANCE = new OffsetTimeSerializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public OffsetTimeSerializer() {
-        this(DateTimeFormatters.ISO_OFFSET_TIME);
-    }
+  public OffsetTimeSerializer() {
+    this(DateTimeFormatters.ISO_OFFSET_TIME);
+  }
 
-    public OffsetTimeSerializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+  public OffsetTimeSerializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-    @Override
-    public JsonElement serialize(OffsetTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
-    }
+  @Override
+  public JsonElement serialize(OffsetTime src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(formatter.format(src));
+  }
 }

@@ -14,10 +14,10 @@ import java.time.ZoneOffset;
  */
 public class ZoneOffsetSerializer implements JsonSerializer<ZoneOffset> {
 
-    public static final ZoneOffsetSerializer INSTANCE = new ZoneOffsetSerializer();
+  public static final ZoneOffsetSerializer INSTANCE = new ZoneOffsetSerializer();
 
-    @Override
-    public JsonElement serialize(ZoneOffset src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.getId());
-    }
+  @Override
+  public JsonElement serialize(ZoneOffset src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(src.getId());
+  }
 }

@@ -16,20 +16,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class YearSerializer implements JsonSerializer<Year> {
 
-    public static final YearSerializer INSTANCE = new YearSerializer();
+  public static final YearSerializer INSTANCE = new YearSerializer();
 
-    private final DateTimeFormatter formatter;
+  private final DateTimeFormatter formatter;
 
-    public YearSerializer() {
-        this(DateTimeFormatters.ISO_YEAR);
-    }
+  public YearSerializer() {
+    this(DateTimeFormatters.ISO_YEAR);
+  }
 
-    public YearSerializer(DateTimeFormatter formatter) {
-        this.formatter = formatter;
-    }
+  public YearSerializer(DateTimeFormatter formatter) {
+    this.formatter = formatter;
+  }
 
-    @Override
-    public JsonElement serialize(Year src, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(formatter.format(src));
-    }
+  @Override
+  public JsonElement serialize(Year src, Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(formatter.format(src));
+  }
 }
