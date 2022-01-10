@@ -44,7 +44,8 @@ class ZonedDateTimeDeserializerTests extends Assertions {
     private static final String VALUE_AS_STRING = "1970-01-01T00:00:00.000Z[UTC]";
 
     private static final ZonedDateTime VALUE_AS_TIME_NON_UTC = ZonedDateTime
-            .ofInstant(LocalDateTime.ofInstant(Instant.EPOCH, ZoneId.of("Europe/Paris")), ZoneOffset.UTC, ZoneId.of("Europe/Paris"));
+            .ofInstant(LocalDateTime.ofInstant(Instant.EPOCH, ZoneId.of("Europe/Paris")), ZoneOffset.UTC,
+                    ZoneId.of("Europe/Paris"));
     private static final String VALUE_AS_STRING_NON_UTC = "1970-01-01T02:00:00.000+01:00[Europe/Paris]";
 
     private final Gson adapter = new GsonBuilder()

@@ -4,7 +4,7 @@ plugins {
     id "java-library"
 
     id "org.sonarqube" version "3.3"
-    id "com.diffplug.spotless" version "5.14.3"
+    id "com.diffplug.spotless" version "6.1.0"
 }
 
 repositories {
@@ -18,6 +18,27 @@ version = artifactVersion
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    api "com.google.code.gson:gson:2.8.9"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.2"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+        exceptionFormat("full")
+    }
+
+    reports {
+        html.enabled(false)
+        junitXml.enabled(false)
+    }
+}
 
 spotless {
     java {
@@ -33,27 +54,6 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.organization", "goodforgod"
         property "sonar.projectKey", "GoodforGod_gson-configuration"
-    }
-}
-
-dependencies {
-    api "com.google.code.gson:gson:2.8.9"
-
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.1"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.1"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.1"
-}
-
-test {
-    useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
-        exceptionFormat("full")
-    }
-
-    reports {
-        html.enabled(false)
-        junitXml.enabled(false)
     }
 }
 

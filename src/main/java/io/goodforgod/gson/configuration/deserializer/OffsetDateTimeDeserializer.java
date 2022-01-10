@@ -29,7 +29,8 @@ public class OffsetDateTimeDeserializer implements JsonDeserializer<OffsetDateTi
     }
 
     @Override
-    public OffsetDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public OffsetDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
         try {
             return formatter.parse(json.getAsString()).query(OffsetDateTime::from);
         } catch (Exception e) {
