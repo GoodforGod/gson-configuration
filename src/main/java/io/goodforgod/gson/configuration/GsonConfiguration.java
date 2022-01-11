@@ -4,7 +4,9 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
 import java.text.SimpleDateFormat;
+import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Properties;
 
 /**
@@ -26,51 +28,112 @@ public class GsonConfiguration {
     private String dateFormat = DateTimeFormatters.ISO_DATE;
 
     /**
+     * Forces {@link java.time.format.ResolverStyle#STRICT} for all formatters setters
+     */
+    private boolean forceResolverStrict = false;
+
+    /**
+     * Forces {@link IsoChronology#INSTANCE} for all formatters setters
+     */
+    private boolean forceIsoChronology = false;
+
+    /**
+     * Configures Gson to apply a specific naming policy to an object's field during serialization and
+     * deserialization.
+     *
      * @see GsonBuilder#setFieldNamingPolicy(FieldNamingPolicy)
      */
     private FieldNamingPolicy fieldNamingPolicy = FieldNamingPolicy.IDENTITY;
 
     /**
+     * Configures Gson to apply a specific serialization policy for {@code Long} and {@code long}
+     * objects.
+     *
      * @see GsonBuilder#setLongSerializationPolicy(LongSerializationPolicy)
      */
     private LongSerializationPolicy longSerializationPolicy = LongSerializationPolicy.DEFAULT;
 
     /**
+     * Configure Gson to serialize null fields. By default, Gson omits all fields that are null during
+     * serialization.
+     *
      * @see GsonBuilder#serializeNulls()
      */
     private boolean serializeNulls = false;
 
     /**
+     * Enabling this feature will only change the serialized form if the map key is a complex type (i.e.
+     * non-primitive) in its <strong>serialized</strong> JSON form.
+     *
      * @see GsonBuilder#enableComplexMapKeySerialization()
      */
     private boolean complexMapKeySerialization = false;
 
     /**
+     * Makes the output JSON non-executable in Javascript by prefixing the generated JSON with some
+     * special text.
+     *
      * @see GsonBuilder#generateNonExecutableJson()
      */
     private boolean generateNonExecutableJson = false;
 
     /**
+     * Use this option to configure Gson to pass-through HTML characters as is.
+     *
      * @see GsonBuilder#disableHtmlEscaping()
      */
     private boolean escapeHtmlChars = true;
 
     /**
+     * Configures Gson to output Json that fits in a page for pretty printing.
+     *
      * @see GsonBuilder#setPrettyPrinting()
      */
     private boolean prettyPrinting = false;
 
     /**
+     * This option makes the parser liberal in what it accepts.
+     *
      * @see GsonBuilder#setLenient()
      */
     private boolean lenient = false;
 
     /**
+     * This method provides a way to not throw exception when you have special floating values like
+     * {@link Float#NaN}, {@link Float#POSITIVE_INFINITY}, {@link Float#NEGATIVE_INFINITY}, or a double
+     * value {@link Double#NaN}, {@link Double#POSITIVE_INFINITY}, {@link Double#NEGATIVE_INFINITY}.
+     *
      * @see GsonBuilder#serializeSpecialFloatingPointValues()
      */
     private boolean serializeSpecialFloatingPointValues = false;
 
+    /**
+     * @return configuration with Java default formatters {@link DateTimeFormatter}
+     */
+    public static GsonConfiguration ofJavaISO() {
+        final GsonConfiguration configuration = new GsonConfiguration();
+
+        configuration.setDateFormat(DateTimeFormatters.ISO_DATE_JAVA);
+        configuration.setInstantFormat(DateTimeFormatter.ISO_INSTANT);
+        configuration.setLocalDateFormat(DateTimeFormatter.ISO_LOCAL_DATE);
+        configuration.setLocalTimeFormat(DateTimeFormatter.ISO_LOCAL_TIME);
+        configuration.setLocalDateTimeFormat(DateTimeFormatter.ISO_DATE_TIME);
+        configuration.setOffsetTimeFormat(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        configuration.setOffsetDateTimeFormat(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        configuration.setZonedDateTimeFormat(DateTimeFormatter.ISO_ZONED_DATE_TIME);
+
+        return configuration;
+    }
+
+    public static GsonConfiguration ofPropertiesJavaISO(Properties properties) {
+        return ofProperties(ofJavaISO(), properties);
+    }
+
     public static GsonConfiguration ofProperties(Properties properties) {
+        return ofProperties(new GsonConfiguration(), properties);
+    }
+
+    private static GsonConfiguration ofProperties(GsonConfiguration configuration, Properties properties) {
         final String formatInstant = properties.getProperty(GsonProperties.FORMAT_INSTANT);
         final String formatLocalDate = properties.getProperty(GsonProperties.FORMAT_LOCAL_DATE);
         final String formatLocalTime = properties.getProperty(GsonProperties.FORMAT_LOCAL_TIME);
@@ -94,8 +157,6 @@ public class GsonConfiguration {
         final String complexMapKeySerialization = properties.getProperty(GsonProperties.COMPLEX_MAP_KEY_SERIALIZATION);
         final String serializeSpecialFloatingPointValues = properties
                 .getProperty(GsonProperties.SERIALIZE_SPECIAL_FLOATING_POINT_VALUES);
-
-        final GsonConfiguration configuration = new GsonConfiguration();
 
         if (formatInstant != null)
             configuration.setInstantFormat(formatInstant);
@@ -177,10 +238,41 @@ public class GsonConfiguration {
         return this;
     }
 
+    public boolean isForceResolverStrict() {
+        return forceResolverStrict;
+    }
+
+    /**
+     * Forces {@link java.time.format.ResolverStyle#STRICT} for all formatters setters
+     */
+    public GsonConfiguration setForceResolverStrict(boolean forceResolverStrict) {
+        this.forceResolverStrict = forceResolverStrict;
+        return this;
+    }
+
+    public boolean isForceIsoChronology() {
+        return forceIsoChronology;
+    }
+
+    /**
+     * Forces {@link IsoChronology#INSTANCE} for all formatters setters
+     */
+    public GsonConfiguration setForceIsoChronology(boolean forceIsoChronology) {
+        this.forceIsoChronology = forceIsoChronology;
+        return this;
+    }
+
     public FieldNamingPolicy getFieldNamingPolicy() {
         return fieldNamingPolicy;
     }
 
+    /**
+     * Configures Gson to apply a specific naming policy to an object's field during serialization and
+     * deserialization.
+     * 
+     * @param fieldNamingPolicy to set
+     * @return self
+     */
     public GsonConfiguration setFieldNamingPolicy(FieldNamingPolicy fieldNamingPolicy) {
         if (fieldNamingPolicy == null)
             throw new IllegalArgumentException("Policy can not be nullable!");
@@ -192,6 +284,13 @@ public class GsonConfiguration {
         return longSerializationPolicy;
     }
 
+    /**
+     * Configures Gson to apply a specific serialization policy for {@code Long} and {@code long}
+     * objects.
+     *
+     * @param longSerializationPolicy policy to set
+     * @return self
+     */
     public GsonConfiguration setLongSerializationPolicy(LongSerializationPolicy longSerializationPolicy) {
         if (longSerializationPolicy == null)
             throw new IllegalArgumentException("Policy can not be nullable!");
@@ -203,6 +302,13 @@ public class GsonConfiguration {
         return serializeNulls;
     }
 
+    /**
+     * Configure Gson to serialize null fields. By default, Gson omits all fields that are null during
+     * serialization.
+     *
+     * @param serializeNulls true if serialize
+     * @return self
+     */
     public GsonConfiguration setSerializeNulls(boolean serializeNulls) {
         this.serializeNulls = serializeNulls;
         return this;
@@ -212,6 +318,13 @@ public class GsonConfiguration {
         return complexMapKeySerialization;
     }
 
+    /**
+     * Enabling this feature will only change the serialized form if the map key is a complex type (i.e.
+     * non-primitive) in its <strong>serialized</strong> JSON form.
+     *
+     * @param complexMapKeySerialization to set
+     * @return self
+     */
     public GsonConfiguration setComplexMapKeySerialization(boolean complexMapKeySerialization) {
         this.complexMapKeySerialization = complexMapKeySerialization;
         return this;
@@ -221,6 +334,13 @@ public class GsonConfiguration {
         return generateNonExecutableJson;
     }
 
+    /**
+     * Makes the output JSON non-executable in Javascript by prefixing the generated JSON with some
+     * special text.
+     *
+     * @param generateNonExecutableJson to set
+     * @return self
+     */
     public GsonConfiguration setGenerateNonExecutableJson(boolean generateNonExecutableJson) {
         this.generateNonExecutableJson = generateNonExecutableJson;
         return this;
@@ -230,6 +350,12 @@ public class GsonConfiguration {
         return escapeHtmlChars;
     }
 
+    /**
+     * Use this option to configure Gson to pass-through HTML characters as is.
+     *
+     * @param escapeHtmlChars to set
+     * @return self
+     */
     public GsonConfiguration setEscapeHtmlChars(boolean escapeHtmlChars) {
         this.escapeHtmlChars = escapeHtmlChars;
         return this;
@@ -239,6 +365,12 @@ public class GsonConfiguration {
         return prettyPrinting;
     }
 
+    /**
+     * Configures Gson to output Json that fits in a page for pretty printing.
+     *
+     * @param prettyPrinting to set
+     * @return self
+     */
     public GsonConfiguration setPrettyPrinting(boolean prettyPrinting) {
         this.prettyPrinting = prettyPrinting;
         return this;
@@ -248,6 +380,12 @@ public class GsonConfiguration {
         return lenient;
     }
 
+    /**
+     * This option makes the parser liberal in what it accepts.
+     *
+     * @param lenient to set
+     * @return self
+     */
     public GsonConfiguration setLenient(boolean lenient) {
         this.lenient = lenient;
         return this;
@@ -257,6 +395,14 @@ public class GsonConfiguration {
         return serializeSpecialFloatingPointValues;
     }
 
+    /**
+     * This method provides a way to not throw exception when you have special floating values like
+     * {@link Float#NaN}, {@link Float#POSITIVE_INFINITY}, {@link Float#NEGATIVE_INFINITY}, or a double
+     * value {@link Double#NaN}, {@link Double#POSITIVE_INFINITY}, {@link Double#NEGATIVE_INFINITY}.
+     *
+     * @param serializeSpecialFloatingPointValues to set
+     * @return self
+     */
     public GsonConfiguration setSerializeSpecialFloatingPointValues(boolean serializeSpecialFloatingPointValues) {
         this.serializeSpecialFloatingPointValues = serializeSpecialFloatingPointValues;
         return this;
@@ -267,7 +413,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setInstantFormat(DateTimeFormatter instantFormat) {
-        this.instantFormat = instantFormat;
+        this.instantFormat = applyRestrictions(instantFormat);
         return this;
     }
 
@@ -280,7 +426,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setLocalDateFormat(DateTimeFormatter localDateFormat) {
-        this.localDateFormat = localDateFormat;
+        this.localDateFormat = applyRestrictions(localDateFormat);
         return this;
     }
 
@@ -293,7 +439,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setLocalTimeFormat(DateTimeFormatter localTimeFormat) {
-        this.localTimeFormat = localTimeFormat;
+        this.localTimeFormat = applyRestrictions(localTimeFormat);
         return this;
     }
 
@@ -306,7 +452,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setLocalDateTimeFormat(DateTimeFormatter localDateTimeFormat) {
-        this.localDateTimeFormat = localDateTimeFormat;
+        this.localDateTimeFormat = applyRestrictions(localDateTimeFormat);
         return this;
     }
 
@@ -319,7 +465,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setOffsetTimeFormat(DateTimeFormatter offsetTimeFormat) {
-        this.offsetTimeFormat = offsetTimeFormat;
+        this.offsetTimeFormat = applyRestrictions(offsetTimeFormat);
         return this;
     }
 
@@ -332,7 +478,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setOffsetDateTimeFormat(DateTimeFormatter offsetDateTimeFormat) {
-        this.offsetDateTimeFormat = offsetDateTimeFormat;
+        this.offsetDateTimeFormat = applyRestrictions(offsetDateTimeFormat);
         return this;
     }
 
@@ -345,7 +491,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setZonedDateTimeFormat(DateTimeFormatter zonedDateTimeFormat) {
-        this.zonedDateTimeFormat = zonedDateTimeFormat;
+        this.zonedDateTimeFormat = applyRestrictions(zonedDateTimeFormat);
         return this;
     }
 
@@ -358,7 +504,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setYearFormat(DateTimeFormatter yearFormat) {
-        this.yearFormat = yearFormat;
+        this.yearFormat = applyRestrictions(yearFormat);
         return this;
     }
 
@@ -371,7 +517,7 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setYearMonthFormat(DateTimeFormatter yearMonthFormat) {
-        this.yearMonthFormat = yearMonthFormat;
+        this.yearMonthFormat = applyRestrictions(yearMonthFormat);
         return this;
     }
 
@@ -384,11 +530,20 @@ public class GsonConfiguration {
     }
 
     public GsonConfiguration setMonthDayFormat(DateTimeFormatter monthDayFormat) {
-        this.monthDayFormat = monthDayFormat;
+        this.monthDayFormat = applyRestrictions(monthDayFormat);
         return this;
     }
 
     public GsonConfiguration setMonthDayFormat(String monthDayPattern) {
         return setMonthDayFormat(DateTimeFormatter.ofPattern(monthDayPattern));
+    }
+
+    private DateTimeFormatter applyRestrictions(DateTimeFormatter formatter) {
+        DateTimeFormatter processedFormatter = formatter;
+        if (forceIsoChronology)
+            processedFormatter = processedFormatter.withChronology(IsoChronology.INSTANCE);
+        if (forceResolverStrict)
+            processedFormatter = processedFormatter.withResolverStyle(ResolverStyle.STRICT);
+        return processedFormatter;
     }
 }
