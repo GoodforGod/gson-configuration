@@ -66,7 +66,7 @@ public final class DateTimeFormatters {
             .withChronology(IsoChronology.INSTANCE);
 
     /**
-     * HH:mm:ss.SSS
+     * HH:mm:ss[.SSS]
      */
     public static final DateTimeFormatter ISO_LOCAL_TIME = new DateTimeFormatterBuilder()
             .appendValue(HOUR_OF_DAY, 2)
@@ -82,7 +82,7 @@ public final class DateTimeFormatters {
             .withResolverStyle(ResolverStyle.STRICT);
 
     /**
-     * uuuu-MM-dd'T'HH:mm:ss.SSS
+     * uuuu-MM-dd'T'HH:mm:ss[.SSS]
      */
     public static final DateTimeFormatter ISO_LOCAL_DATE_TIME = new DateTimeFormatterBuilder()
             .append(ISO_LOCAL_DATE)
@@ -93,7 +93,7 @@ public final class DateTimeFormatters {
             .withChronology(IsoChronology.INSTANCE);
 
     /**
-     * HH:mm:ss.SSSXXX
+     * HH:mm:ss[.SSS]XXX
      */
     public static final DateTimeFormatter ISO_OFFSET_TIME = new DateTimeFormatterBuilder()
             .append(ISO_LOCAL_TIME)
@@ -102,7 +102,7 @@ public final class DateTimeFormatters {
             .withResolverStyle(ResolverStyle.STRICT);
 
     /**
-     * uuuu-MM-dd'T'HH:mm:ss.SSSXXX
+     * uuuu-MM-dd'T'HH:mm:ss[.SSS]XXX
      */
     public static final DateTimeFormatter ISO_OFFSET_DATE_TIME = new DateTimeFormatterBuilder()
             .append(ISO_LOCAL_DATE_TIME)
@@ -112,7 +112,7 @@ public final class DateTimeFormatters {
             .withChronology(IsoChronology.INSTANCE);
 
     /**
-     * uuuu-MM-dd'T'HH:mm:ss.SSSXXX[VV]
+     * uuuu-MM-dd'T'HH:mm:ss[.SSS]XXX['['VV']']
      */
     public static final DateTimeFormatter ISO_ZONED_DATE_TIME = new DateTimeFormatterBuilder()
             .append(ISO_OFFSET_DATE_TIME)
