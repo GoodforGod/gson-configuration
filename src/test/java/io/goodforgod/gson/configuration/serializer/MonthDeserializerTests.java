@@ -1,9 +1,8 @@
 package io.goodforgod.gson.configuration.serializer;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.deserializer.MonthDeserializer;
+import io.goodforgod.gson.configuration.GsonAdapterBuilder;
 import java.time.Month;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,10 +39,7 @@ class MonthDeserializerTests extends Assertions {
     private static final String VALUE = "JANUARY";
     private static final String VALUE_NUMBER = "1";
 
-    private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(Month.class, MonthSerializer.INSTANCE)
-            .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)
-            .create();
+    private final Gson adapter = GsonAdapterBuilder.builder().create();
 
     @Test
     void serializationIsValid() {

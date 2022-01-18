@@ -31,6 +31,9 @@ class GsonConfigurationFromPropertiesTests extends Assertions {
             assertNotNull(configuration.getOffsetTimeFormat());
             assertNotNull(configuration.getOffsetDateTimeFormat());
 
+            assertTrue(configuration.isForceIsoChronology());
+            assertTrue(configuration.isForceResolverStrict());
+
             assertTrue(configuration.isLenient());
             assertTrue(configuration.isComplexMapKeySerialization());
             assertTrue(configuration.isPrettyPrinting());

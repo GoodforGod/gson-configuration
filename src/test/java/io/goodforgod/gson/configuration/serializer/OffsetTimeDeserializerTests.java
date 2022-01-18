@@ -3,6 +3,7 @@ package io.goodforgod.gson.configuration.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
+import io.goodforgod.gson.configuration.GsonAdapterBuilder;
 import io.goodforgod.gson.configuration.deserializer.OffsetTimeDeserializer;
 import java.time.DateTimeException;
 import java.time.LocalTime;
@@ -46,10 +47,7 @@ class OffsetTimeDeserializerTests extends Assertions {
     private static final OffsetTime VALUE_TIME = OffsetTime.of(LocalTime.MIN, ZoneOffset.UTC);
     private static final String VALUE = "00:00:00.000Z";
 
-    private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(OffsetTime.class, OffsetTimeSerializer.INSTANCE)
-            .registerTypeAdapter(OffsetTime.class, OffsetTimeDeserializer.INSTANCE)
-            .create();
+    private final Gson adapter = GsonAdapterBuilder.builder().create();
 
     private final Gson adapterCustom = new GsonBuilder()
             .registerTypeAdapter(OffsetTime.class, new OffsetTimeSerializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)))

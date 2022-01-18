@@ -21,8 +21,8 @@ public final class GsonAdapterBuilder {
                 .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthSerializer.INSTANCE)
-                .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
-                .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
+                .registerTypeHierarchyAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
+                .registerTypeHierarchyAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
                 .registerTypeAdapter(ZoneOffset.class, ZoneOffsetDeserializer.INSTANCE)
                 .registerTypeAdapter(ZoneOffset.class, ZoneOffsetSerializer.INSTANCE);
     }
@@ -70,7 +70,8 @@ public final class GsonAdapterBuilder {
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(configuration.getLocalDateTimeFormat()))
                 .registerTypeAdapter(OffsetTime.class, new OffsetTimeDeserializer(configuration.getOffsetTimeFormat()))
                 .registerTypeAdapter(OffsetTime.class, new OffsetTimeSerializer(configuration.getOffsetTimeFormat()))
-                .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeDeserializer(configuration.getOffsetDateTimeFormat()))
+                .registerTypeAdapter(OffsetDateTime.class,
+                        new OffsetDateTimeDeserializer(configuration.getOffsetDateTimeFormat()))
                 .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeSerializer(configuration.getOffsetDateTimeFormat()))
                 .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeDeserializer(configuration.getZonedDateTimeFormat()))
                 .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer(configuration.getZonedDateTimeFormat()));

@@ -15,25 +15,47 @@ public class GsonFactory {
 
     private static final String PROPERTY_FILE = "gson.properties";
 
+    private Properties properties;
     private GsonConfiguration configuration;
+    private GsonConfiguration configurationJavaISO;
 
+    /**
+     * @return Gson built with {@link GsonConfiguration#of()} as base
+     */
     public Gson build() {
+        if (properties == null)
+            this.properties = getProperties();
+
         if (configuration == null)
-            configuration = getGsonConfiguration();
+            this.configuration = GsonConfiguration.ofProperties(properties);
+
         return configuration.builder().create();
     }
 
-    private GsonConfiguration getGsonConfiguration() {
+    /**
+     * @return Gson built with {@link GsonConfiguration#ofJavaISO()} as base
+     */
+    public Gson buildJavaISO() {
+        if (properties == null)
+            this.properties = getProperties();
+
+        if (configurationJavaISO == null)
+            this.configurationJavaISO = GsonConfiguration.ofPropertiesJavaISO(properties);
+
+        return configurationJavaISO.builder().create();
+    }
+
+    private Properties getProperties() {
         try (InputStream resource = getClass().getClassLoader().getResourceAsStream(PROPERTY_FILE)) {
             if (resource != null) {
-                final Properties properties = new Properties();
-                properties.load(resource);
-                return GsonConfiguration.ofProperties(properties);
+                final Properties resourceProperties = new Properties();
+                resourceProperties.load(resource);
+                return resourceProperties;
             } else {
-                return new GsonConfiguration();
+                return new Properties();
             }
         } catch (Exception e) {
-            return new GsonConfiguration();
+            return new Properties();
         }
     }
 }

@@ -29,7 +29,8 @@ public class ZonedDateTimeDeserializer implements JsonDeserializer<ZonedDateTime
     }
 
     @Override
-    public ZonedDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public ZonedDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
         try {
             return formatter.parse(json.getAsString()).query(ZonedDateTime::from);
         } catch (Exception e) {
