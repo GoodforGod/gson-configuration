@@ -21,8 +21,8 @@ public final class GsonAdapterBuilder {
                 .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthSerializer.INSTANCE)
-                .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
-                .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
+                .registerTypeHierarchyAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
+                .registerTypeHierarchyAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
                 .registerTypeAdapter(ZoneOffset.class, ZoneOffsetDeserializer.INSTANCE)
                 .registerTypeAdapter(ZoneOffset.class, ZoneOffsetSerializer.INSTANCE);
     }

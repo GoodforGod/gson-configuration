@@ -108,6 +108,13 @@ public class GsonConfiguration {
     private boolean serializeSpecialFloatingPointValues = false;
 
     /**
+     * @return configuration with formatters {@link DateTimeFormatters}
+     */
+    public static GsonConfiguration of() {
+        return new GsonConfiguration();
+    }
+
+    /**
      * @return configuration with Java default formatters {@link DateTimeFormatter}
      */
     public static GsonConfiguration ofJavaISO() {
@@ -130,7 +137,7 @@ public class GsonConfiguration {
     }
 
     public static GsonConfiguration ofProperties(Properties properties) {
-        return ofProperties(new GsonConfiguration(), properties);
+        return ofProperties(of(), properties);
     }
 
     private static GsonConfiguration ofProperties(GsonConfiguration configuration, Properties properties) {
