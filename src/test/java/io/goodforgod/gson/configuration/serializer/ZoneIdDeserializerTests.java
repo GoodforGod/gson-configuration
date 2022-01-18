@@ -1,9 +1,8 @@
 package io.goodforgod.gson.configuration.serializer;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.deserializer.ZoneIdDeserializer;
+import io.goodforgod.gson.configuration.GsonAdapterBuilder;
 import java.time.ZoneId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -39,10 +38,7 @@ class ZoneIdDeserializerTests extends Assertions {
     private static final ZoneId VALUE_TIME = ZoneId.of("UTC");
     private static final String VALUE = "UTC";
 
-    private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(ZoneId.class, ZoneIdSerializer.INSTANCE)
-            .registerTypeAdapter(ZoneId.class, ZoneIdDeserializer.INSTANCE)
-            .create();
+    private final Gson adapter = GsonAdapterBuilder.builder().create();
 
     @Test
     void serializationIsValid() {

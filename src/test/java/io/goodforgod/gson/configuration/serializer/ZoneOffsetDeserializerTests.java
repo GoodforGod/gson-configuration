@@ -1,9 +1,8 @@
 package io.goodforgod.gson.configuration.serializer;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.deserializer.ZoneOffsetDeserializer;
+import io.goodforgod.gson.configuration.GsonAdapterBuilder;
 import java.time.ZoneOffset;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -39,10 +38,7 @@ class ZoneOffsetDeserializerTests extends Assertions {
     private static final ZoneOffset VALUE = ZoneOffset.of("+02:00");
     private static final String VALUE_AS_STRING = "+02:00";
 
-    private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(ZoneOffset.class, ZoneOffsetSerializer.INSTANCE)
-            .registerTypeAdapter(ZoneOffset.class, ZoneOffsetDeserializer.INSTANCE)
-            .create();
+    private final Gson adapter = GsonAdapterBuilder.builder().create();
 
     @Test
     void serializationIsValid() {

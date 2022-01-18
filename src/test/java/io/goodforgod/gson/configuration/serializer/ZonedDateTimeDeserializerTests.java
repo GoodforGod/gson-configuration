@@ -3,6 +3,7 @@ package io.goodforgod.gson.configuration.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
+import io.goodforgod.gson.configuration.GsonAdapterBuilder;
 import io.goodforgod.gson.configuration.deserializer.ZonedDateTimeDeserializer;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -48,10 +49,7 @@ class ZonedDateTimeDeserializerTests extends Assertions {
                     ZoneId.of("Europe/Paris"));
     private static final String VALUE_AS_STRING_NON_UTC = "1970-01-01T02:00:00.000+01:00[Europe/Paris]";
 
-    private final Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(ZonedDateTime.class, ZonedDateTimeSerializer.INSTANCE)
-            .registerTypeAdapter(ZonedDateTime.class, ZonedDateTimeDeserializer.INSTANCE)
-            .create();
+    private final Gson adapter = GsonAdapterBuilder.builder().create();
 
     private final Gson adapterCustom = new GsonBuilder()
             .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)))
