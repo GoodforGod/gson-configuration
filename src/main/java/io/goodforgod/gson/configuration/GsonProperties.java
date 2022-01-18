@@ -22,6 +22,9 @@ public final class GsonProperties {
     public static final String FORMAT_MONTH_DAY = PREFIX + "format.monthDay";
     public static final String FORMAT_DATE = PREFIX + "format.date";
 
+    public static final String FORCE_ISO_CHRONOLOGY = PREFIX + "forceIsoChronology";
+    public static final String FORCE_RESOLVER_STRICT = PREFIX + "forceResolverStrict";
+
     public static final String LENIENT = PREFIX + "lenient";
     public static final String SERIALIZE_NULLS = PREFIX + "serializeNulls";
     public static final String PRETTY_PRINTING = PREFIX + "prettyPrinting";

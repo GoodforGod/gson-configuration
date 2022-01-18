@@ -153,6 +153,9 @@ public class GsonConfiguration {
         final String formatMonthDay = properties.getProperty(GsonProperties.FORMAT_MONTH_DAY);
         final String formatDate = properties.getProperty(GsonProperties.FORMAT_DATE);
 
+        final String forceIsoChronologyProp = properties.getProperty(GsonProperties.FORCE_ISO_CHRONOLOGY);
+        final String forceResolverStrictProp = properties.getProperty(GsonProperties.FORCE_RESOLVER_STRICT);
+
         final String fieldNamingPolicy = properties.getProperty(GsonProperties.POLICY_FIELD_NAMING);
         final String longSerializationPolicy = properties.getProperty(GsonProperties.POLICY_LONG_SERIALIZATION);
 
@@ -187,6 +190,11 @@ public class GsonConfiguration {
             configuration.setMonthDayFormat(formatMonthDay);
         if (formatDate != null)
             configuration.setDateFormat(formatDate);
+
+        if (forceIsoChronologyProp != null)
+            configuration.setForceIsoChronology(Boolean.parseBoolean(forceIsoChronologyProp));
+        if (forceResolverStrictProp != null)
+            configuration.setForceResolverStrict(Boolean.parseBoolean(forceResolverStrictProp));
 
         if (fieldNamingPolicy != null)
             configuration.setFieldNamingPolicy(FieldNamingPolicy.valueOf(fieldNamingPolicy));
