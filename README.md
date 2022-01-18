@@ -44,28 +44,36 @@ datetime objects, supported list:
 - ZoneId
 - ZoneOffset
 
-All adapters register with **ISO8601** formatters by defaults, but you can register them manually with your formatter.
+## Formatters
 
-## Formats
+Gson Configuration by default comes with [ISO8601 with millis precision](https://goodforgod.dev/posts/2/)
+(basically default Java ISO8601 formatters but with millis precision)
 
-Gson Configuration by default comes with [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) with millis precision for all APIs:
-
-Here is list of default formatters for all *java.time.** APIs:
+Here is list of such formatters:
 - LocalDateTime - *uuuu-MM-dd'T'HH:mm:ss[.SSS]*
 - LocalDate - *uuuu-MM-dd*
 - LocalTime - *HH:mm:ss[.SSS]*
 - OffsetDateTime - *uuuu-MM-dd'T'HH:mm:ss[.SSS]XXX*
 - OffsetTime - *HH:mm:ss[.SSS]XXX*
-- ZonedDateTime - *uuuu-MM-dd'T'HH:mm:ss[.SSS]XXX[VV]*
+- ZonedDateTime - *uuuu-MM-dd'T'HH:mm:ss[.SSS]XXX['['VV']']*
 
-If you want to know more about Java Date & Time formats, you can [read more here](https://goodforgod.dev/posts/2/)
+If you want to know more about why use such Java Date & Time formats, you can [read more here](https://goodforgod.dev/posts/2/)
+
+```java
+GsonConfiguration configuration = GsonConfiguration.of();
+```
+
+You can also use default Java ISO8601 formatters by:
+```java
+GsonConfiguration configuration = GsonConfiguration.ofJavaISO();
+```
 
 ## Gson Configuration
 
 Library provides configuration for configuring *GsonBuilder* for most properties:
 
 ```java
-final GsonBuilder builder = new GsonConfiguration()
+GsonBuilder builder = new GsonConfiguration()
         .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         .setInstantFormat("uuuu-MM-dd HH:mm:ss")
         .setComplexMapKeySerialization(true)
@@ -82,7 +90,7 @@ final GsonBuilder builder = new GsonConfiguration()
 
 You can configure DateTimeFormatters for provided adapters:
 ```java
-final GsonBuilder builder = new GsonConfiguration()
+GsonBuilder builder = new GsonConfiguration()
         .setInstantFormat("uuuu-MM-dd HH:mm:ss")
         .builder();
 ```
@@ -93,11 +101,11 @@ GsonConfiguration also can be filled from *properties* file.
 
 How to build GsonConfiguration from Properties:
 ```java
-final InputStream resource = getClass().getClassLoader().getResourceAsStream("gson.properties");
-final Properties properties = new Properties();
+InputStream resource = getClass().getClassLoader().getResourceAsStream("gson.properties");
+Properties properties = new Properties();
 properties.load(resource);
 
-final GsonConfiguration configuration = GsonConfiguration.ofProperties(properties);
+GsonConfiguration configuration = GsonConfiguration.ofProperties(properties);
 ```
 
 Full list of properties ([check GsonProperties](https://github.com/GoodforGod/gson-configuration/blob/master/src/main/java/io/gson/adapters/config/GsonProperties.java)):
@@ -113,6 +121,9 @@ gson.format.year=uuuu
 gson.format.yearMonth=uuuu-MM
 gson.format.monthDay=MM-dd
 gson.format.date=yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+
+gson.forceIsoChronology=true
+gson.forceResolverStrict=true
 
 gson.lenient=true
 gson.serializeNulls=true
@@ -131,9 +142,13 @@ gson.policy.longSerialization=STRING
 Gson can also be instantiated via properties using *GsonFactory*.
 
 *GsonFactory* is looking for property file in root *resource*: **gson.properties**
-
 ```java
 Gson gson = new GsonFactory().build();
+```
+
+There is respected method to build Gson with Java ISO8601 formatters as defaults:
+```java
+Gson gson = new GsonFactory().buildJavaISO();
 ```
 
 ## Gson Builder
@@ -149,7 +164,7 @@ GsonBuilder builder = GsonAdapters.builder();
 You can register them manually:
 ```java
 GsonBuilder builder = new GsonBuilder()
-        .registerTypeAdapter(LocalDate.class, new LocalDateSerializer())
+        .registerTypeAdapter(LocalDate.class, LocalDateSerializer.INSTANCE)
 ```
 
 You can register with custom formatter also:
