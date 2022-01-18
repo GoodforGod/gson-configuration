@@ -120,7 +120,7 @@ public class GsonConfiguration {
     public static GsonConfiguration ofJavaISO() {
         final GsonConfiguration configuration = new GsonConfiguration();
 
-        configuration.setDateFormat(DateTimeFormatters.ISO_DATE_JAVA);
+        configuration.setDateFormat(DateTimeFormatters.JAVA_ISO_DATE);
         configuration.setInstantFormat(DateTimeFormatter.ISO_INSTANT);
         configuration.setLocalDateFormat(DateTimeFormatter.ISO_LOCAL_DATE);
         configuration.setLocalTimeFormat(DateTimeFormatter.ISO_LOCAL_TIME);

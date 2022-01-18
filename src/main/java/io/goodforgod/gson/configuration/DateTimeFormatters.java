@@ -135,5 +135,5 @@ public final class DateTimeFormatters {
      * ISO8601 for {@link java.util.Date} and {@link java.sql.Timestamp} analog to default Java ISO
      * {@link DateTimeFormatter}
      */
-    public static final String ISO_DATE_JAVA = "yyyy-MM-dd'T'HH:mm:ssXXX";
+    public static final String JAVA_ISO_DATE = "yyyy-MM-dd'T'HH:mm:ssXXX";
 }
