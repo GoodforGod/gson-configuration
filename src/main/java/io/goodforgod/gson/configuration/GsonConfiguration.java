@@ -3,17 +3,55 @@ package io.goodforgod.gson.configuration;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
+import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.util.Properties;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Anton Kurako (GoodforGod)
  * @since 25.04.2021
  */
 public class GsonConfiguration {
+
+    private static final Set<FieldModifiers> DEFAULT_EXCLUDED_MODIFIERS;
+
+    static {
+        final Set<FieldModifiers> modifiers = new HashSet<>(8);
+        modifiers.add(FieldModifiers.TRANSIENT);
+        modifiers.add(FieldModifiers.SYNCHRONIZED);
+        modifiers.add(FieldModifiers.VOLATILE);
+        modifiers.add(FieldModifiers.STATIC);
+        DEFAULT_EXCLUDED_MODIFIERS = Collections.unmodifiableSet(modifiers);
+    }
+
+    /**
+     * @see GsonBuilder#excludeFieldsWithModifiers(int...)
+     */
+    public enum FieldModifiers {
+
+        PUBLIC(Modifier.PUBLIC),
+        PROTECTED(Modifier.PROTECTED),
+        PRIVATE(Modifier.PRIVATE),
+        STATIC(Modifier.STATIC),
+        FINAL(Modifier.FINAL),
+        SYNCHRONIZED(Modifier.SYNCHRONIZED),
+        VOLATILE(Modifier.VOLATILE),
+        TRANSIENT(Modifier.TRANSIENT);
+
+        private final int modifier;
+
+        FieldModifiers(int modifier) {
+            this.modifier = modifier;
+        }
+
+        public int modifier() {
+            return modifier;
+        }
+    }
 
     private DateTimeFormatter instantFormat = DateTimeFormatters.ISO_INSTANT;
     private DateTimeFormatter localDateFormat = DateTimeFormatters.ISO_LOCAL_DATE;
@@ -60,6 +98,23 @@ public class GsonConfiguration {
      * @see GsonBuilder#serializeNulls()
      */
     private boolean serializeNulls = false;
+
+    /**
+     * Configures Gson to exclude all fields from consideration for serialization or deserialization
+     * that do not have the {@link com.google.gson.annotations.Expose} annotation.
+     *
+     * @see GsonBuilder#excludeFieldsWithoutExposeAnnotation()
+     */
+    private boolean excludeFieldsWithoutExposeAnnotation = false;
+
+    /**
+     * Configures Gson to excludes all class fields that have the specified modifiers. By default,
+     * Gson will exclude all fields marked transient or static. This method will override that
+     * behavior.
+     *
+     * @see GsonBuilder#excludeFieldsWithModifiers(int...)
+     */
+    private Set<FieldModifiers> excludeFieldsWithModifiers = DEFAULT_EXCLUDED_MODIFIERS;
 
     /**
      * Enabling this feature will only change the serialized form if the map key is a complex type (i.e.
@@ -167,6 +222,10 @@ public class GsonConfiguration {
         final String complexMapKeySerialization = properties.getProperty(GsonProperties.COMPLEX_MAP_KEY_SERIALIZATION);
         final String serializeSpecialFloatingPointValues = properties
                 .getProperty(GsonProperties.SERIALIZE_SPECIAL_FLOATING_POINT_VALUES);
+        final String excludeFieldsWithoutExposeAnnotation = properties
+                .getProperty(GsonProperties.EXCLUDE_FIELDS_WITHOUT_EXPOSE_ANNOTATION);
+        final String excludeFieldsWithModifiers = properties
+                .getProperty(GsonProperties.EXCLUDE_FIELDS_WITH_MODIFIERS);
 
         if (formatInstant != null)
             configuration.setInstantFormat(formatInstant);
@@ -215,6 +274,15 @@ public class GsonConfiguration {
             configuration.setComplexMapKeySerialization(Boolean.parseBoolean(complexMapKeySerialization));
         if (serializeSpecialFloatingPointValues != null)
             configuration.setSerializeSpecialFloatingPointValues(Boolean.parseBoolean(serializeSpecialFloatingPointValues));
+        if (excludeFieldsWithoutExposeAnnotation != null)
+            configuration.setExcludeFieldsWithoutExposeAnnotation(Boolean.parseBoolean(excludeFieldsWithoutExposeAnnotation));
+        if (excludeFieldsWithModifiers != null) {
+            final Set<FieldModifiers> modifiers = Arrays.stream(excludeFieldsWithModifiers.split(","))
+                    .map(FieldModifiers::valueOf)
+                    .collect(Collectors.toSet());
+
+            configuration.setExcludeFieldsWithModifiers(modifiers);
+        }
 
         return configuration;
     }
@@ -225,6 +293,14 @@ public class GsonConfiguration {
                 .setLongSerializationPolicy(getLongSerializationPolicy())
                 .setFieldNamingPolicy(getFieldNamingPolicy());
 
+        final int[] modifiers = getExcludeFieldsWithModifiers().stream()
+                .mapToInt(m -> m.modifier)
+                .toArray();
+
+        builder.excludeFieldsWithModifiers(modifiers);
+
+        if (isExcludeFieldsWithoutExposeAnnotation())
+            builder.excludeFieldsWithoutExposeAnnotation();
         if (isComplexMapKeySerialization())
             builder.enableComplexMapKeySerialization();
         if (isGenerateNonExecutableJson())
@@ -420,6 +496,57 @@ public class GsonConfiguration {
      */
     public GsonConfiguration setSerializeSpecialFloatingPointValues(boolean serializeSpecialFloatingPointValues) {
         this.serializeSpecialFloatingPointValues = serializeSpecialFloatingPointValues;
+        return this;
+    }
+
+    public boolean isExcludeFieldsWithoutExposeAnnotation() {
+        return excludeFieldsWithoutExposeAnnotation;
+    }
+
+    /**
+     * Configures Gson to exclude all fields from consideration for serialization or deserialization
+     * that do not have the {@link com.google.gson.annotations.Expose} annotation.
+     *
+     * @see GsonBuilder#excludeFieldsWithoutExposeAnnotation()
+     * @param excludeFieldsWithoutExposeAnnotation set true to exclude
+     * @return self
+     */
+    public GsonConfiguration setExcludeFieldsWithoutExposeAnnotation(boolean excludeFieldsWithoutExposeAnnotation) {
+        this.excludeFieldsWithoutExposeAnnotation = excludeFieldsWithoutExposeAnnotation;
+        return this;
+    }
+
+    public Set<FieldModifiers> getExcludeFieldsWithModifiers() {
+        return excludeFieldsWithModifiers;
+    }
+
+    /**
+     * Configures Gson to excludes all class fields that have the specified modifiers. By default,
+     * Gson will exclude all fields marked transient or static. This method will override that
+     * behavior.
+     *
+     * @see GsonBuilder#excludeFieldsWithModifiers(int...)
+     * @param excludeFieldsWithModifiers fields modifiers to exclude
+     * @return self
+     */
+    public GsonConfiguration setExcludeFieldsWithModifiers(Set<FieldModifiers> excludeFieldsWithModifiers) {
+        this.excludeFieldsWithModifiers = Collections.unmodifiableSet(excludeFieldsWithModifiers);
+        return this;
+    }
+
+    /**
+     * Configures Gson to excludes all class fields that have the specified modifiers. By default,
+     * Gson will exclude all fields marked transient or static. This method will override that
+     * behavior.
+     *
+     * @see GsonBuilder#excludeFieldsWithModifiers(int...)
+     * @param excludeFieldsWithModifiers fields modifiers to exclude
+     * @return self
+     */
+    public GsonConfiguration setExcludeFieldsWithModifiers(FieldModifiers... excludeFieldsWithModifiers) {
+        this.excludeFieldsWithModifiers = Collections.unmodifiableSet(Arrays.stream(excludeFieldsWithModifiers)
+                .collect(Collectors.toSet()));
+
         return this;
     }
 

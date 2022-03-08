@@ -32,6 +32,8 @@ public final class GsonProperties {
     public static final String GENERATE_NON_EXECUTABLE_JSON = PREFIX + "generateNonExecutableJson";
     public static final String COMPLEX_MAP_KEY_SERIALIZATION = PREFIX + "serializeComplexMapKey";
     public static final String SERIALIZE_SPECIAL_FLOATING_POINT_VALUES = PREFIX + "serializeSpecialFloatingPointValues";
+    public static final String EXCLUDE_FIELDS_WITHOUT_EXPOSE_ANNOTATION = PREFIX + "excludeFieldsWithoutExposeAnnotation";
+    public static final String EXCLUDE_FIELDS_WITH_MODIFIERS = PREFIX + "excludeFieldsWithModifiers";
 
     public static final String POLICY_FIELD_NAMING = PREFIX + "policy.fieldNaming";
     public static final String POLICY_LONG_SERIALIZATION = PREFIX + "policy.longSerialization";

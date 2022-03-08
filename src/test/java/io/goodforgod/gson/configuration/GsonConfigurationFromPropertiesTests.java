@@ -41,6 +41,9 @@ class GsonConfigurationFromPropertiesTests extends Assertions {
             assertTrue(configuration.isGenerateNonExecutableJson());
             assertTrue(configuration.isSerializeSpecialFloatingPointValues());
             assertFalse(configuration.isEscapeHtmlChars());
+            assertTrue(configuration.isExcludeFieldsWithoutExposeAnnotation());
+            assertEquals(1, configuration.getExcludeFieldsWithModifiers().size());
+            assertTrue(configuration.getExcludeFieldsWithModifiers().contains(GsonConfiguration.FieldModifiers.TRANSIENT));
 
             assertEquals(FieldNamingPolicy.UPPER_CAMEL_CASE, configuration.getFieldNamingPolicy());
             assertEquals(LongSerializationPolicy.STRING, configuration.getLongSerializationPolicy());
@@ -70,6 +73,12 @@ class GsonConfigurationFromPropertiesTests extends Assertions {
         assertFalse(configuration.isGenerateNonExecutableJson());
         assertFalse(configuration.isSerializeSpecialFloatingPointValues());
         assertTrue(configuration.isEscapeHtmlChars());
+        assertFalse(configuration.isExcludeFieldsWithoutExposeAnnotation());
+        assertEquals(4, configuration.getExcludeFieldsWithModifiers().size());
+        assertTrue(configuration.getExcludeFieldsWithModifiers().contains(GsonConfiguration.FieldModifiers.TRANSIENT));
+        assertTrue(configuration.getExcludeFieldsWithModifiers().contains(GsonConfiguration.FieldModifiers.STATIC));
+        assertTrue(configuration.getExcludeFieldsWithModifiers().contains(GsonConfiguration.FieldModifiers.VOLATILE));
+        assertTrue(configuration.getExcludeFieldsWithModifiers().contains(GsonConfiguration.FieldModifiers.SYNCHRONIZED));
 
         assertEquals(FieldNamingPolicy.IDENTITY, configuration.getFieldNamingPolicy());
         assertEquals(LongSerializationPolicy.DEFAULT, configuration.getLongSerializationPolicy());
