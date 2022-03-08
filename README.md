@@ -11,9 +11,7 @@ Gson configuration and serializers/deserializers for Date/Time in [java.time.*](
 ## Dependency :rocket:
 **Gradle**
 ```groovy
-dependencies {
-    implementation "io.goodforgod:gson-configuration:1.2.0"
-}
+implementation "io.goodforgod:gson-configuration:1.3.0"
 ```
 
 **Maven**
@@ -21,7 +19,7 @@ dependencies {
 <dependency>
     <groupId>io.goodforgod</groupId>
     <artifactId>gson-configuration</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
