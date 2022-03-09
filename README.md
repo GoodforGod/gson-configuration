@@ -11,7 +11,7 @@ Gson configuration and serializers/deserializers for Date/Time in [java.time.*](
 ## Dependency :rocket:
 **Gradle**
 ```groovy
-implementation "io.goodforgod:gson-configuration:1.3.0"
+implementation "io.goodforgod:gson-configuration:1.4.0"
 ```
 
 **Maven**
@@ -19,7 +19,7 @@ implementation "io.goodforgod:gson-configuration:1.3.0"
 <dependency>
     <groupId>io.goodforgod</groupId>
     <artifactId>gson-configuration</artifactId>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -83,6 +83,8 @@ GsonBuilder builder = new GsonConfiguration()
         .setGenerateNonExecutableJson(true)
         .setSerializeNulls(true)
         .setSerializeSpecialFloatingPointValues(true)
+        .setExcludeFieldsWithoutExposeAnnotation(true)
+        .setExcludeFieldsWithModifiers(GsonConfiguration.FieldModifiers.TRANSIENT)
         .builder();
 ```
 
@@ -94,6 +96,9 @@ GsonBuilder builder = new GsonConfiguration()
 ```
 
 ### Properties file
+
+**By default** Gson or GsonBuilder that is build via GsonConfiguration or GsonFactory **doesn't serialize/deserialize** transient, static, volatile, synchronized fields.
+You need to use configuration setters to configure it otherwise.
 
 GsonConfiguration also can be filled from *properties* file.
 
@@ -130,6 +135,8 @@ gson.escapeHtmlChars=false
 gson.generateNonExecutableJson=true
 gson.serializeComplexMapKey=true
 gson.serializeSpecialFloatingPointValues=true
+gson.excludeFieldsWithoutExposeAnnotation=false
+gson.excludeFieldsWithModifiers=TRANSIENT,STATIC,SYNCHRONIZED,VOLATILE
 
 gson.policy.fieldNaming=UPPER_CAMEL_CASE
 gson.policy.longSerialization=STRING
