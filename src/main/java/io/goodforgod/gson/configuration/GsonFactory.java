@@ -1,6 +1,7 @@
 package io.goodforgod.gson.configuration;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -23,26 +24,40 @@ public class GsonFactory {
      * @return Gson built with {@link GsonConfiguration#of()} as base
      */
     public Gson build() {
+        return builder().create();
+    }
+
+    /**
+     * @return Gson built with {@link GsonConfiguration#of()} as base
+     */
+    public GsonBuilder builder() {
         if (properties == null)
             this.properties = getProperties();
 
         if (configuration == null)
             this.configuration = GsonConfiguration.ofProperties(properties);
 
-        return configuration.builder().create();
+        return configuration.builder();
     }
 
     /**
      * @return Gson built with {@link GsonConfiguration#ofJavaISO()} as base
      */
     public Gson buildJavaISO() {
+        return builderJavaISO().create();
+    }
+
+    /**
+     * @return Gson built with {@link GsonConfiguration#ofJavaISO()} as base
+     */
+    public GsonBuilder builderJavaISO() {
         if (properties == null)
             this.properties = getProperties();
 
         if (configurationJavaISO == null)
             this.configurationJavaISO = GsonConfiguration.ofPropertiesJavaISO(properties);
 
-        return configurationJavaISO.builder().create();
+        return configurationJavaISO.builder();
     }
 
     private Properties getProperties() {
