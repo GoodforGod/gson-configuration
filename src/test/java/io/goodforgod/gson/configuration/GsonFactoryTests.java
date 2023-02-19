@@ -61,26 +61,4 @@ class GsonFactoryTests extends Assertions {
         final User user = gson.fromJson(json, User.class);
         assertNotNull(user);
     }
-
-    @Test
-    void serializationForJavaISOIsValid() {
-        final Gson gson = factory.buildJavaISO();
-
-        final User user = new User();
-        user.setName("Bob");
-        user.setValue(VALUE_TIME);
-
-        final String json = gson.toJson(user);
-        assertNotNull(json);
-    }
-
-    @Test
-    void deserializationForJavaISOIsValid() {
-        final Gson gson = factory.buildJavaISO();
-
-        final String json = "{\"name\":\"Bob\",\"value\":\"" + VALUE + "\"}";
-
-        final User user = gson.fromJson(json, User.class);
-        assertNotNull(user);
-    }
 }

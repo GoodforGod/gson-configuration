@@ -45,7 +45,7 @@ class TimestampPatternTests extends Assertions {
     private static final String VALUE = "1970-01-01T00:00:00.000Z";
 
     private final Gson adapter = new GsonBuilder()
-            .setDateFormat(DateTimeFormatters.ISO_DATE)
+            .setDateFormat(DateFormatters.ISO_DATE)
             .create();
 
     @Test

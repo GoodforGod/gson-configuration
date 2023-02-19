@@ -1,7 +1,6 @@
 package io.goodforgod.gson.configuration.deserializer;
 
 import com.google.gson.*;
-import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +17,7 @@ public class MonthDayDeserializer implements JsonDeserializer<MonthDay> {
     private final DateTimeFormatter formatter;
 
     public MonthDayDeserializer() {
-        this(DateTimeFormatters.ISO_MONTH_DAY);
+        this(DateTimeDeserializerFormatters.ISO_MONTH_DAY);
     }
 
     public MonthDayDeserializer(DateTimeFormatter formatter) {

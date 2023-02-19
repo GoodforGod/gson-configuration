@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +20,7 @@ public class ZonedDateTimeDeserializer implements JsonDeserializer<ZonedDateTime
     private final DateTimeFormatter formatter;
 
     public ZonedDateTimeDeserializer() {
-        this(DateTimeFormatters.ISO_ZONED_DATE_TIME);
+        this(DateTimeDeserializerFormatters.ISO_ZONED_DATE_TIME);
     }
 
     public ZonedDateTimeDeserializer(DateTimeFormatter formatter) {

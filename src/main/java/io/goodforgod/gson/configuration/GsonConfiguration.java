@@ -53,17 +53,17 @@ public class GsonConfiguration {
         }
     }
 
-    private DateTimeFormatter instantFormat = DateTimeFormatters.ISO_INSTANT;
-    private DateTimeFormatter localDateFormat = DateTimeFormatters.ISO_LOCAL_DATE;
-    private DateTimeFormatter localTimeFormat = DateTimeFormatters.ISO_LOCAL_TIME;
-    private DateTimeFormatter localDateTimeFormat = DateTimeFormatters.ISO_LOCAL_DATE_TIME;
-    private DateTimeFormatter offsetTimeFormat = DateTimeFormatters.ISO_OFFSET_TIME;
-    private DateTimeFormatter offsetDateTimeFormat = DateTimeFormatters.ISO_OFFSET_DATE_TIME;
-    private DateTimeFormatter zonedDateTimeFormat = DateTimeFormatters.ISO_ZONED_DATE_TIME;
-    private DateTimeFormatter yearFormat = DateTimeFormatters.ISO_YEAR;
-    private DateTimeFormatter yearMonthFormat = DateTimeFormatters.ISO_YEAR_MONTH;
-    private DateTimeFormatter monthDayFormat = DateTimeFormatters.ISO_MONTH_DAY;
-    private String dateFormat = DateTimeFormatters.ISO_DATE;
+    private DateTimeFormatter instantFormat;
+    private DateTimeFormatter localDateFormat;
+    private DateTimeFormatter localTimeFormat;
+    private DateTimeFormatter localDateTimeFormat;
+    private DateTimeFormatter offsetTimeFormat;
+    private DateTimeFormatter offsetDateTimeFormat;
+    private DateTimeFormatter zonedDateTimeFormat;
+    private DateTimeFormatter yearFormat;
+    private DateTimeFormatter yearMonthFormat;
+    private DateTimeFormatter monthDayFormat;
+    private String dateFormat = DateFormatters.ISO_DATE;
 
     /**
      * Forces {@link java.time.format.ResolverStyle#STRICT} for all formatters setters
@@ -162,37 +162,8 @@ public class GsonConfiguration {
      */
     private boolean serializeSpecialFloatingPointValues = false;
 
-    /**
-     * @return configuration with formatters {@link DateTimeFormatters}
-     */
-    public static GsonConfiguration of() {
-        return new GsonConfiguration();
-    }
-
-    /**
-     * @return configuration with Java default formatters {@link DateTimeFormatter}
-     */
-    public static GsonConfiguration ofJavaISO() {
-        final GsonConfiguration configuration = new GsonConfiguration();
-
-        configuration.setDateFormat(DateTimeFormatters.JAVA_ISO_DATE);
-        configuration.setInstantFormat(DateTimeFormatter.ISO_INSTANT);
-        configuration.setLocalDateFormat(DateTimeFormatter.ISO_LOCAL_DATE);
-        configuration.setLocalTimeFormat(DateTimeFormatter.ISO_LOCAL_TIME);
-        configuration.setLocalDateTimeFormat(DateTimeFormatter.ISO_DATE_TIME);
-        configuration.setOffsetTimeFormat(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        configuration.setOffsetDateTimeFormat(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        configuration.setZonedDateTimeFormat(DateTimeFormatter.ISO_ZONED_DATE_TIME);
-
-        return configuration;
-    }
-
-    public static GsonConfiguration ofPropertiesJavaISO(Properties properties) {
-        return ofProperties(ofJavaISO(), properties);
-    }
-
     public static GsonConfiguration ofProperties(Properties properties) {
-        return ofProperties(of(), properties);
+        return ofProperties(new GsonConfiguration(), properties);
     }
 
     private static GsonConfiguration ofProperties(GsonConfiguration configuration, Properties properties) {

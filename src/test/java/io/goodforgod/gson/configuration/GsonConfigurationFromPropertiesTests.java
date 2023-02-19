@@ -57,14 +57,15 @@ class GsonConfigurationFromPropertiesTests extends Assertions {
         final Properties properties = new Properties();
 
         final GsonConfiguration configuration = GsonConfiguration.ofProperties(properties);
-        assertNotNull(configuration.getYearFormat());
         assertNotNull(configuration.getDateFormat());
-        assertNotNull(configuration.getInstantFormat());
-        assertNotNull(configuration.getLocalDateFormat());
-        assertNotNull(configuration.getLocalTimeFormat());
-        assertNotNull(configuration.getLocalDateTimeFormat());
-        assertNotNull(configuration.getOffsetTimeFormat());
-        assertNotNull(configuration.getOffsetDateTimeFormat());
+
+        assertNull(configuration.getYearFormat());
+        assertNull(configuration.getInstantFormat());
+        assertNull(configuration.getLocalDateFormat());
+        assertNull(configuration.getLocalTimeFormat());
+        assertNull(configuration.getLocalDateTimeFormat());
+        assertNull(configuration.getOffsetTimeFormat());
+        assertNull(configuration.getOffsetDateTimeFormat());
 
         assertFalse(configuration.isLenient());
         assertFalse(configuration.isComplexMapKeySerialization());

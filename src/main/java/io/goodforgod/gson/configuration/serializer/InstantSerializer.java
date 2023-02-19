@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +20,7 @@ public class InstantSerializer implements JsonSerializer<Instant> {
     private final DateTimeFormatter formatter;
 
     public InstantSerializer() {
-        this(DateTimeFormatters.ISO_INSTANT);
+        this(DateTimeSerializerFormatters.ISO_INSTANT);
     }
 
     public InstantSerializer(DateTimeFormatter formatter) {

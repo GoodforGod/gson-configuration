@@ -93,7 +93,7 @@ class GsonAdapterBuilderTests extends Assertions {
 
     @Test
     void complexSerializationForAllTimeValid() {
-        final Gson gson = GsonAdapterBuilder.builder().create();
+        final Gson gson = new GsonConfiguration().builder().create();
         assertNotNull(gson);
 
         final User user = new User();

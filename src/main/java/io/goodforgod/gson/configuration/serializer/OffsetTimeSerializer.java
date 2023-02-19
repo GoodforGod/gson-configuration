@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +20,7 @@ public class OffsetTimeSerializer implements JsonSerializer<OffsetTime> {
     private final DateTimeFormatter formatter;
 
     public OffsetTimeSerializer() {
-        this(DateTimeFormatters.ISO_OFFSET_TIME);
+        this(DateTimeSerializerFormatters.ISO_OFFSET_TIME);
     }
 
     public OffsetTimeSerializer(DateTimeFormatter formatter) {

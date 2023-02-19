@@ -2,7 +2,7 @@ package io.goodforgod.gson.configuration.serializer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.GsonAdapterBuilder;
+import io.goodforgod.gson.configuration.GsonConfiguration;
 import java.time.Year;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class YearDeserializerTests extends Assertions {
     private static final Year VALUE_TIME = Year.of(2000);
     private static final String VALUE = "2000";
 
-    private final Gson adapter = GsonAdapterBuilder.builder().create();
+    private final Gson adapter = new GsonConfiguration().builder().create();
 
     @Test
     void serializationIsValid() {

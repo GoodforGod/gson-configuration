@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +20,7 @@ public class YearMonthSerializer implements JsonSerializer<YearMonth> {
     private final DateTimeFormatter formatter;
 
     public YearMonthSerializer() {
-        this(DateTimeFormatters.ISO_YEAR_MONTH);
+        this(DateTimeSerializerFormatters.ISO_YEAR_MONTH);
     }
 
     public YearMonthSerializer(DateTimeFormatter formatter) {
