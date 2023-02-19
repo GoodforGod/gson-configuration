@@ -58,7 +58,7 @@ Here is list of such formatters:
 If you want to know more about why use such Java Date & Time formats, you can [read more here](https://goodforgod.dev/posts/2/)
 
 ```java
-GsonConfiguration configuration = GsonConfiguration.of();
+GsonConfiguration configuration = new GsonConfiguration();
 ```
 
 ## Gson Configuration
@@ -149,12 +149,6 @@ Gson gson = new GsonFactory().build();
 ## Gson Builder
 
 All adapters already registered via when using *GsonConfiguration#builder*.
-
-If you want to register only adapters without configuration:
-
-```java
-GsonBuilder builder = GsonAdapters.builder();
-```
 
 You can register them manually:
 ```java
