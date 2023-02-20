@@ -11,7 +11,7 @@ Gson configuration and serializers/deserializers for Date/Time in [java.time.*](
 ## Dependency :rocket:
 **Gradle**
 ```groovy
-implementation "io.goodforgod:gson-configuration:1.4.2"
+implementation "io.goodforgod:gson-configuration:2.0.0"
 ```
 
 **Maven**
@@ -19,7 +19,7 @@ implementation "io.goodforgod:gson-configuration:1.4.2"
 <dependency>
     <groupId>io.goodforgod</groupId>
     <artifactId>gson-configuration</artifactId>
-    <version>1.4.2</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -58,12 +58,7 @@ Here is list of such formatters:
 If you want to know more about why use such Java Date & Time formats, you can [read more here](https://goodforgod.dev/posts/2/)
 
 ```java
-GsonConfiguration configuration = GsonConfiguration.of();
-```
-
-You can also use default Java ISO8601 formatters by:
-```java
-GsonConfiguration configuration = GsonConfiguration.ofJavaISO();
+GsonConfiguration configuration = new GsonConfiguration();
 ```
 
 ## Gson Configuration
@@ -151,20 +146,9 @@ Gson can also be instantiated via properties using *GsonFactory*.
 Gson gson = new GsonFactory().build();
 ```
 
-There is respected method to build Gson with Java ISO8601 formatters as defaults:
-```java
-Gson gson = new GsonFactory().buildJavaISO();
-```
-
 ## Gson Builder
 
 All adapters already registered via when using *GsonConfiguration#builder*.
-
-If you want to register only adapters without configuration:
-
-```java
-GsonBuilder builder = GsonAdapters.builder();
-```
 
 You can register them manually:
 ```java

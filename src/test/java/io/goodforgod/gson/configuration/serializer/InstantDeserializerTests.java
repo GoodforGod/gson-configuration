@@ -3,7 +3,7 @@ package io.goodforgod.gson.configuration.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.GsonAdapterBuilder;
+import io.goodforgod.gson.configuration.GsonConfiguration;
 import io.goodforgod.gson.configuration.deserializer.InstantDeserializer;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -45,7 +45,7 @@ class InstantDeserializerTests extends Assertions {
     private static final Instant VALUE_TIME = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC")).toInstant();
     private static final String VALUE = "1970-01-01T00:00:00Z";
 
-    private final Gson adapter = GsonAdapterBuilder.builder().create();
+    private final Gson adapter = new GsonConfiguration().builder().create();
 
     private final Gson adapterCustom = new GsonBuilder()
             .registerTypeAdapter(Instant.class, new InstantSerializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)

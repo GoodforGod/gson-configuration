@@ -18,17 +18,16 @@ public class GsonFactory {
 
     private Properties properties;
     private GsonConfiguration configuration;
-    private GsonConfiguration configurationJavaISO;
 
     /**
-     * @return Gson built with {@link GsonConfiguration#of()} as base
+     * @return Gson built with {@link GsonConfiguration} as base
      */
     public Gson build() {
         return builder().create();
     }
 
     /**
-     * @return Gson built with {@link GsonConfiguration#of()} as base
+     * @return Gson built with {@link GsonConfiguration} as base
      */
     public GsonBuilder builder() {
         if (properties == null)
@@ -38,26 +37,6 @@ public class GsonFactory {
             this.configuration = GsonConfiguration.ofProperties(properties);
 
         return configuration.builder();
-    }
-
-    /**
-     * @return Gson built with {@link GsonConfiguration#ofJavaISO()} as base
-     */
-    public Gson buildJavaISO() {
-        return builderJavaISO().create();
-    }
-
-    /**
-     * @return Gson built with {@link GsonConfiguration#ofJavaISO()} as base
-     */
-    public GsonBuilder builderJavaISO() {
-        if (properties == null)
-            this.properties = getProperties();
-
-        if (configurationJavaISO == null)
-            this.configurationJavaISO = GsonConfiguration.ofPropertiesJavaISO(properties);
-
-        return configurationJavaISO.builder();
     }
 
     private Properties getProperties() {

@@ -6,17 +6,17 @@ import io.goodforgod.gson.configuration.serializer.*;
 import java.time.*;
 
 /**
- * @see com.google.gson.GsonBuilder
  * @author Anton Kurako (GoodforGod)
+ * @see com.google.gson.GsonBuilder
  * @since 28.04.2021
  */
-public final class GsonAdapterBuilder {
+final class GsonAdapterBuilder {
 
     private GsonAdapterBuilder() {}
 
     private static GsonBuilder getCommonBuilder() {
         return new GsonBuilder()
-                .setDateFormat(DateTimeFormatters.ISO_DATE)
+                .setDateFormat(DateFormatters.ISO_DATE)
                 .registerTypeAdapter(DayOfWeek.class, DayOfWeekDeserializer.INSTANCE)
                 .registerTypeAdapter(DayOfWeek.class, DayOfWeekSerializer.INSTANCE)
                 .registerTypeAdapter(Month.class, MonthDeserializer.INSTANCE)
@@ -27,53 +27,68 @@ public final class GsonAdapterBuilder {
                 .registerTypeAdapter(ZoneOffset.class, ZoneOffsetSerializer.INSTANCE);
     }
 
-    public static GsonBuilder builder() {
-        return getCommonBuilder()
-                .registerTypeAdapter(Year.class, YearDeserializer.INSTANCE)
-                .registerTypeAdapter(Year.class, YearSerializer.INSTANCE)
-                .registerTypeAdapter(YearMonth.class, YearMonthDeserializer.INSTANCE)
-                .registerTypeAdapter(YearMonth.class, YearMonthSerializer.INSTANCE)
-                .registerTypeAdapter(MonthDay.class, MonthDayDeserializer.INSTANCE)
-                .registerTypeAdapter(MonthDay.class, MonthDaySerializer.INSTANCE)
-                .registerTypeAdapter(Instant.class, InstantDeserializer.INSTANCE)
-                .registerTypeAdapter(Instant.class, InstantSerializer.INSTANCE)
-                .registerTypeAdapter(LocalDate.class, LocalDateDeserializer.INSTANCE)
-                .registerTypeAdapter(LocalDate.class, LocalDateSerializer.INSTANCE)
-                .registerTypeAdapter(LocalTime.class, LocalTimeDeserializer.INSTANCE)
-                .registerTypeAdapter(LocalTime.class, LocalTimeSerializer.INSTANCE)
-                .registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.INSTANCE)
-                .registerTypeAdapter(LocalDateTime.class, LocalDateTimeSerializer.INSTANCE)
-                .registerTypeAdapter(OffsetTime.class, OffsetTimeDeserializer.INSTANCE)
-                .registerTypeAdapter(OffsetTime.class, OffsetTimeSerializer.INSTANCE)
-                .registerTypeAdapter(OffsetDateTime.class, OffsetDateTimeDeserializer.INSTANCE)
-                .registerTypeAdapter(OffsetDateTime.class, OffsetDateTimeSerializer.INSTANCE)
-                .registerTypeAdapter(ZonedDateTime.class, ZonedDateTimeDeserializer.INSTANCE)
-                .registerTypeAdapter(ZonedDateTime.class, ZonedDateTimeSerializer.INSTANCE);
-    }
-
-    public static GsonBuilder builder(GsonConfiguration configuration) {
+    static GsonBuilder builder(GsonConfiguration configuration) {
         return getCommonBuilder()
                 .setDateFormat(configuration.getDateFormat())
-                .registerTypeAdapter(Year.class, new YearDeserializer(configuration.getYearFormat()))
-                .registerTypeAdapter(Year.class, new YearSerializer(configuration.getYearFormat()))
-                .registerTypeAdapter(YearMonth.class, new YearMonthDeserializer(configuration.getYearMonthFormat()))
-                .registerTypeAdapter(YearMonth.class, new YearMonthSerializer(configuration.getYearMonthFormat()))
-                .registerTypeAdapter(MonthDay.class, new MonthDayDeserializer(configuration.getMonthDayFormat()))
-                .registerTypeAdapter(MonthDay.class, new MonthDaySerializer(configuration.getMonthDayFormat()))
-                .registerTypeAdapter(Instant.class, new InstantDeserializer(configuration.getInstantFormat()))
-                .registerTypeAdapter(Instant.class, new InstantSerializer(configuration.getInstantFormat()))
-                .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer(configuration.getLocalDateFormat()))
-                .registerTypeAdapter(LocalDate.class, new LocalDateSerializer(configuration.getLocalDateFormat()))
-                .registerTypeAdapter(LocalTime.class, new LocalTimeDeserializer(configuration.getLocalTimeFormat()))
-                .registerTypeAdapter(LocalTime.class, new LocalTimeSerializer(configuration.getLocalTimeFormat()))
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer(configuration.getLocalDateTimeFormat()))
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(configuration.getLocalDateTimeFormat()))
-                .registerTypeAdapter(OffsetTime.class, new OffsetTimeDeserializer(configuration.getOffsetTimeFormat()))
-                .registerTypeAdapter(OffsetTime.class, new OffsetTimeSerializer(configuration.getOffsetTimeFormat()))
-                .registerTypeAdapter(OffsetDateTime.class,
-                        new OffsetDateTimeDeserializer(configuration.getOffsetDateTimeFormat()))
-                .registerTypeAdapter(OffsetDateTime.class, new OffsetDateTimeSerializer(configuration.getOffsetDateTimeFormat()))
-                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeDeserializer(configuration.getZonedDateTimeFormat()))
-                .registerTypeAdapter(ZonedDateTime.class, new ZonedDateTimeSerializer(configuration.getZonedDateTimeFormat()));
+                .registerTypeAdapter(Year.class, (configuration.getYearFormat() == null)
+                        ? YearDeserializer.INSTANCE
+                        : new YearDeserializer(configuration.getYearFormat()))
+                .registerTypeAdapter(Year.class, (configuration.getYearFormat() == null)
+                        ? YearSerializer.INSTANCE
+                        : new YearSerializer(configuration.getYearFormat()))
+                .registerTypeAdapter(YearMonth.class, (configuration.getYearMonthFormat() == null)
+                        ? YearMonthDeserializer.INSTANCE
+                        : new YearMonthDeserializer(configuration.getYearMonthFormat()))
+                .registerTypeAdapter(YearMonth.class, (configuration.getYearMonthFormat() == null)
+                        ? YearMonthSerializer.INSTANCE
+                        : new YearMonthSerializer(configuration.getYearMonthFormat()))
+                .registerTypeAdapter(MonthDay.class, (configuration.getMonthDayFormat() == null)
+                        ? MonthDayDeserializer.INSTANCE
+                        : new MonthDayDeserializer(configuration.getMonthDayFormat()))
+                .registerTypeAdapter(MonthDay.class, (configuration.getMonthDayFormat() == null)
+                        ? MonthDaySerializer.INSTANCE
+                        : new MonthDaySerializer(configuration.getMonthDayFormat()))
+                .registerTypeAdapter(Instant.class, (configuration.getInstantFormat() == null)
+                        ? InstantDeserializer.INSTANCE
+                        : new InstantDeserializer(configuration.getInstantFormat()))
+                .registerTypeAdapter(Instant.class, (configuration.getInstantFormat() == null)
+                        ? InstantSerializer.INSTANCE
+                        : new InstantSerializer(configuration.getInstantFormat()))
+                .registerTypeAdapter(LocalDate.class, (configuration.getLocalDateFormat() == null)
+                        ? LocalDateDeserializer.INSTANCE
+                        : new LocalDateDeserializer(configuration.getLocalDateFormat()))
+                .registerTypeAdapter(LocalDate.class, (configuration.getLocalDateFormat() == null)
+                        ? LocalDateSerializer.INSTANCE
+                        : new LocalDateSerializer(configuration.getLocalDateFormat()))
+                .registerTypeAdapter(LocalTime.class, (configuration.getLocalTimeFormat() == null)
+                        ? LocalTimeDeserializer.INSTANCE
+                        : new LocalTimeDeserializer(configuration.getLocalTimeFormat()))
+                .registerTypeAdapter(LocalTime.class, (configuration.getLocalTimeFormat() == null)
+                        ? LocalTimeSerializer.INSTANCE
+                        : new LocalTimeSerializer(configuration.getLocalTimeFormat()))
+                .registerTypeAdapter(LocalDateTime.class, (configuration.getLocalDateTimeFormat() == null)
+                        ? LocalDateTimeDeserializer.INSTANCE
+                        : new LocalDateTimeDeserializer(configuration.getLocalDateTimeFormat()))
+                .registerTypeAdapter(LocalDateTime.class, (configuration.getLocalDateTimeFormat() == null)
+                        ? LocalDateTimeSerializer.INSTANCE
+                        : new LocalDateTimeSerializer(configuration.getLocalDateTimeFormat()))
+                .registerTypeAdapter(OffsetTime.class, (configuration.getOffsetTimeFormat() == null)
+                        ? OffsetTimeDeserializer.INSTANCE
+                        : new OffsetTimeDeserializer(configuration.getOffsetTimeFormat()))
+                .registerTypeAdapter(OffsetTime.class, (configuration.getOffsetTimeFormat() == null)
+                        ? OffsetTimeSerializer.INSTANCE
+                        : new OffsetTimeSerializer(configuration.getOffsetTimeFormat()))
+                .registerTypeAdapter(OffsetDateTime.class, (configuration.getOffsetDateTimeFormat() == null)
+                        ? OffsetDateTimeDeserializer.INSTANCE
+                        : new OffsetDateTimeDeserializer(configuration.getOffsetDateTimeFormat()))
+                .registerTypeAdapter(OffsetDateTime.class, (configuration.getOffsetDateTimeFormat() == null)
+                        ? OffsetDateTimeSerializer.INSTANCE
+                        : new OffsetDateTimeSerializer(configuration.getOffsetDateTimeFormat()))
+                .registerTypeAdapter(ZonedDateTime.class, (configuration.getZonedDateTimeFormat() == null)
+                        ? ZonedDateTimeDeserializer.INSTANCE
+                        : new ZonedDateTimeDeserializer(configuration.getZonedDateTimeFormat()))
+                .registerTypeAdapter(ZonedDateTime.class, (configuration.getZonedDateTimeFormat() == null)
+                        ? ZonedDateTimeSerializer.INSTANCE
+                        : new ZonedDateTimeSerializer(configuration.getZonedDateTimeFormat()));
     }
 }

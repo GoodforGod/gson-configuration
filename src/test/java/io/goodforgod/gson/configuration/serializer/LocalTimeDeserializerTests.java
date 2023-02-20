@@ -3,7 +3,7 @@ package io.goodforgod.gson.configuration.serializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.GsonAdapterBuilder;
+import io.goodforgod.gson.configuration.GsonConfiguration;
 import io.goodforgod.gson.configuration.deserializer.LocalTimeDeserializer;
 import java.time.DateTimeException;
 import java.time.LocalTime;
@@ -47,7 +47,7 @@ class LocalTimeDeserializerTests extends Assertions {
     private static final LocalTime VALUE_TIME = LocalTime.MIN;
     private static final String VALUE = "00:00:00.000";
 
-    private final Gson adapter = GsonAdapterBuilder.builder().create();
+    private final Gson adapter = new GsonConfiguration().builder().create();
 
     private final Gson adapterCustom = new GsonBuilder()
             .registerTypeAdapter(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(CUSTOM_ISO)))

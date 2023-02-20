@@ -4,7 +4,7 @@ plugins {
     id "maven-publish"
 
     id "org.sonarqube" version "3.3"
-    id "com.diffplug.spotless" version "6.1.0"
+    id "com.diffplug.spotless" version "6.12.0"
 }
 
 repositories {
@@ -20,11 +20,11 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-    api "com.google.code.gson:gson:2.9.1"
+    api "com.google.code.gson:gson:2.10.1"
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.1"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.1"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.9.1"
 }
 
 test {

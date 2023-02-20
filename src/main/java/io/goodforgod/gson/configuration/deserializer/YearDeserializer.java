@@ -4,7 +4,6 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +20,7 @@ public class YearDeserializer implements JsonDeserializer<Year> {
     private final DateTimeFormatter formatter;
 
     public YearDeserializer() {
-        this(DateTimeFormatters.ISO_YEAR);
+        this(DateTimeDeserializerFormatters.ISO_YEAR);
     }
 
     public YearDeserializer(DateTimeFormatter formatter) {

@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import io.goodforgod.gson.configuration.DateTimeFormatters;
 import java.lang.reflect.Type;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +20,7 @@ public class LocalTimeSerializer implements JsonSerializer<LocalTime> {
     private final DateTimeFormatter formatter;
 
     public LocalTimeSerializer() {
-        this(DateTimeFormatters.ISO_LOCAL_TIME);
+        this(DateTimeSerializerFormatters.ISO_LOCAL_TIME);
     }
 
     public LocalTimeSerializer(DateTimeFormatter formatter) {
